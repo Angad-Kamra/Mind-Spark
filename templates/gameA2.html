@@ -1,0 +1,15 @@
+{% load static %}
+<html>
+    <link href="{% static 'appA2.css' %}" rel="stylesheet">
+<head>
+    <title>Evil Glitch</title>
+  </head>
+  <body allowfullscreen>
+    <div id="d">
+      <canvas id="c"></canvas>
+      <canvas id="g" moz-opaque></canvas>
+    </div>
+    <a href='#' id='f' title='fullscreen'>FullScreen</a>
+    <script async src="{% static 'appA2.js' %}"></script>
+  </body>
+</html>

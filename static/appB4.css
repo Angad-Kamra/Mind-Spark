@@ -1,0 +1,39 @@
+      #t,
+      body,
+      canvas {
+        width: 100%
+      }
+
+      #t,
+      body,
+      canvas,
+      html {
+        height: 100%
+      }
+
+      * {
+        margin: 0
+      }
+
+      body {
+        background-color: #000
+      }
+
+      #t {
+        display: table
+      }
+
+      #c {
+        display: table-cell;
+        vertical-align: middle
+      }
+
+      #cc {
+        margin: auto;
+        outline: #fff solid 1px
+      }
+
+      canvas {
+        display: block
+      }
+    

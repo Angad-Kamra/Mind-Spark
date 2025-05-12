@@ -1,0 +1,536 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="dark-mode">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ADHD Help | MindSpark</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* Base Styles */
+    :root {
+      /* Dark mode variables */
+      --primary: #4f46e5;
+      --primary-dark: #4338ca;
+      --secondary: #f43f5e;
+      --secondary-dark: #e11d48;
+      --accent: #22d3ee;
+      --dark: #0f172a;
+      --darker: #020617;
+      --medium-dark: #1e293b;
+      --medium: #334155;
+      --light-medium: #475569;
+      --gray: #64748b;
+      --light-gray: #94a3b8;
+      --off-white: #e2e8f0;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+      --glow: 0 0 15px rgba(79, 70, 229, 0.4);
+      
+      /* Light mode variables - these will be swapped when switching modes */
+      --light-primary: #4f46e5;
+      --light-primary-dark: #4338ca;
+      --light-secondary: #f43f5e;
+      --light-secondary-dark: #e11d48;
+      --light-accent: #0891b2;
+      --light-dark: #f8fafc;
+      --light-darker: #f1f5f9;
+      --light-medium-dark: #e2e8f0;
+      --light-medium: #cbd5e1;
+      --light-light-medium: #f9f9f9;
+      --light-gray: #64748b;
+      --light-light-gray: #475569;
+      --light-off-white: #1e293b;
+      --light-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.05);
+      --light-glow: 0 0 15px rgba(79, 70, 229, 0.2);
+    }
+    
+    .light-mode {
+      --primary: var(--light-primary);
+      --primary-dark: var(--light-primary-dark);
+      --secondary: var(--light-secondary);
+      --secondary-dark: var(--light-secondary-dark);
+      --accent: var(--light-accent);
+      --dark: var(--light-dark);
+      --darker: var(--light-darker);
+      --medium-dark: var(--light-medium-dark);
+      --medium: var(--light-medium);
+      --light-medium: var(--light-light-medium);
+      --gray: var(--light-gray);
+      --light-gray: var(--light-light-gray);
+      --off-white: var(--light-off-white);
+      --shadow: var(--light-shadow);
+      --glow: var(--light-glow);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Nunito', sans-serif;
+    }
+
+    body {
+      background-color: var(--medium-dark);
+      color: var(--off-white);
+      line-height: 1.7;
+      transition: all 0.3s ease;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      color: var(--off-white);
+      transition: color 0.3s ease;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.3s ease;
+    }
+
+    /* Header Section */
+    header {
+      background: linear-gradient(135deg, #2e1065, #4f46e5);
+      padding: 5rem 0;
+      text-align: center;
+      color: var(--off-white);
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s ease;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 20% 50%, rgba(79, 70, 229, 0.4) 0%, transparent 50%);
+      z-index: 1;
+    }
+    
+    header::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 80% 70%, rgba(34, 211, 238, 0.3) 0%, transparent 50%);
+      z-index: 1;
+    }
+
+    header h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+      position: relative;
+      z-index: 2;
+      text-shadow: 0 0 10px rgba(79, 70, 229, 0.8);
+    }
+
+    header p {
+      font-size: 1.2rem;
+      position: relative;
+      z-index: 2;
+      opacity: 0.9;
+    }
+
+    /* Section Styling */
+    .section {
+      padding: 5rem 0;
+      max-width: 1200px;
+      margin: auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .section:nth-of-type(even) {
+      background-color: var(--dark);
+    }
+
+    .section h2 {
+      color: var(--accent);
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      text-shadow: 0 0 10px rgba(34, 211, 238, 0.5);
+      position: relative;
+    }
+
+    .section h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background-color: var(--primary);
+      border-radius: 2px;
+      box-shadow: 0 0 10px var(--primary);
+    }
+
+    .section p {
+      font-size: 1.05rem;
+      margin-bottom: 15px;
+      padding: 0 1.5rem;
+      color: var(--light-gray);
+    }
+
+    .section ul {
+      margin-top: 20px;
+      padding-left: 20px;
+      list-style-position: inside;
+      color: var(--light-gray);
+      padding: 0 1.5rem;
+    }
+
+    .section li {
+      margin-bottom: 0.5rem;
+    }
+
+    /* Card Grid */
+    .card-grid {
+      display: grid;
+      gap: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      margin-top: 2rem;
+      padding: 0 1.5rem;
+    }
+
+    .card {
+      background-color: var(--medium);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      padding: 1.5rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, border 0.3s ease;
+      border: 1px solid rgba(79, 70, 229, 0.2);
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--glow);
+      border-color: rgba(79, 70, 229, 0.5);
+    }
+
+    .card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+      color: var(--accent);
+      transition: color 0.3s ease;
+    }
+
+    .card p {
+      font-size: 0.95rem;
+      color: var(--light-gray);
+      margin-bottom: 0;
+      padding: 0;
+    }
+
+    /* CTA Section */
+    .cta {
+      text-align: center;
+      padding: 5rem 1.5rem;
+      background-color: var(--dark);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 30% 30%, rgba(79, 70, 229, 0.15) 0%, transparent 50%);
+    }
+    
+    .cta::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 70% 70%, rgba(244, 63, 94, 0.1) 0%, transparent 50%);
+    }
+
+    .cta h2 {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      color: var(--accent);
+      position: relative;
+      z-index: 2;
+      text-shadow: 0 0 10px rgba(34, 211, 238, 0.5);
+    }
+
+    .btn {
+      display: inline-block;
+      background-color: var(--secondary);
+      color: var(--off-white);
+      padding: 0.75rem 2rem;
+      border-radius: 50px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-size: 0.9rem;
+      box-shadow: var(--shadow);
+      transition: all 0.3s ease;
+      border: 1px solid rgba(244, 63, 94, 0.4);
+      position: relative;
+      overflow: hidden;
+      z-index: 2;
+      cursor: pointer;
+    }
+    
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 100%;
+      background-color: var(--secondary-dark);
+      transition: width 0.3s ease;
+      z-index: -1;
+    }
+    
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 20px rgba(244, 63, 94, 0.6);
+    }
+    
+    .btn:hover::before {
+      width: 100%;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 3rem 0 2rem;
+      background-color: var(--darker);
+      color: var(--light-gray);
+      border-top: 1px solid rgba(79, 70, 229, 0.2);
+      transition: background-color 0.3s ease, border-top 0.3s ease;
+    }
+
+    /* Theme Toggle */
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 60px;
+      height: 28px;
+      background-color: var(--medium);
+      border-radius: 30px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      padding: 0 5px;
+      transition: background-color 0.3s ease;
+      box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+      z-index: 100;
+    }
+
+    .toggle-circle {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: var(--off-white);
+      border-radius: 50%;
+      left: 4px;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .light-mode .toggle-circle {
+      transform: translateX(32px);
+      background-color: var(--primary);
+    }
+
+    .toggle-icon {
+      color: var(--primary);
+      font-size: 12px;
+    }
+
+    .light-mode .toggle-icon {
+      color: var(--off-white);
+    }
+
+    /* Media Queries */
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2.5rem;
+      }
+      
+      .section h2,
+      .cta h2 {
+        font-size: 2rem;
+      }
+    }
+
+    @media (max-width: 576px) {
+      header h1 {
+        font-size: 2rem;
+      }
+      
+      header p {
+        font-size: 1rem;
+      }
+      
+      .section h2,
+      .cta h2 {
+        font-size: 1.75rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Theme Toggle -->
+  <div class="theme-toggle" id="themeToggle">
+    <div class="toggle-circle">
+      <span class="toggle-icon">☀</span>
+    </div>
+  </div>
+
+  <header>
+    <h1>ADHD Help & Support</h1>
+    <p>Empowering minds, one solution at a time.</p>
+  </header>
+
+  <section class="section">
+    <div class="container">
+      <h2>What is ADHD?</h2>
+      <p>ADHD (Attention-Deficit/Hyperactivity Disorder) is a neurodevelopmental condition characterized by persistent patterns of inattention, hyperactivity, and impulsivity. It affects both children and adults, influencing daily functioning and quality of life.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2>Common Symptoms</h2>
+      <div class="card-grid">
+        <div class="card">
+          <h3>Inattention</h3>
+          <p>Difficulty focusing, forgetfulness, and being easily distracted.</p>
+        </div>
+        <div class="card">
+          <h3>Hyperactivity</h3>
+          <p>Restlessness, constant movement, or talking excessively.</p>
+        </div>
+        <div class="card">
+          <h3>Impulsivity</h3>
+          <p>Interrupting others, acting without thinking, or impatience.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2>Coping Strategies</h2>
+      <div class="card-grid">
+        <div class="card">
+          <h3>Routine Planning</h3>
+          <p>Use daily planners or apps to structure your day and set reminders.</p>
+        </div>
+        <div class="card">
+          <h3>Mindfulness & Meditation</h3>
+          <p>Regular mindfulness practice helps improve focus and reduce stress.</p>
+        </div>
+        <div class="card">
+          <h3>Exercise Regularly</h3>
+          <p>Physical activity increases dopamine levels and enhances attention.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2>Helpful Tools & Apps</h2>
+      <div class="card-grid">
+        <div class="card">
+          <h3>Todoist / Notion</h3>
+          <p>Great for task management and building structured to-do lists.</p>
+        </div>
+        <div class="card">
+          <h3>Headspace / Calm</h3>
+          <p>Apps for meditation and stress relief, aiding emotional regulation.</p>
+        </div>
+        <div class="card">
+          <h3>Focus To-Do / Pomodoro</h3>
+          <p>Time management tools using Pomodoro technique for productivity.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2>Diet & Lifestyle</h2>
+      <p>A balanced diet plays a key role in managing ADHD symptoms:</p>
+      <ul>
+        <li>Include omega-3 rich foods like fish or flaxseed</li>
+        <li>Limit sugar and processed foods</li>
+        <li>Ensure proper hydration and sleep</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2>Professional Help</h2>
+      <p>If you or someone you know struggles with ADHD, consult a mental health professional for diagnosis and treatment. Therapy, coaching, or medication can significantly improve daily functioning.</p>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="container">
+      <h2>Explore ADHD Games & Tools on MindSpark</h2>
+      <a href="{% url 'Amainpage' %}" class="btn">Play Now</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <p>&copy; 2025 MindSpark | Empowering minds with care and clarity</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Theme Toggle Functionality
+    const themeToggle = document.getElementById('themeToggle');
+    const htmlElement = document.documentElement;
+    
+    themeToggle.addEventListener('click', () => {
+      if (htmlElement.classList.contains('light-mode')) {
+        // Switch to dark mode
+        htmlElement.classList.remove('light-mode');
+        localStorage.setItem('theme', 'dark');
+      } else {
+        // Switch to light mode
+        htmlElement.classList.add('light-mode');
+        localStorage.setItem('theme', 'light');
+      }
+    });
+    
+    // Check for saved theme preference
+    window.addEventListener('DOMContentLoaded', () => {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'light') {
+        htmlElement.classList.add('light-mode');
+      }
+    });
+  </script>
+</body>
+</html>
