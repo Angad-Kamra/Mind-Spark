@@ -110,8 +110,6 @@ I'm Angad Kamra, a student developer passionate about creating technology that c
 - Added a basic quiz system
 - Created simple game recommendations
 - Improved the website design
-- Added dark/light mode
-- Made the site mobile-friendly
 
 ---
 
