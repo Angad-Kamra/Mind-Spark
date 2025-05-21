@@ -1,0 +1,2290 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en" class="dark-mode">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Focus Toolkit | Mind Spark ADHD Support</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base Variables */
+        :root {
+            --primary: #7C3AED;  /* Purple from index.html */
+            --primary-dark: #6D28D9;
+            --secondary: #F43F5E;
+            --accent: #22D3EE;
+            --dark: #0F172A;
+            --darker: #020617;
+            --medium-dark: #1E293B;
+            --medium: #334155;
+            --light-medium: #475569;
+            --off-white: #E2E8F0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+            --glow: 0 0 15px rgba(124, 58, 237, 0.4);  /* Purple glow */
+        }
+
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            color: var(--off-white);
+            line-height: 1.7;
+            background-color: var(--medium-dark);
+            transition: all 0.3s ease;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Navigation */
+        .header {
+            background: var(--dark);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo h1 {
+            color: var(--primary);
+            font-size: 1.8rem;
+            text-shadow: 0 0 15px rgba(124, 58, 237, 0.6);
+        }
+
+        /* Toolkit Section */
+        .toolkit-section {
+            position: relative;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+            border: 1px solid rgba(124, 58, 237, 0.3);
+            border-radius: 12px;
+            margin: 2rem 0;
+            overflow: hidden;
+        }
+
+        .toolkit-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, 
+                rgba(124, 58, 237, 0.1) 0%,
+                rgba(124, 58, 237, 0.05) 25%,
+                transparent 50%);
+            pointer-events: none;
+        }
+
+        .toolkit-section h2 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 20px rgba(124, 58, 237, 0.6);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 20px rgba(124, 58, 237, 0.6); }
+            to { text-shadow: 0 0 30px rgba(124, 58, 237, 0.8), 
+                          0 0 40px rgba(124, 58, 237, 0.6); }
+        }
+
+        .toolkit-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .toolkit-card {
+            background: var(--dark);
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .toolkit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--glow);
+            border-color: var(--primary);
+        }
+
+        .toolkit-card h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            text-shadow: 0 0 10px rgba(124, 58, 237, 0.4);
+        }
+
+        .toolkit-card h3 i {
+            margin-right: 0.75rem;
+        }
+
+        .toolkit-card p {
+            margin-bottom: 1.5rem;
+        }
+
+        /* Timer Styles */
+        .timer-container {
+            background: var(--medium);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .timer-display {
+            font-size: 3.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin: 1rem 0;
+            color: var(--primary);
+            text-shadow: 0 0 15px rgba(124, 58, 237, 0.4);
+        }
+
+        .timer-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .timer-btn {
+            background: var(--primary);
+            color: var(--off-white);
+            border: none;
+            border-radius: 8px;
+            padding: 0.5rem 1.5rem;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .timer-btn:hover {
+            background: var(--primary-dark);
+            box-shadow: var(--glow);
+        }
+
+        .timer-presets {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .timer-preset {
+            background: var(--light-medium);
+            border: none;
+            border-radius: 50px;
+            padding: 0.3rem 1rem;
+            color: var(--off-white);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .timer-preset:hover {
+            background: var(--primary);
+        }
+
+        .timer-preset.active {
+            background: var(--primary);
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 8px;
+            border: 1px solid var(--light-medium);
+            background: var(--medium);
+            color: var(--off-white);
+            font-family: 'Nunito', sans-serif;
+        }
+
+        /* Buttons */
+        .btn {
+            background: linear-gradient(45deg, var(--primary), var(--primary-dark));
+            color: var(--off-white);
+            border: none;
+            border-radius: 50px;
+            padding: 0.8rem 2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--primary-dark), var(--primary));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--glow);
+        }
+
+        .btn:hover::before {
+            opacity: 1;
+        }
+
+        .btn-accent {
+            background: var(--accent);
+        }
+
+        .btn-accent:hover {
+            background: var(--accent);
+            opacity: 0.9;
+        }
+
+        .btn-full {
+            display: block;
+            width: 100%;
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        /* Notification Styles */
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--primary);
+            color: var(--off-white);
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .notification.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .toolkit-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Task List Styles */
+        .task-list {
+            background: var(--medium);
+            border-radius: 8px;
+            padding: 1rem;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .task-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--light-medium);
+        }
+
+        .task-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .task-text {
+            flex-grow: 1;
+        }
+
+        /* Audio notification toggle */
+        .audio-toggle {
+            display: flex;
+            align-items: center;
+            margin-top: 0.5rem;
+        }
+
+        .audio-toggle label {
+            margin-left: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        /* Progress Tracker Styles */
+        .stat-card {
+            background: var(--medium-dark);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .progress-bar {
+            background: var(--medium);
+            border-radius: 50px;
+            height: 8px;
+            overflow: hidden;
+            border: 1px solid rgba(124, 58, 237, 0.2);
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            height: 100%;
+            transition: width 0.3s ease;
+            box-shadow: 0 0 10px var(--primary);
+        }
+
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--medium);
+        }
+
+        .stat-item:last-child {
+            border-bottom: none;
+        }
+
+        .month-day {
+            aspect-ratio: 1;
+            border-radius: 4px;
+            background: var(--medium);
+            transition: background-color 0.3s ease;
+        }
+
+        .focus-bar {
+            flex: 1;
+            background: var(--primary);
+            border-radius: 4px 4px 0 0;
+            transition: height 0.3s ease;
+        }
+
+        #focus-insights li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--medium);
+        }
+
+        #focus-insights li:last-child {
+            border-bottom: none;
+        }
+
+        .task-checkbox {
+            margin-right: 0.75rem;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .task-text {
+            flex-grow: 1;
+            cursor: pointer;
+        }
+
+        .task-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--medium);
+        }
+
+        .task-item:last-child {
+            border-bottom: none;
+        }
+
+        .task-item.completed .task-text {
+            text-decoration: line-through;
+            color: var(--light-medium);
+        }
+
+        /* ADHD Guidance Styles */
+        .adhd-type-selector {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-bottom: 3rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .adhd-type-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .adhd-type-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, 
+                rgba(124, 58, 237, 0.1) 0%,
+                transparent 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .adhd-type-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 0 30px rgba(124, 58, 237, 0.3);
+        }
+
+        .adhd-type-card:hover::before {
+            opacity: 1;
+        }
+
+        .adhd-type-card.active {
+            border-color: var(--primary);
+            box-shadow: 0 0 30px rgba(124, 58, 237, 0.4);
+            background: rgba(30, 41, 59, 0.9);
+        }
+
+        .adhd-type-card h3 {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            text-shadow: 0 0 10px rgba(124, 58, 237, 0.4);
+        }
+
+        .adhd-type-card h3 i {
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .adhd-type-card p {
+            color: var(--off-white);
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        /* Add floating icons back */
+        .floating-icon {
+            position: absolute;
+            font-size: 1.5rem;
+            color: var(--primary);
+            opacity: 0.1;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+        }
+
+        .floating-icon:nth-child(1) { top: 10%; left: 10%; animation-delay: 0s; }
+        .floating-icon:nth-child(2) { top: 20%; right: 15%; animation-delay: 1s; }
+        .floating-icon:nth-child(3) { bottom: 15%; left: 20%; animation-delay: 2s; }
+        .floating-icon:nth-child(4) { bottom: 25%; right: 10%; animation-delay: 3s; }
+
+        /* Update section styles for purple theme */
+        .toolkit-section {
+            position: relative;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+            border: 1px solid rgba(124, 58, 237, 0.3);
+            border-radius: 12px;
+            margin: 2rem 0;
+            overflow: hidden;
+        }
+
+        .toolkit-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, 
+                rgba(124, 58, 237, 0.1) 0%,
+                rgba(124, 58, 237, 0.05) 25%,
+                transparent 50%);
+            pointer-events: none;
+        }
+
+        .toolkit-section h2 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 20px rgba(124, 58, 237, 0.6);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 20px rgba(124, 58, 237, 0.6); }
+            to { text-shadow: 0 0 30px rgba(124, 58, 237, 0.8), 
+                          0 0 40px rgba(124, 58, 237, 0.6); }
+        }
+
+        /* Keep responsive styles */
+        @media (max-width: 1024px) {
+            .adhd-type-selector {
+                gap: 1.5rem;
+                padding: 0 1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .adhd-type-selector {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .adhd-type-selector {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+            }
+        }
+
+        .strategy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .strategy-card {
+            background: var(--medium-dark);
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .strategy-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--glow);
+            border-color: var(--primary);
+        }
+
+        .strategy-card h4 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .strategy-tips {
+            list-style: none;
+            margin-top: 1rem;
+            padding-left: 0;
+        }
+
+        .strategy-tips li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--medium);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .strategy-tips li:before {
+            content: "•";
+            color: var(--accent);
+        }
+
+        .strategy-tips li:last-child {
+            border-bottom: none;
+        }
+
+        /* Update toolkit navigation styles */
+        .toolkit-navigation {
+            text-align: center;
+            margin: 3rem auto;
+            padding: 2rem;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .toolkit-navigation .btn {
+            background: linear-gradient(45deg, var(--primary), var(--primary-dark));
+            color: var(--off-white);
+            padding: 1rem 3rem;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(124, 58, 237, 0.3);
+        }
+
+        .toolkit-navigation .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(124, 58, 237, 0.5);
+        }
+
+        .toolkit-navigation .btn:active {
+            transform: translateY(0);
+        }
+
+        .guidance-section {
+            display: none;
+        }
+
+        .guidance-section.active {
+            display: block;
+        }
+
+        /* Add these styles to your existing styles */
+        .nav-links {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            align-items: center;
+        }
+
+        .nav-links li {
+            margin: 0 0.5rem;
+        }
+
+        .nav-links a {
+            color: var(--off-white);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+            box-shadow: 0 0 8px var(--primary);
+        }
+
+        .theme-toggle {
+            margin-left: 1rem;
+            cursor: pointer;
+        }
+
+        .toggle-circle {
+            width: 40px;
+            height: 40px;
+            background: var(--medium-dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-icon {
+            color: var(--accent);
+            font-size: 1.2rem;
+        }
+
+        .theme-toggle:hover .toggle-circle {
+            box-shadow: var(--glow);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo h1 {
+            color: var(--primary);
+            font-size: 1.8rem;
+            text-shadow: 0 0 15px rgba(124, 58, 237, 0.6);
+            margin: 0;
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 4rem 0;
+            position: relative;
+            background-color: var(--darker);
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            border-radius: 8px;
+            margin: 2rem 0;
+            box-shadow: var(--shadow);
+        }
+
+        .section:nth-of-type(even) {
+            background-color: var(--dark);
+            border-color: rgba(124, 58, 237, 0.3);
+        }
+
+        .section-title {
+            color: var(--primary);
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            text-shadow: 0 0 10px rgba(124, 58, 237, 0.6);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 3px;
+            box-shadow: 0 0 10px var(--primary);
+        }
+
+        /* Timer Section Specific Styles */
+        .timer-section {
+            background-color: var(--darker);
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            border-radius: 8px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: var(--shadow);
+        }
+
+        .timer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .timer-card {
+            background-color: var(--dark);
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .timer-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--glow);
+            border-color: var(--primary);
+        }
+
+        /* Progress Trackers Section Specific Styles */
+        .progress-section {
+            background-color: var(--darker);
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            border-radius: 8px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: var(--shadow);
+        }
+
+        .tracker-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .tracker-card {
+            background-color: var(--dark);
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .tracker-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--glow);
+            border-color: var(--primary);
+        }
+
+        /* ADHD Guide Section Specific Styles */
+        .guide-section {
+            background-color: var(--darker);
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            border-radius: 8px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: var(--shadow);
+        }
+
+        .guide-content {
+            background-color: var(--dark);
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .strategy-card {
+            background-color: var(--medium-dark);
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .strategy-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--glow);
+            border-color: var(--primary);
+        }
+
+        /* Add these new styles for timer section centering */
+        .toolkit-section .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .toolkit-grid {
+            width: 100%;
+            justify-content: center;
+            grid-template-columns: repeat(auto-fit, minmax(350px, max-content));
+            gap: 2rem;
+        }
+
+        .toolkit-card {
+            width: 100%;
+            min-width: 350px;
+            max-width: 450px;
+            background: var(--dark);
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .toolkit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--glow);
+            border-color: var(--primary);
+        }
+
+        /* Update guidance content styles */
+        .guidance-content {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .guidance-section {
+            display: none;
+            width: 100%;
+        }
+
+        .guidance-section.active {
+            display: block;
+        }
+
+        .strategy-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+            width: 100%;
+        }
+
+        .strategy-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .strategy-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 30px rgba(124, 58, 237, 0.3);
+            border-color: var(--primary);
+        }
+
+        .strategy-card h4 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.2rem;
+        }
+
+        .strategy-card h4 i {
+            font-size: 1.4rem;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .strategy-card p {
+            margin-bottom: 1rem;
+            flex-grow: 1;
+        }
+
+        .strategy-tips {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .strategy-tips li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(124, 58, 237, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .strategy-tips li:last-child {
+            border-bottom: none;
+        }
+
+        .strategy-tips li:before {
+            content: "•";
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        /* Add responsive styles for strategy grid */
+        @media (max-width: 1024px) {
+            .strategy-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .strategy-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .strategy-grid {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+
+        /* Update guidance section title */
+        .guidance-section h3 {
+            color: var(--primary);
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 15px rgba(124, 58, 237, 0.4);
+        }
+
+        /* Add styles for task delete button */
+        .task-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--medium);
+            position: relative;
+        }
+
+        .task-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-left: auto;
+        }
+
+        .delete-task {
+            background: none;
+            border: none;
+            color: var(--secondary);
+            cursor: pointer;
+            padding: 0.25rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            opacity: 0.6;
+        }
+
+        .delete-task:hover {
+            opacity: 1;
+            background: rgba(244, 63, 94, 0.1);
+            transform: scale(1.1);
+        }
+
+        .task-text {
+            flex-grow: 1;
+            margin-right: 1rem;
+        }
+
+        .task-checkbox {
+            margin-right: 0.75rem;
+        }
+    </style>
+</head>
+<body class="dark-mode">
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <img src="{% static 'Mindsparklogo4.gif' %}" alt="Site Logo" height="60px" width="60px" style="border-radius:100px;margin-right:20px;">
+                    <h1>MindSpark</h1>
+                </div>
+                <div style="display: flex; align-items: center;">
+                    <ul class="nav-links">
+                        <li><a href="{% url 'Amainpage' %}">Home</a></li>
+                        <li>|</li>
+                        <li><a href="{% url 'Gamepage' %}">Games</a></li>
+                        <li>|</li>
+                        <li><a href="{% url 'ADHDhelp' %}">ADHD Help</a></li>
+                        <li>|</li>
+                        <li><a href="{% url 'community-forum' %}">Community</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ADHD Guidance Section -->
+    <section class="toolkit-section" id="adhd-guidance">
+        <div class="floating-icon"><i class="fas fa-brain"></i></div>
+        <div class="floating-icon"><i class="fas fa-clock"></i></div>
+        <div class="floating-icon"><i class="fas fa-tasks"></i></div>
+        <div class="floating-icon"><i class="fas fa-chart-line"></i></div>
+        
+        <div class="container">
+            <h2>🎯 ADHD Time Management Guide</h2>
+            <p style="text-align: center; margin-bottom: 3rem; max-width: 800px; margin-left: auto; margin-right: auto; color: var(--off-white); opacity: 0.9;">
+                Understanding your ADHD type can help you choose the most effective time management strategies. 
+                Select your ADHD type below to get personalized guidance.
+            </p>
+            
+            <div class="adhd-type-selector">
+                <div class="adhd-type-card" data-type="inattentive">
+                    <h3><i class="fas fa-brain"></i> Primarily Inattentive</h3>
+                    <p>Difficulty sustaining attention, easily distracted, often forgetful</p>
+                </div>
+                <div class="adhd-type-card" data-type="hyperactive">
+                    <h3><i class="fas fa-bolt"></i> Primarily Hyperactive-Impulsive</h3>
+                    <p>Restless, impulsive, difficulty waiting, often interrupts</p>
+                </div>
+                <div class="adhd-type-card" data-type="combined">
+                    <h3><i class="fas fa-layer-group"></i> Combined Type</h3>
+                    <p>Exhibits both inattentive and hyperactive-impulsive symptoms</p>
+                </div>
+            </div>
+
+            <div class="guidance-content" style="display: none;">
+                <!-- Inattentive Type Guidance -->
+                <div class="guidance-section" id="inattentive-guidance">
+                    <h3>Time Management Strategies for Inattentive Type</h3>
+                    <div class="strategy-grid">
+                        <div class="strategy-card">
+                            <h4><i class="fas fa-clock"></i> Time Blocking</h4>
+                            <p>Break your day into specific time blocks for different tasks. Use the Pomodoro Timer with shorter work periods (15-20 minutes) and longer breaks.</p>
+                            <ul class="strategy-tips">
+                                <li>Start with 15-minute work blocks</li>
+                                <li>Use visual timers</li>
+                                <li>Take 5-minute breaks between blocks</li>
+                            </ul>
+                        </div>
+
+                        <div class="strategy-card">
+                            <h4><i class="fas fa-tasks"></i> Task Chunking</h4>
+                            <p>Break large tasks into smaller, manageable chunks. Use the Task Stopwatch to track how long each chunk takes.</p>
+                            <ul class="strategy-tips">
+                                <li>Create micro-tasks</li>
+                                <li>Use the Daily Task Tracker</li>
+                                <li>Celebrate small wins</li>
+                            </ul>
+                        </div>
+
+                        <div class="strategy-card">
+                            <h4><i class="fas fa-bell"></i> Environmental Cues</h4>
+                            <p>Set up your environment to minimize distractions and create focus triggers.</p>
+                            <ul class="strategy-tips">
+                                <li>Use noise-canceling headphones</li>
+                                <li>Create a dedicated workspace</li>
+                                <li>Use the Focus Analytics to identify your best focus times</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hyperactive Type Guidance -->
+                <div class="guidance-section" id="hyperactive-guidance">
+                    <h3>Time Management Strategies for Hyperactive-Impulsive Type</h3>
+                    <div class="strategy-grid">
+                        <div class="strategy-card">
+                            <h4><i class="fas fa-running"></i> Energy Management</h4>
+                            <p>Channel your energy into productive activities using the Hyperfocus Stopwatch.</p>
+                            <ul class="strategy-tips">
+                                <li>Use movement breaks</li>
+                                <li>Try standing desks</li>
+                                <li>Schedule physical activity</li>
+                            </ul>
+                        </div>
+
+                        <div class="strategy-card">
+                            <h4><i class="fas fa-stopwatch"></i> Impulse Control</h4>
+                            <p>Use the Focus Streak Tracker to build consistent habits and manage impulsive tendencies.</p>
+                            <ul class="strategy-tips">
+                                <li>Set clear boundaries</li>
+                                <li>Use the "5-minute rule"</li>
+                                <li>Track your streaks</li>
+                            </ul>
+                        </div>
+
+                        <div class="strategy-card">
+                            <h4><i class="fas fa-chart-line"></i> Progress Tracking</h4>
+                            <p>Use visual progress tracking to stay motivated and focused.</p>
+                            <ul class="strategy-tips">
+                                <li>Monitor your focus patterns</li>
+                                <li>Celebrate progress</li>
+                                <li>Use the Focus Analytics</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Combined Type Guidance -->
+                <div class="guidance-section" id="combined-guidance">
+                    <h3>Time Management Strategies for Combined Type</h3>
+                    <div class="strategy-grid">
+                        <div class="strategy-card">
+                            <h4><i class="fas fa-balance-scale"></i> Balanced Approach</h4>
+                            <p>Combine strategies from both types to create a personalized system.</p>
+                            <ul class="strategy-tips">
+                                <li>Mix short and long work periods</li>
+                                <li>Use all available tools</li>
+                                <li>Adapt based on daily needs</li>
+                            </ul>
+                        </div>
+
+                        <div class="strategy-card">
+                            <h4><i class="fas fa-sync"></i> Flexible Structure</h4>
+                            <p>Create a flexible but consistent routine using all toolkit features.</p>
+                            <ul class="strategy-tips">
+                                <li>Use the Pomodoro Timer for focus</li>
+                                <li>Track progress with the Streak Tracker</li>
+                                <li>Monitor patterns with Focus Analytics</li>
+                            </ul>
+                        </div>
+
+                        <div class="strategy-card">
+                            <h4><i class="fas fa-lightbulb"></i> Self-Awareness</h4>
+                            <p>Use the toolkit's analytics to understand your patterns and adapt accordingly.</p>
+                            <ul class="strategy-tips">
+                                <li>Track your focus scores</li>
+                                <li>Identify peak productivity times</li>
+                                <li>Adjust strategies as needed</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="toolkit-navigation">
+                <button class="btn" id="start-toolkit">Start Using the Toolkit</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timers Section -->
+    <section class="toolkit-section" id="timers">
+        <div class="container">
+            <h2>⏱️ Customizable Timers</h2>
+            
+            <div class="toolkit-grid">
+                <!-- Pomodoro Timer -->
+                <div class="toolkit-card">
+                    <h3><i class="fas fa-hourglass-half"></i>Pomodoro Timer</h3>
+                    <p>Work in focused bursts with timed breaks to maintain attention without burnout.</p>
+                    
+                    <div class="timer-container">
+                        <div class="timer-display" id="pomodoro-display">25:00</div>
+                        <div class="timer-controls">
+                            <button class="timer-btn" id="pomodoro-start">Start</button>
+                            <button class="timer-btn" id="pomodoro-pause">Pause</button>
+                            <button class="timer-btn" id="pomodoro-reset">Reset</button>
+                        </div>
+                        <div class="timer-presets">
+                            <button class="timer-preset" data-time="15">15m</button>
+                            <button class="timer-preset active" data-time="25">25m</button>
+                            <button class="timer-preset" data-time="45">45m</button>
+                        </div>
+                        <div class="audio-toggle">
+                            <input type="checkbox" id="pomodoro-audio" checked>
+                            <label for="pomodoro-audio">Enable audio notifications</label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="pomodoro-work">Work Duration (mins)</label>
+                        <input type="number" id="pomodoro-work" class="form-control" value="25" min="1" max="90">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="pomodoro-break">Break Duration (mins)</label>
+                        <input type="number" id="pomodoro-break" class="form-control" value="5" min="1" max="30">
+                    </div>
+                    
+                    <button class="btn btn-full" id="save-pomodoro">Save Settings</button>
+                </div>
+                
+                <!-- Hyperfocus Stopwatch -->
+                <div class="toolkit-card">
+                    <h3><i class="fas fa-stopwatch"></i>Hyperfocus Stopwatch</h3>
+                    <p>Track how long you stay focused and get periodic reminders to check in with yourself.</p>
+                    
+                    <div class="timer-container">
+                        <div class="timer-display" id="hyperfocus-display">00:00:00</div>
+                        <div class="timer-controls">
+                            <button class="timer-btn" id="hyperfocus-start">Start</button>
+                            <button class="timer-btn" id="hyperfocus-pause">Pause</button>
+                            <button class="timer-btn" id="hyperfocus-reset">Reset</button>
+                        </div>
+                        <div class="audio-toggle">
+                            <input type="checkbox" id="hyperfocus-audio" checked>
+                            <label for="hyperfocus-audio">Enable audio notifications</label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="reminder-interval">Reminder Interval (mins)</label>
+                        <input type="number" id="reminder-interval" class="form-control" value="30" min="5" max="120">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="reminder-message">Reminder Message</label>
+                        <input type="text" id="reminder-message" class="form-control" value="Take a break! Stretch and hydrate.">
+                    </div>
+                    
+                    <button class="btn btn-full" id="save-hyperfocus">Save Settings</button>
+                </div>
+                
+                <!-- Task Stopwatch -->
+                <div class="toolkit-card">
+                    <h3><i class="fas fa-tasks"></i>Task Stopwatch</h3>
+                    <p>Time how long tasks actually take to improve future planning.</p>
+                    
+                    <div class="timer-container">
+                        <div class="timer-display" id="task-display">00:00:00</div>
+                        <div class="timer-controls">
+                            <button class="timer-btn" id="task-start">Start</button>
+                            <button class="timer-btn" id="task-pause">Pause</button>
+                            <button class="timer-btn" id="task-reset">Reset</button>
+                        </div>
+                        <div class="audio-toggle">
+                            <input type="checkbox" id="task-audio" checked>
+                            <label for="task-audio">Enable audio notifications</label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="task-name">Task Name</label>
+                        <input type="text" id="task-name" class="form-control" placeholder="What are you working on?">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="estimated-time">Estimated Time (mins)</label>
+                        <input type="number" id="estimated-time" class="form-control" placeholder="How long do you think it will take?">
+                    </div>
+                    
+                    <button class="btn btn-full" id="save-task">Save Task Time</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Progress Trackers Section -->
+    <section class="toolkit-section" id="trackers" style="background: var(--dark); padding: 4rem 0;">
+        <div class="container">
+            <h2>📊 Progress Trackers</h2>
+            
+            <div class="toolkit-grid">
+                <!-- Daily Task Tracker -->
+                <div class="toolkit-card">
+                    <h3><i class="fas fa-check-circle"></i>Daily Task Tracker</h3>
+                    <p>Break down projects into manageable chunks and track your daily progress.</p>
+                    
+                    <div class="stat-card">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                            <span style="font-weight: 600;">Daily Progress</span>
+                            <span id="progress-percent" style="color: var(--accent);">0%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="task-list" id="daily-tasks">
+                    </div>
+                    
+                    <div class="form-group" style="margin-top: 1.5rem;">
+                        <label for="new-task">Add New Task</label>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <input type="text" id="new-task" class="form-control" placeholder="Enter new task...">
+                            <button class="btn" id="add-task-btn" style="padding: 0.75rem 1.5rem; background: var(--accent);">+</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Focus Streak Tracker -->
+                <div class="toolkit-card">
+                    <h3><i class="fas fa-chart-line"></i>Focus Streak Tracker</h3>
+                    <p>Visualize your focus consistency and build better habits with streak tracking.</p>
+                    
+                    <div class="stat-card" style="text-align: center;">
+                        <h4 style="color: var(--accent); margin-bottom: 1rem;">Current Streak: <span id="current-streak">0</span> Days</h4>
+                        <div id="streak-calendar" style="display: flex; gap: 0.5rem; justify-content: center; margin-top: 1rem;">
+                            <!-- Streak days will be added here dynamically -->
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <h4 style="margin-bottom: 1rem;">Monthly Overview</h4>
+                        <div id="monthly-streak" style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 0.5rem;">
+                            <!-- Monthly streak days will be added here dynamically -->
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <h4 style="margin-bottom: 1rem;">Streak Stats</h4>
+                        <div style="display: grid; gap: 0.75rem;">
+                            <div class="stat-item">
+                                <span>Current Streak:</span>
+                                <span id="streak-current" style="color: var(--accent);">0 days</span>
+                            </div>
+                            <div class="stat-item">
+                                <span>Longest Streak:</span>
+                                <span id="streak-longest" style="color: var(--accent);">0 days</span>
+                            </div>
+                            <div class="stat-item">
+                                <span>This Month:</span>
+                                <span id="streak-month" style="color: var(--accent);">0/0 days completed</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-full" id="mark-complete" style="margin-top: 1.5rem; background: var(--accent);">Mark Today Complete</button>
+                </div>
+
+                <!-- Focus Analytics -->
+                <div class="toolkit-card">
+                    <h3><i class="fas fa-brain"></i>Focus Analytics</h3>
+                    <p>Track your focus patterns to identify your peak productivity hours.</p>
+                    
+                    <div class="stat-card">
+                        <h4 style="margin-bottom: 1rem;">Today's Focus Score: <span id="focus-score" style="color: var(--accent);">0</span>/10</h4>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="focus-score-bar" style="width: 0%;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <h4 style="text-align: center; margin-bottom: 1rem;">Daily Focus Patterns</h4>
+                        <div id="focus-chart" style="display: flex; height: 150px; align-items: flex-end; gap: 0.5rem; margin-bottom: 0.5rem;">
+                            <!-- Focus chart bars will be added here dynamically -->
+                        </div>
+                        <div style="display: flex; justify-content: space-between; font-size: 0.9rem; color: var(--light-medium);">
+                            <span>6AM</span>
+                            <span>9AM</span>
+                            <span>12PM</span>
+                            <span>3PM</span>
+                            <span>6PM</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <h4 style="margin-bottom: 1rem;">Focus Insights</h4>
+                        <ul id="focus-insights" style="list-style: none; margin: 0; padding: 0;">
+                            <!-- Focus insights will be added here dynamically -->
+                        </ul>
+                    </div>
+                    
+                    <button class="btn btn-full" id="update-focus" style="margin-top: 1.5rem; background: var(--accent);">Update Focus Score</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Notification Element -->
+    <div class="notification" id="notification"></div>
+
+    <!-- Audio elements for notifications -->
+    <audio id="timer-complete-sound" preload="auto">
+        <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_88930d4e66.mp3?filename=bell-notification-sound-6031.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="reminder-sound" preload="auto">
+        <source src="https://cdn.pixabay.com/download/audio/2021/08/04/audio_0625c1539c.mp3?filename=customer-service-bell-13212.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // Main Timer and Stopwatch Class
+        class Timer {
+            constructor(displayId, startBtnId, pauseBtnId, resetBtnId, mode = 'timer', options = {}) {
+                this.display = document.getElementById(displayId);
+                this.startBtn = document.getElementById(startBtnId);
+                this.pauseBtn = document.getElementById(pauseBtnId);
+                this.resetBtn = document.getElementById(resetBtnId);
+                this.mode = mode; // 'timer' for countdown or 'stopwatch' for counting up
+                this.totalSeconds = 0;
+                this.elapsedSeconds = 0;
+                this.timer = null;
+                this.isRunning = false;
+                this.options = options;
+                this.startTime = 0;
+                this.pausedTime = 0;
+                this.lastReminderTime = 0;
+                this.audioEnabled = true;
+                this.audioToggle = options.audioToggleId ? document.getElementById(options.audioToggleId) : null;
+                
+                if (this.audioToggle) {
+                    this.audioEnabled = this.audioToggle.checked;
+                    this.audioToggle.addEventListener('change', () => {
+                        this.audioEnabled = this.audioToggle.checked;
+                    });
+                }
+    
+                this.initializeEventListeners();
+            }
+    
+            initializeEventListeners() {
+                this.startBtn.addEventListener('click', () => this.start());
+                this.pauseBtn.addEventListener('click', () => this.pause());
+                this.resetBtn.addEventListener('click', () => this.reset());
+            }
+    
+            start() {
+                if (!this.isRunning) {
+                    this.isRunning = true;
+                    
+                    if (this.mode === 'timer') {
+                        // Timer mode - countdown
+                        if (this.totalSeconds > 0) {
+                            const now = Date.now();
+                            if (this.elapsedSeconds > 0) {
+                                // Resume from paused state
+                                this.startTime = now - (this.elapsedSeconds * 1000);
+                            } else {
+                                // Fresh start
+                                this.startTime = now;
+                            }
+                            
+                            this.timer = setInterval(() => {
+                                const currentTime = Date.now();
+                                this.elapsedSeconds = Math.floor((currentTime - this.startTime) / 1000);
+                                
+                                const remaining = this.totalSeconds - this.elapsedSeconds;
+                                
+                                if (remaining <= 0) {
+                                    this.stop();
+                                    this.showNotification('Timer completed!', true);
+                                    
+                                    // If Pomodoro timer, handle work/break cycles
+                                    if (this.options.onComplete) {
+                                        this.options.onComplete();
+                                    }
+                                } else {
+                                    this.updateDisplay(remaining);
+                                }
+                            }, 100);
+                        }
+                    } else {
+                        // Stopwatch mode - count up
+                        const now = Date.now();
+                        // If resuming, adjust startTime
+                        if (this.elapsedSeconds > 0) {
+                            this.startTime = now - (this.elapsedSeconds * 1000);
+                        } else {
+                            this.startTime = now;
+                            this.lastReminderTime = 0;
+                        }
+                        
+                        this.timer = setInterval(() => {
+                            const currentTime = Date.now();
+                            this.elapsedSeconds = Math.floor((currentTime - this.startTime) / 1000);
+                            this.updateDisplay(this.elapsedSeconds);
+                            
+                            // Improved interval reminder logic for stopwatch mode
+                            if (
+                                this.options.interval &&
+                                this.elapsedSeconds > 0 &&
+                                this.elapsedSeconds % (60 * this.options.interval) < 1
+                            ) {
+                                const currentReminderMinute = Math.floor(this.elapsedSeconds / 60);
+                                
+                                // Prevent duplicate reminders at same minute
+                                if (currentReminderMinute !== this.lastReminderTime && 
+                                    currentReminderMinute > 0 && 
+                                    currentReminderMinute % this.options.interval === 0) {
+                                    this.lastReminderTime = currentReminderMinute;
+                                    this.showNotification(
+                                        this.options.reminderMessage || 'Time for a check-in!',
+                                        false
+                                    );
+                                }
+                            }
+                        }, 100);
+                    }
+                }
+            }
+    
+            pause() {
+                if (this.isRunning) {
+                    this.isRunning = false;
+                    clearInterval(this.timer);
+                    this.timer = null;
+                }
+            }
+    
+            reset() {
+                this.pause();
+                this.elapsedSeconds = 0;
+                this.lastReminderTime = 0;
+                
+                if (this.mode === 'timer') {
+                    this.updateDisplay(this.totalSeconds);
+                } else {
+                    this.updateDisplay(0);
+                }
+            }
+    
+            setTime(minutes) {
+                this.totalSeconds = minutes * 60;
+                this.elapsedSeconds = 0;
+                this.updateDisplay(this.totalSeconds);
+            }
+    
+            updateDisplay(seconds) {
+                if (this.mode === 'stopwatch') {
+                    // Hours:Minutes:Seconds format for stopwatch
+                    const hours = Math.floor(seconds / 3600);
+                    const minutes = Math.floor((seconds % 3600) / 60);
+                    const remainingSeconds = seconds % 60;
+                    
+                    this.display.textContent = `${hours.toString().padStart(2, '0')}:${minutes
+                        .toString().padStart(2, '0')}:${remainingSeconds
+                        .toString().padStart(2, '0')}`;
+                } else {
+                    // Minutes:Seconds format for timer
+                    const minutes = Math.floor(seconds / 60);
+                    const remainingSeconds = seconds % 60;
+                    
+                    this.display.textContent = `${minutes.toString().padStart(2, '0')}:${remainingSeconds
+                        .toString().padStart(2, '0')}`;
+                }
+            }
+    
+            showNotification(message, isTimerComplete = false) {
+                // Visual notification
+                const notification = document.getElementById('notification');
+                notification.textContent = message;
+                notification.classList.add('show');
+    
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, 3000);
+                
+                // Audio notification
+                if (this.audioEnabled) {
+                    const sound = document.getElementById(
+                        isTimerComplete ? 'timer-complete-sound' : 'reminder-sound'
+                    );
+                    if (sound) {
+                        sound.currentTime = 0;
+                        sound.play().catch(err => {
+                            console.log('Audio notification failed:', err);
+                            // Fallback to browser notification
+                            if ('Notification' in window && Notification.permission === 'granted') {
+                                new Notification('Mind Spark', {
+                                    body: message,
+                                    icon: '/favicon.ico'
+                                });
+                            }
+                        });
+                    }
+                }
+                
+                // Browser notification as backup
+                if ('Notification' in window && Notification.permission === 'granted') {
+                    new Notification('Mind Spark', {
+                        body: message,
+                        icon: '/favicon.ico'
+                    });
+                }
+            }
+    
+            stop() {
+                this.pause();
+                this.elapsedSeconds = this.totalSeconds; 
+                this.updateDisplay(0);
+            }
+            
+            getElapsedTime() {
+                return this.elapsedSeconds;
+            }
+        }
+    
+        // Initialize timers when the DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            // Request notification permission
+            if ('Notification' in window) {
+                Notification.requestPermission();
+            }
+            
+            // Initialize Pomodoro Timer (countdown timer)
+            const pomodoroTimer = new Timer(
+                'pomodoro-display',
+                'pomodoro-start',
+                'pomodoro-pause',
+                'pomodoro-reset',
+                'timer',
+                {
+                    audioToggleId: 'pomodoro-audio',
+                    onComplete: () => {
+                        const savedSettings = localStorage.getItem('mindSpark_pomodoro');
+                        if (savedSettings) {
+                            const settings = JSON.parse(savedSettings);
+                            
+                            // Switch between work and break mode
+                            const isBreakTime = document.getElementById('pomodoro-display').dataset.mode === 'break';
+                            
+                            if (isBreakTime) {
+                                // Break finished, back to work
+                                pomodoroTimer.setTime(settings.work);
+                                document.getElementById('pomodoro-display').dataset.mode = 'work';
+                                showNotification('Break time over! Back to work!');
+                            } else {
+                                // Work finished, take a break
+                                pomodoroTimer.setTime(settings.break);
+                                document.getElementById('pomodoro-display').dataset.mode = 'break';
+                                showNotification('Work session complete! Take a break!');
+                            }
+                        }
+                    }
+                }
+            );
+    
+            // Set initial time to 25 minutes and mode to work
+            pomodoroTimer.setTime(25);
+            document.getElementById('pomodoro-display').dataset.mode = 'work';
+    
+            // Pomodoro timer presets
+            const pomodoroPresets = document.querySelectorAll('.timer-preset');
+            pomodoroPresets.forEach((preset) => {
+                preset.addEventListener('click', () => {
+                    const time = parseInt(preset.dataset.time);
+                    pomodoroTimer.setTime(time);
+                    document.getElementById('pomodoro-display').dataset.mode = 'work';
+    
+                    // Update work duration input
+                    document.getElementById('pomodoro-work').value = time;
+    
+                    // Mark active preset
+                    pomodoroPresets.forEach((p) => p.classList.remove('active'));
+                    preset.classList.add('active');
+                });
+            });
+    
+            // Save Pomodoro settings
+            const savePomodoroBtn = document.getElementById('save-pomodoro');
+            savePomodoroBtn.addEventListener('click', () => {
+                const workDuration = parseInt(
+                    document.getElementById('pomodoro-work').value
+                );
+                const breakDuration = parseInt(
+                    document.getElementById('pomodoro-break').value
+                );
+    
+                if (workDuration && breakDuration) {
+                    localStorage.setItem(
+                        'mindSpark_pomodoro',
+                        JSON.stringify({
+                            work: workDuration,
+                            break: breakDuration,
+                        })
+                    );
+    
+                    pomodoroTimer.setTime(workDuration);
+                    document.getElementById('pomodoro-display').dataset.mode = 'work';
+                    showNotification('Pomodoro settings saved!');
+                    
+                    // Update active preset if it matches
+                    pomodoroPresets.forEach((preset) => {
+                        if (parseInt(preset.dataset.time) === workDuration) {
+                            pomodoroPresets.forEach((p) => p.classList.remove('active'));
+                            preset.classList.add('active');
+                        }
+                    });
+                }
+            });
+    
+            // Initialize Hyperfocus Timer (as stopwatch)
+            const hyperfocusTimer = new Timer(
+                'hyperfocus-display',
+                'hyperfocus-start',
+                'hyperfocus-pause',
+                'hyperfocus-reset',
+                'stopwatch',
+                {
+                    interval: parseInt(
+                        document.getElementById('reminder-interval').value
+                    ),
+                    reminderMessage: document.getElementById('reminder-message').value,
+                    audioToggleId: 'hyperfocus-audio'
+                }
+            );
+    
+            // Save Hyperfocus settings
+            const saveHyperfocusBtn = document.getElementById('save-hyperfocus');
+            saveHyperfocusBtn.addEventListener('click', () => {
+                const interval = parseInt(
+                    document.getElementById('reminder-interval').value
+                );
+                const message = document.getElementById('reminder-message').value;
+    
+                if (interval) {
+                    hyperfocusTimer.options.interval = interval;
+                    hyperfocusTimer.options.reminderMessage = message;
+    
+                    localStorage.setItem(
+                        'mindSpark_hyperfocus',
+                        JSON.stringify({
+                            interval: interval,
+                            message: message,
+                        })
+                    );
+    
+                    showNotification('Hyperfocus settings saved!');
+                }
+            });
+    
+            // Initialize Task Timer (as stopwatch)
+            const taskTimer = new Timer(
+                'task-display',
+                'task-start',
+                'task-pause',
+                'task-reset',
+                'stopwatch',
+                {
+                    audioToggleId: 'task-audio'
+                }
+            );
+    
+            // Save Task Time
+            const saveTaskBtn = document.getElementById('save-task');
+            saveTaskBtn.addEventListener('click', () => {
+                const taskName = document.getElementById('task-name').value;
+                const estimatedTime = parseInt(
+                    document.getElementById('estimated-time').value
+                );
+                const actualSeconds = taskTimer.getElapsedTime();
+                const actualMinutes = Math.ceil(actualSeconds / 60); // Convert seconds to minutes
+    
+                if (taskName) {
+                    // Reset timer and form
+                    taskTimer.reset();
+                    document.getElementById('task-name').value = '';
+                    document.getElementById('estimated-time').value = '';
+
+                    // Show notification with task completion
+                    showNotification(`Task "${taskName}" completed in ${actualMinutes} minutes`);
+                } else {
+                    showNotification('Please enter a task name first!');
+                }
+            });
+    
+            // Helper function for showing notifications
+            function showNotification(message, isTimerComplete = false) {
+                const notification = document.getElementById('notification');
+                notification.textContent = message;
+                notification.classList.add('show');
+    
+                // Play sound if available
+                const sound = document.getElementById(isTimerComplete ? 'timer-complete-sound' : 'reminder-sound');
+                if (sound) {
+                    sound.currentTime = 0;
+                    sound.play().catch(err => {
+                        console.log('Audio notification failed:', err);
+                        // Fallback to browser notification
+                        if ('Notification' in window && Notification.permission === 'granted') {
+                            new Notification('Mind Spark', {
+                                body: message,
+                                icon: '/favicon.ico'
+                            });
+                        }
+                    });
+                }
+    
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, 3000);
+            }
+    
+            // Load saved settings
+            function loadSavedSettings() {
+                // Load Pomodoro settings
+                const savedPomodoro = localStorage.getItem('mindSpark_pomodoro');
+                if (savedPomodoro) {
+                    const settings = JSON.parse(savedPomodoro);
+                    document.getElementById('pomodoro-work').value = settings.work;
+                    document.getElementById('pomodoro-break').value = settings.break;
+                    pomodoroTimer.setTime(settings.work);
+                }
+    
+                // Load Hyperfocus settings
+                const savedHyperfocus = localStorage.getItem('mindSpark_hyperfocus');
+                if (savedHyperfocus) {
+                    const settings = JSON.parse(savedHyperfocus);
+                    document.getElementById('reminder-interval').value = settings.interval;
+                    document.getElementById('reminder-message').value = settings.message;
+                    hyperfocusTimer.options.interval = settings.interval;
+                    hyperfocusTimer.options.reminderMessage = settings.message;
+                }
+    
+                // Load recent tasks
+                const savedTasks = localStorage.getItem('mindSpark_recentTasks');
+                if (savedTasks) {
+                    const tasks = JSON.parse(savedTasks);
+                    updateRecentTasks(tasks);
+                } else {
+                    updateRecentTasks([]);
+                }
+            }
+    
+            // Load saved settings
+            loadSavedSettings();
+        });
+
+        // Progress Tracker Functionality
+        class ProgressTracker {
+            constructor() {
+                this.today = new Date().toISOString().split('T')[0];
+                // Clear existing tasks on initialization
+                localStorage.removeItem('mindSpark_dailyTasks');
+                this.initializeDailyTasks();
+                this.initializeStreakTracker();
+                this.initializeFocusAnalytics();
+            }
+
+            // Daily Task Tracker
+            initializeDailyTasks() {
+                const addTaskBtn = document.getElementById('add-task-btn');
+                addTaskBtn.addEventListener('click', () => this.addNewTask());
+                
+                const taskList = document.getElementById('daily-tasks');
+                taskList.addEventListener('change', (e) => {
+                    if (e.target.classList.contains('task-checkbox')) {
+                        this.updateProgress();
+                    }
+                });
+
+                // Add event delegation for delete buttons
+                taskList.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('delete-task')) {
+                        const taskItem = e.target.closest('.task-item');
+                        if (taskItem) {
+                            this.deleteTask(taskItem);
+                        }
+                    }
+                });
+
+                this.loadTasks();
+                this.updateProgress();
+            }
+
+            addNewTask() {
+                const input = document.getElementById('new-task');
+                const text = input.value.trim();
+                if (text) {
+                    const taskList = document.getElementById('daily-tasks');
+                    const newTask = document.createElement('div');
+                    newTask.className = 'task-item';
+                    newTask.innerHTML = `
+                        <input type="checkbox" class="task-checkbox">
+                        <div class="task-text">${text}</div>
+                        <div class="task-actions">
+                            <button class="delete-task" title="Delete task">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </div>
+                    `;
+                    taskList.appendChild(newTask);
+                    input.value = '';
+                    this.saveTasks();
+                    this.updateProgress();
+                }
+            }
+
+            deleteTask(taskItem) {
+                // Add confirmation before deleting
+                if (confirm('Are you sure you want to delete this task?')) {
+                    taskItem.remove();
+                    this.saveTasks();
+                    this.updateProgress();
+                    showNotification('Task deleted successfully');
+                }
+            }
+
+            updateProgress() {
+                const tasks = document.querySelectorAll('#daily-tasks .task-item');
+                const completed = document.querySelectorAll('#daily-tasks .task-checkbox:checked').length;
+                const percent = Math.round((completed / tasks.length) * 100) || 0;
+                
+                document.getElementById('progress-percent').textContent = `${percent}%`;
+                document.querySelector('.progress-fill').style.width = `${percent}%`;
+            }
+
+            saveTasks() {
+                const tasks = [];
+                document.querySelectorAll('#daily-tasks .task-text').forEach(task => {
+                    tasks.push(task.textContent);
+                });
+                localStorage.setItem('mindSpark_dailyTasks', JSON.stringify(tasks));
+            }
+
+            loadTasks() {
+                const savedTasks = localStorage.getItem('mindSpark_dailyTasks');
+                if (savedTasks) {
+                    const tasks = JSON.parse(savedTasks);
+                    const taskList = document.getElementById('daily-tasks');
+                    taskList.innerHTML = ''; // Clear default tasks
+                    tasks.forEach(task => {
+                        const newTask = document.createElement('div');
+                        newTask.className = 'task-item';
+                        newTask.innerHTML = `
+                            <input type="checkbox" class="task-checkbox">
+                            <div class="task-text">${task}</div>
+                            <div class="task-actions">
+                                <button class="delete-task" title="Delete task">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </div>
+                        `;
+                        taskList.appendChild(newTask);
+                    });
+                }
+            }
+
+            // Streak Tracker
+            initializeStreakTracker() {
+                document.getElementById('mark-complete').addEventListener('click', () => this.markDayComplete());
+                this.streaks = JSON.parse(localStorage.getItem('mindSpark_streaks') || '{"current":0,"longest":0,"history":{}}');
+                this.updateStreakDisplay();
+                this.generateCalendar();
+            }
+
+            markDayComplete() {
+                if (!this.streaks.history[this.today]) {
+                    this.streaks.current++;
+                    if (this.streaks.current > this.streaks.longest) {
+                        this.streaks.longest = this.streaks.current;
+                    }
+                    this.streaks.history[this.today] = true;
+                    localStorage.setItem('mindSpark_streaks', JSON.stringify(this.streaks));
+                    this.updateStreakDisplay();
+                    this.generateCalendar();
+                    showNotification('Day marked complete! Streak updated!');
+                }
+            }
+
+            updateStreakDisplay() {
+                document.getElementById('current-streak').textContent = this.streaks.current;
+                document.getElementById('streak-longest').textContent = this.streaks.longest;
+                document.getElementById('streak-current').textContent = `${this.streaks.current} days`;
+                document.getElementById('streak-longest').textContent = `${this.streaks.longest} days`;
+                
+                const monthDays = new Date().getDate();
+                const completedDays = Object.keys(this.streaks.history).filter(date => 
+                    date.startsWith(this.today.slice(0, 7))).length;
+                document.getElementById('streak-month').textContent = `${completedDays}/${monthDays} days completed`;
+            }
+
+            generateCalendar() {
+                const calendar = document.getElementById('monthly-streak');
+                calendar.innerHTML = '';
+                
+                const daysInMonth = new Date().getDate();
+                const today = new Date().getDate();
+                
+                for (let i = 1; i <= daysInMonth; i++) {
+                    const day = document.createElement('div');
+                    day.className = 'month-day';
+                    const date = `${this.today.slice(0, 8)}${i.toString().padStart(2, '0')}`;
+                    
+                    if (this.streaks.history[date]) {
+                        day.style.backgroundColor = 'var(--primary)';
+                    } else if (i === today) {
+                        day.style.backgroundColor = 'var(--light-medium)';
+                    }
+                    
+                    calendar.appendChild(day);
+                }
+            }
+
+            // Focus Analytics
+            initializeFocusAnalytics() {
+                document.getElementById('update-focus').addEventListener('click', () => {
+                    const newScore = prompt('Rate your focus today (1-10):');
+                    if (newScore >= 1 && newScore <= 10) {
+                        this.updateFocusScore(parseInt(newScore));
+                    }
+                });
+                
+                this.focusData = JSON.parse(localStorage.getItem('mindSpark_focusData') || '{}');
+                this.updateFocusDisplay();
+                this.generateFocusChart();
+            }
+
+            updateFocusScore(score) {
+                this.focusData[this.today] = score;
+                localStorage.setItem('mindSpark_focusData', JSON.stringify(this.focusData));
+                this.updateFocusDisplay();
+                showNotification(`Focus score updated to ${score}/10!`);
+            }
+
+            updateFocusDisplay() {
+                const todayScore = this.focusData[this.today] || 0;
+                document.getElementById('focus-score').textContent = todayScore;
+                document.getElementById('focus-score-bar').style.width = `${todayScore * 10}%`;
+            }
+
+            generateFocusChart() {
+                const chart = document.getElementById('focus-chart');
+                chart.innerHTML = '';
+                
+                // Generate sample data for demonstration
+                const hours = [6, 9, 12, 15, 18];
+                hours.forEach(hour => {
+                    const bar = document.createElement('div');
+                    bar.className = 'focus-bar';
+                    bar.style.height = `${Math.random() * 100}%`;
+                    bar.style.backgroundColor = 'var(--primary)';
+                    chart.appendChild(bar);
+                });
+            }
+        }
+
+        // Initialize Progress Tracker when DOM loads
+        document.addEventListener('DOMContentLoaded', () => {
+            // ... existing initialization code ...
+            new ProgressTracker();
+
+            // ADHD Type Selection
+            const adhdTypeCards = document.querySelectorAll('.adhd-type-card');
+            const guidanceContent = document.querySelector('.guidance-content');
+            const guidanceSections = document.querySelectorAll('.guidance-section');
+
+            // Remove the automatic loading of saved type
+            // const savedType = localStorage.getItem('mindSpark_adhdType');
+            // if (savedType) {
+            //     selectADHDType(savedType);
+            // }
+
+            adhdTypeCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const type = card.dataset.type;
+                    selectADHDType(type);
+                    localStorage.setItem('mindSpark_adhdType', type);
+                });
+            });
+
+            function selectADHDType(type) {
+                // Update card selection
+                adhdTypeCards.forEach(card => {
+                    card.classList.remove('active');
+                    if (card.dataset.type === type) {
+                        card.classList.add('active');
+                    }
+                });
+
+                // Show guidance content
+                if (guidanceContent) {
+                    guidanceContent.style.display = 'block';
+                }
+
+                // Show selected guidance section
+                guidanceSections.forEach(section => {
+                    section.classList.remove('active');
+                    if (section.id === `${type}-guidance`) {
+                        section.classList.add('active');
+                    }
+                });
+
+                // Scroll to guidance
+                if (guidanceContent) {
+                    guidanceContent.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+
+            // Clear any saved type on page load
+            localStorage.removeItem('mindSpark_adhdType');
+            
+            // Start toolkit button
+            const startToolkitBtn = document.getElementById('start-toolkit');
+            if (startToolkitBtn) {
+                startToolkitBtn.addEventListener('click', () => {
+                    document.getElementById('timers').scrollIntoView({ behavior: 'smooth' });
+                });
+            }
+        });
+    </script>
+
+    <!-- Footer -->
+    <footer class="footer" style="background: var(--dark); padding: 2rem 0;">
+        <div class="container text-center">
+            <div style="margin-bottom: 1rem;">
+                <h3 style="color: var(--accent); margin-bottom: 1rem;">About Us</h3>
+                <div style="margin-bottom: 1.5rem; color: var(--off-white);">
+                    <p style="margin-bottom: 0.5rem;"><strong>Front-end Developer:</strong> Angad Kamra</p>
+                    <p style="margin-bottom: 0.5rem;"><strong>Team Members:</strong></p>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <li>Anubhav Arora</li>
+                        <li>Arman Singh</li>
+                        <li>Aniket Saini</li>
+                    </ul>
+                </div>
+                <div style="display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 1rem;">
+                    <a href="mailto:waymakersofficial4@gmail.com" class="social-btn" style="
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                        padding: 0.6rem 1.2rem;
+                        background: var(--primary);
+                        color: var(--off-white);
+                        border-radius: 50px;
+                        text-decoration: none;
+                        transition: all 0.3s ease;
+                        border: 1px solid rgba(124, 58, 237, 0.4);
+                        box-shadow: var(--shadow);
+                    ">
+                        <i class="fas fa-envelope"></i>
+                        <span>Email Us</span>
+                    </a>
+                    <a href="https://www.instagram.com/mind_spark.01/profilecard/?igsh=MTN3aXYxczVidGswag==" target="_blank" class="social-btn" style="
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                        padding: 0.6rem 1.2rem;
+                        background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+                        color: var(--off-white);
+                        border-radius: 50px;
+                        text-decoration: none;
+                        transition: all 0.3s ease;
+                        border: 1px solid rgba(220, 39, 67, 0.4);
+                        box-shadow: var(--shadow);
+                    ">
+                        <i class="fab fa-instagram"></i>
+                        <span>Follow Us</span>
+                    </a>
+                    <a href="https://youtube.com/@mindsparkbywm?si=FQWHphOLYzvzfVvC" target="_blank" class="social-btn" style="
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                        padding: 0.6rem 1.2rem;
+                        background: #FF0000;
+                        color: var(--off-white);
+                        border-radius: 50px;
+                        text-decoration: none;
+                        transition: all 0.3s ease;
+                        border: 1px solid rgba(255, 0, 0, 0.4);
+                        box-shadow: var(--shadow);
+                    ">
+                        <i class="fab fa-youtube"></i>
+                        <span>Subscribe</span>
+                    </a>
+                </div>
+                <style>
+                    .social-btn:hover {
+                        transform: translateY(-2px);
+                        box-shadow: var(--glow);
+                    }
+                    .social-btn i {
+                        font-size: 1.1rem;
+                    }
+                </style>
+            </div>
+            <p>&copy; 2025 Mind Spark. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

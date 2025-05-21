@@ -1,0 +1,1249 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="dark-mode">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mind Spark | Community Forum</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base Variables */
+        :root {
+            --primary: #7C3AED;
+            --primary-dark: #6D28D9;
+            --secondary: #F43F5E;
+            --accent: #22D3EE;
+            --dark: #0F172A;
+            --darker: #020617;
+            --medium-dark: #1E293B;
+            --medium: #334155;
+            --light-medium: #475569;
+            --off-white: #E2E8F0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+            --glow: 0 0 15px rgba(124, 58, 237, 0.4);
+        }
+
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: var(--darker);
+            color: var(--off-white);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Navigation */
+        .header {
+            background-color: var(--darker);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+            border-bottom: 1px solid rgba(124, 58, 237, 0.2);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo h1 {
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin: 0;
+            text-shadow: 0 0 10px rgba(124, 58, 237, 0.6);
+            transition: text-shadow 0.3s ease;
+            background: linear-gradient(45deg, var(--accent), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--off-white);
+            text-decoration: none;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Forum Section */
+        .forum-header {
+            background: linear-gradient(135deg, #2E1065, #4F46E5);
+            padding: 3rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .forum-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .forum-header p {
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Search and Create Post */
+        .forum-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .search-bar {
+            flex: 1;
+            min-width: 280px;
+            display: flex;
+        }
+
+        .search-bar input {
+            flex: 1;
+            padding: 0.8rem;
+            border-radius: 50px 0 0 50px;
+            border: none;
+            background: var(--medium);
+            color: var(--off-white);
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .search-bar button {
+            padding: 0.8rem 1.2rem;
+            border-radius: 0 50px 50px 0;
+            border: none;
+            background: var(--primary);
+            color: var(--off-white);
+            cursor: pointer;
+        }
+
+        /* Forum Categories */
+        .forum-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .category-card {
+            background: var(--medium-dark);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid var(--primary);
+            transition: transform 0.3s ease;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--glow);
+        }
+
+        .category-card h3 {
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .category-card p {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .category-stats {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: var(--light-medium);
+        }
+
+        /* Forum Topics */
+        .forum-topics {
+            background: var(--medium-dark);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 3rem;
+        }
+
+        .topics-header {
+            background: var(--medium);
+            padding: 1rem 1.5rem;
+            display: grid;
+            grid-template-columns: 3fr 1fr 1fr 1fr;
+            align-items: center;
+            font-weight: 600;
+        }
+
+        .topics-header > div:first-child {
+            padding-left: 0.5rem;
+        }
+
+        .topic-row {
+            display: grid;
+            grid-template-columns: 3fr 1fr 1fr 1fr;
+            padding: 1.2rem 1.5rem;
+            border-bottom: 1px solid var(--medium);
+            align-items: center;
+            transition: background 0.2s ease;
+        }
+
+        .topic-row:hover {
+            background: var(--medium);
+        }
+
+        .topic-row:last-child {
+            border-bottom: none;
+        }
+
+        .topic-title {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+
+        .topic-title a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .topic-title a:hover {
+            text-decoration: underline;
+        }
+
+        .topic-meta {
+            font-size: 0.8rem;
+            color: var(--light-medium);
+        }
+
+        .topic-replies, .topic-views {
+            text-align: center;
+            color: var(--off-white);
+        }
+
+        .topic-activity {
+            display: flex;
+            flex-direction: column;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--off-white);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-right: 0.5rem;
+        }
+
+        /* Thread View */
+        .thread {
+            background: var(--medium-dark);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .thread-header {
+            background: var(--medium);
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--primary);
+        }
+
+        .thread-title {
+            font-size: 1.5rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .thread-info {
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+            color: var(--light-medium);
+        }
+
+        .thread-nav {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .thread-nav a {
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .post {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--medium);
+            display: grid;
+            grid-template-columns: 180px 1fr;
+            gap: 1.5rem;
+        }
+
+        .post-user {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .post-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--off-white);
+            font-weight: 600;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .post-username {
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 0.3rem;
+        }
+
+        .post-role {
+            font-size: 0.8rem;
+            color: var(--off-white);
+            background: var(--primary);
+            padding: 0.2rem 0.5rem;
+            border-radius: 50px;
+            margin-bottom: 0.5rem;
+        }
+
+        .post-stats {
+            font-size: 0.8rem;
+            color: var(--light-medium);
+            margin-bottom: 0.5rem;
+        }
+
+        .post-content-area {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .post-content {
+            line-height: 1.7;
+        }
+
+        .post-content p {
+            margin-bottom: 1rem;
+        }
+
+        .post-content blockquote {
+            border-left: 3px solid var(--accent);
+            padding-left: 1rem;
+            margin: 1rem 0;
+            color: var(--off-white);
+            font-style: italic;
+        }
+
+        .post-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: var(--light-medium);
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--medium);
+        }
+
+        .post-meta-left {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .post-meta-right {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .post-reactions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .reaction {
+            background: var(--medium);
+            padding: 0.2rem 0.5rem;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .post-meta a, .reaction {
+            color: var(--accent);
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Reply Form */
+        .reply-form {
+            background: var(--medium-dark);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .reply-form h3 {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border-radius: 12px;
+            border: 1px solid var(--medium);
+            background: var(--medium);
+            color: var(--off-white);
+            resize: vertical;
+            min-height: 150px;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: var(--primary);
+            color: var(--off-white);
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: var(--primary-dark);
+            box-shadow: var(--glow);
+        }
+
+        .btn-accent {
+            background: var(--accent);
+        }
+
+        .btn-accent:hover {
+            background: var(--accent);
+            opacity: 0.9;
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin: 2rem 0;
+        }
+
+        .pagination a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--medium);
+            color: var(--off-white);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .pagination a:hover {
+            background: var(--primary);
+        }
+
+        .pagination .active {
+            background: var(--primary);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark);
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .forum-header h1 {
+                font-size: 2rem;
+            }
+            
+            .topics-header, .topic-row {
+                grid-template-columns: 3fr 1fr;
+            }
+            
+            .topic-views {
+                display: none;
+            }
+            
+            .topic-activity {
+                display: none;
+            }
+            
+            .post {
+                grid-template-columns: 1fr;
+            }
+            
+            .post-user {
+                flex-direction: row;
+                align-items: center;
+                gap: 1rem;
+                margin-bottom: 1rem;
+            }
+            
+            .post-avatar {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+                margin-bottom: 0;
+            }
+        }
+
+        /* Tag Styles */
+        .tag {
+            display: inline-block;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-right: 0.5rem;
+            font-weight: 600;
+        }
+
+        .tag-gaming {
+            background: rgba(124, 58, 237, 0.2);
+            color: #A78BFA;
+            border: 1px solid var(--primary);
+        }
+
+        .tag-focus {
+            background: rgba(34, 211, 238, 0.2);
+            color: #67E8F9;
+            border: 1px solid var(--accent);
+        }
+
+        .tag-help {
+            background: rgba(244, 63, 94, 0.2);
+            color: #FB7185;
+            border: 1px solid var(--secondary);
+        }
+
+        .tag-discussion {
+            background: rgba(16, 185, 129, 0.2);
+            color: #6EE7B7;
+            border: 1px solid #10B981;
+        }
+
+        /* Topic Status */
+        .status-pinned {
+            background: var(--accent);
+            color: var(--dark);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+
+        .status-hot {
+            background: var(--secondary);
+            color: var(--dark);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+
+        .status-new {
+            background: #10B981;
+            color: var(--dark);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <img src="{% static 'Mindsparklogo4.gif' %}" alt="Site Logo" height="60px" width="60px" style="border-radius:100px;margin-right:20px;">
+                    <h1>MindSpark</h1>
+                </div>
+                <div style="display: flex; align-items: center;">
+                    <ul class="nav-links">
+                        <li><a href="{% url 'Amainpage' %}">Home</a></li>
+                        <li>|</li>
+                        <li><a href="{% url 'Gamepage' %}">Games</a></li>
+                        <li>|</li>
+                        <li><a href="{% url 'ADHDhelp' %}">ADHD Help</a></li>
+                        <li>|</li>
+                        <li><a href="{% url 'FAQs' %}">FAQs</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Forum Header -->
+    <section class="forum-header">
+        <div class="container">
+            <h1>Mind Spark Community Forum</h1>
+            <p>Connect with other gamers, share tips for managing ADHD, and find support within our neurodiverse community.</p>
+        </div>
+    </section>
+
+    <!-- Main Forum Content -->
+    <div class="container">
+        <!-- Forum Actions -->
+        <div class="forum-actions">
+            <div class="search-bar">
+                <input type="text" placeholder="Search forum...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+            <a href="#" class="btn">Create New Post</a>
+        </div>
+
+        <!-- Forum Categories -->
+        <h2>Forum Categories</h2>
+        <div class="forum-categories">
+            <div class="category-card">
+                <h3><i class="fas fa-gamepad"></i> ADHD Gaming</h3>
+                <p>Discuss games that work well with ADHD brains, gaming strategies, and share your experiences.</p>
+                <div class="category-stats">
+                    <span>Topics: 142</span>
+                    <span>Posts: 1,253</span>
+                </div>
+            </div>
+            <div class="category-card">
+                <h3><i class="fas fa-brain"></i> Focus Strategies</h3>
+                <p>Share tips and techniques for maintaining focus during gaming sessions and daily life.</p>
+                <div class="category-stats">
+                    <span>Topics: 89</span>
+                    <span>Posts: 876</span>
+                </div>
+            </div>
+            <div class="category-card">
+                <h3><i class="fas fa-hands-helping"></i> Support & Resources</h3>
+                <p>Get help with ADHD challenges, find resources, and connect with others for mutual support.</p>
+                <div class="category-stats">
+                    <span>Topics: 113</span>
+                    <span>Posts: 967</span>
+                </div>
+            </div>
+            <div class="category-card">
+                <h3><i class="fas fa-users"></i> Meetups & Teams</h3>
+                <p>Find gaming buddies, organize online meetups, and form ADHD-friendly gaming teams.</p>
+                <div class="category-stats">
+                    <span>Topics: 76</span>
+                    <span>Posts: 642</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hot Topics -->
+        <h2>Hot Topics</h2>
+        <div class="forum-topics">
+            <div class="topics-header">
+                <div>Topic</div>
+                <div style="text-align: center">Replies</div>
+                <div style="text-align: center">Views</div>
+                <div style="text-align: center">Last Activity</div>
+            </div>
+            <div class="topic-row">
+                <div class="topic-title">
+                    <div>
+                        <span class="status-pinned">PINNED</span>
+                        <span class="tag tag-discussion">Discussion</span>
+                        <a href="#thread">Welcome to Mind Spark Community! Introduce Yourself Here</a>
+                    </div>
+                    <div class="topic-meta">Started by <strong>MindSparkTeam</strong> • 6 months ago</div>
+                </div>
+                <div class="topic-replies">248</div>
+                <div class="topic-views">5.2k</div>
+                <div class="topic-activity">
+                    <div>2 hours ago</div>
+                    <div>by <strong>HyperFocus42</strong></div>
+                </div>
+            </div>
+            <div class="topic-row">
+                <div class="topic-title">
+                    <div>
+                        <span class="status-hot">HOT</span>
+                        <span class="tag tag-gaming">Gaming</span>
+                        <a href="#thread">Games with best dopamine reward systems for ADHD brains</a>
+                    </div>
+                    <div class="topic-meta">Started by <strong>DopamineHunter</strong> • 3 days ago</div>
+                </div>
+                <div class="topic-replies">86</div>
+                <div class="topic-views">1.3k</div>
+                <div class="topic-activity">
+                    <div>15 minutes ago</div>
+                    <div>by <strong>GameMaster99</strong></div>
+                </div>
+            </div>
+            <div class="topic-row">
+                <div class="topic-title">
+                    <div>
+                        <span class="status-new">NEW</span>
+                        <span class="tag tag-focus">Focus</span>
+                        <a href="#thread">How to create a distraction-free gaming setup</a>
+                    </div>
+                    <div class="topic-meta">Started by <strong>FocusedGamer</strong> • Yesterday</div>
+                </div>
+                <div class="topic-replies">24</div>
+                <div class="topic-views">346</div>
+                <div class="topic-activity">
+                    <div>1 hour ago</div>
+                    <div>by <strong>SetupWizard</strong></div>
+                </div>
+            </div>
+            <div class="topic-row">
+                <div class="topic-title">
+                    <div>
+                        <span class="tag tag-help">Help</span>
+                        <a href="#thread">Does anyone else struggle with finishing games? Tips needed!</a>
+                    </div>
+                    <div class="topic-meta">Started by <strong>UnfinishedLibrary</strong> • 5 days ago</div>
+                </div>
+                <div class="topic-replies">53</div>
+                <div class="topic-views">824</div>
+                <div class="topic-activity">
+                    <div>3 hours ago</div>
+                    <div>by <strong>CompletionistCoach</strong></div>
+                </div>
+            </div>
+            <div class="topic-row">
+                <div class="topic-title">
+                    <div>
+                        <span class="tag tag-gaming">Gaming</span>
+                        <a href="#thread">Best strategy games for improving executive function</a>
+                    </div>
+                    <div class="topic-meta">Started by <strong>StrategyMind</strong> • 1 week ago</div>
+                </div>
+                <div class="topic-replies">42</div>
+                <div class="topic-views">756</div>
+                <div class="topic-activity">
+                    <div>Yesterday</div>
+                    <div>by <strong>ChessWhiz</strong></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Thread View (Example) -->
+        <h2 id="thread">Thread Example: Games with best dopamine reward systems</h2>
+        <div class="thread">
+            <div class="thread-header">
+                <h3 class="thread-title">Games with best dopamine reward systems for ADHD brains</h3>
+                <div class="thread-info">
+                    Started by <strong>DopamineHunter</strong> • 3 days ago • 86 replies • 1.3k views
+                </div>
+            </div>
+            <div class="thread-nav">
+                <a href="#"><i class="fas fa-arrow-left"></i> Back to Forum</a>
+                <a href="#"><i class="fas fa-flag"></i> Report</a>
+            </div>
+            
+            <!-- Original Post -->
+            <div class="post">
+                <div class="post-user">
+                    <div class="post-avatar">DH</div>
+                    <div class="post-username">DopamineHunter</div>
+                    <div class="post-role">Member</div>
+                    <div class="post-stats">
+                        <div>Posts: 42</div>
+                        <div>Joined: Jan 2023</div>
+                    </div>
+                </div>
+                <div class="post-content-area">
+                    <div class="post-content">
+                        <p>Hey fellow ADHD gamers!</p>
+                        <p>I've been trying to figure out which games actually work best with our brains instead of against them. We all know our brains are constantly seeking that dopamine hit, and some games are WAY better at providing consistent rewards than others.</p>
+                        <p>I've noticed that games with these features tend to work best for me:</p>
+                        <ul>
+                            <li>Quick feedback loops (getting rewards every few minutes)</li>
+                            <li>Visual/audio cues for achievements</li>
+                            <li>Progress tracking that's easy to see</li>
+                            <li>Multiple short-term goals rather than one big goal</li>
+                        </ul>
+                        <p>My current favorites are:</p>
+                        <p>1. <strong>Rogue Legacy 2</strong> - Each run is quick, you always make progress even when you die, and the upgrades give constant dopamine hits</p>
+                        <p>2. <strong>Hades</strong> - Similar reasons, plus the story progresses in small chunks that keep me engaged</p>
+                        <p>3. <strong>Animal Crossing</strong> - Daily rewards and tasks that are perfect for short attention spans</p>
+                        <p>What games do you find work best with your ADHD brain? And why do you think they work so well?</p>
+                    </div>
+                    <div class="post-meta">
+                        <div class="post-meta-left">
+                            <div class="post-reactions">
+                                <div class="reaction"><i class="fas fa-thumbs-up"></i> 24</div>
+                                <div class="reaction"><i class="fas fa-heart"></i> 15</div>
+                            </div>
+                        </div>
+                        <div class="post-meta-right">
+                            <a href="#"><i class="fas fa-reply"></i> Reply</a>
+                            <a href="#"><i class="fas fa-quote-right"></i> Quote</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Reply 1 -->
+            <div class="post">
+                <div class="post-user">
+                    <div class="post-avatar">HF</div>
+                    <div class="post-username">HyperFocus42</div>
+                    <div class="post-role">Moderator</div>
+                    <div class="post-stats">
+                        <div>Posts: 876</div>
+                        <div>Joined: Mar 2022</div>
+                    </div>
+                </div>
+                <div class="post-content-area">
+                    <div class="post-content">
+                        <p>Great topic, DopamineHunter! 👍</p>
+                        <p>I've actually been keeping a journal about this very subject. For me, games that allow for "hyperfocus sessions" but don't punish you for walking away work amazingly well.</p>
+                        <blockquote>I've noticed that games with these features tend to work best for me:
+                        <br>- Quick feedback loops (getting rewards every few minutes)
+                        <br>- Visual/audio cues for achievements</blockquote>
+                        <p>These are absolutely critical! I'd add one more: games that have adjustable difficulty that can match your current focus level. Some days I can handle complex strategy, other days I need something more forgiving.</p>
+                        <p>My top picks:</p>
+                        <p>1. <strong>Slay the Spire</strong> - Card-based roguelike where each battle is a small, satisfying puzzle. I can play one fight then take a break if needed.</p>
+                        <p>2. <strong>Satisfactory</strong> - I know this seems counterintuitive as it's a massive factory game, but it lets me focus on small, discrete projects and the automation is incredibly satisfying.</p>
+                        <p>3. <strong>Forza Horizon</strong> - I can race for 3 minutes or 3 hours, and the constant stream of rewards keeps me engaged without feeling grindy.</p>
+                        <p>Also, I use the Pomodoro technique with my gaming - 25 minutes of focused play, then a 5-minute break. Works wonders for avoiding burnout!</p>
+                    </div>
+                    <div class="post-meta">
+                        <div class="post-meta-left">
+                            <div class="post-reactions">
+                                <div class="reaction"><i class="fas fa-thumbs-up"></i> 37</div>
+                                <div class="reaction"><i class="fas fa-lightbulb"></i> 22</div>
+                            </div>
+                        </div>
+                        <div class="post-meta-right">
+                            <a href="#"><i class="fas fa-reply"></i> Reply</a>
+                            <a href="#"><i class="fas fa-quote-right"></i> Quote</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Reply 2 -->
+            <div class="post">
+                <div class="post-user">
+                    <div class="post-avatar">GM</div>
+                    <div class="post-username">GameMaster99</div>
+                    <div class="post-role">Elite Member</div>
+                    <div class="post-stats">
+                        <div>Posts: 1,243</div>
+                        <div>Joined: Jun 2022</div>
+                    </div>
+                </div>
+                <div class="post-content-area">
+                    <div class="post-content">
+                        <p>Just jumping in with a different perspective!</p>
+                        <p>While I agree with everything said about quick rewards and feedback loops, I've found that some longer, more immersive games can work amazingly well for ADHD - specifically open-world RPGs that let you constantly switch between different activities.</p>
+                        <p>For example, in <strong>Skyrim</strong> or <strong>The Witcher 3</strong>, I can bounce between main quests, side quests, crafting, exploration, combat, etc. whenever I start getting bored with one activity. This actually works WITH my tendency to get distracted rather than against it!</p>
+                        <p>The key is finding games that don't force you down a linear path, but instead offer multiple valid ways to progress at any given moment.</p>
+                        <p>Another type that works great for me: building/creation games like <strong>Minecraft</strong> or <strong>Stardew Valley</strong> that let me hyperfocus on projects I choose myself.</p>
+                        <p>Has anyone else noticed this pattern? Games that accommodate task-switching rather than punishing it?</p>
+                    </div>
+                    <div class="post-meta">
+                        <div class="post-meta-left">
+                            <div class="post-reactions">
+                                <div class="reaction"><i class="fas fa-thumbs-up"></i> 18</div>
+                                <div class="reaction"><i class="fas fa-lightbulb"></i> 15</div>
+                            </div>
+                        </div>
+                        <div class="post-meta-right">
+                            <a href="#"><i class="fas fa-reply"></i> Reply</a>
+                            <a href="#"><i class="fas fa-quote-right"></i> Quote</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Reply 3 -->
+            <div class="post">
+                <div class="post-user">
+                    <div class="post-avatar">RG</div>
+                    <div class="post-username">RapidGamer</div>
+                    <div class="post-role">New Member</div>
+                    <div class="post-stats">
+                        <div>Posts: 24</div>
+                        <div>Joined: Apr 2023</div>
+                    </div>
+                </div>
+                <div class="post-content-area">
+                    <div class="post-content">
+                        <p>First time posting here! 👋</p>
+                        <p>I struggle with time blindness SO MUCH when gaming. I'll sit down to play "for an hour" and suddenly it's 3am. Has anyone found games that actually help with this issue rather than exploiting it?</p>
+                        <p>I've had good experiences with:</p>
+                        <p><strong>Tetris Effect</strong> - The Journey mode has defined lengths for each level, so I can tell myself "just one more level" and it's actually a reasonable time commitment.</p>
+                        <p><strong>Overwatch</strong> - Matches are usually under 10 minutes, so it's easier to stop after "just one more game"</p>
+                        <p>Also, does anyone use external timers or other tools to help manage their gaming sessions? I'm trying to develop healthier habits without giving up my favorite hobby.</p>
+                    </div>
+                    <div class="post-meta">
+                        <div class="post-meta-left">
+                            <div class="post-reactions">
+                                <div class="reaction"><i class="fas fa-thumbs-up"></i> 12</div>
+                                <div class="reaction"><i class="fas fa-heart"></i> 5</div>
+                            </div>
+                        </div>
+                        <div class="post-meta-right">
+                            <a href="#"><i class="fas fa-reply"></i> Reply</a>
+                            <a href="#"><i class="fas fa-quote-right"></i> Quote</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Reply 4 -->
+            <div class="post">
+                <div class="post-user">
+                    <div class="post-avatar">PT</div>
+                    <div class="post-username">ParentingThroughADHD</div>
+                    <div class="post-role">Member</div>
+                    <div class="post-stats">
+                        <div>Posts: 156</div>
+                        <div>Joined: Sep 2022</div>
+                    </div>
+                </div>
+                <div class="post-content-area">
+                    <div class="post-content">
+                        <p>Hello everyone!</p>
+                        <p>Mom of two ADHD gamers here. I've been following this thread with interest because I'm always looking for games that will work well for my kids (11 and 14).</p>
+                        <p>@RapidGamer - We use a visual timer at home! It's a simple countdown timer with a colored disk that disappears as time runs out. Much more effective than a digital timer for ADHD brains.</p>
+                        <p>One game that has worked amazingly well for us is <strong>Nintendo Ring Fit Adventure</strong>. It combines physical movement with gaming, which seems to help regulate my kids' focus. The sessions are naturally limited by physical stamina, and the constant positive reinforcement really works for them.</p>
+                        <p>Also, <strong>Snipperclips</strong> and <strong>Untitled Goose Game</strong> have been great because they have clear, small objectives and lots of humor which keeps engagement high.</p>
+                        <p>Any other parents here with game recommendations that work well for ADHD kids?</p>
+                    </div>
+                    <div class="post-meta">
+                        <div class="post-meta-left">
+                            <div class="post-reactions">
+                                <div class="reaction"><i class="fas fa-thumbs-up"></i> 27</div>
+                                <div class="reaction"><i class="fas fa-heart"></i> 14</div>
+                            </div>
+                        </div>
+                        <div class="post-meta-right">
+                            <a href="#"><i class="fas fa-reply"></i> Reply</a>
+                            <a href="#"><i class="fas fa-quote-right"></i> Quote</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Reply 5 -->
+            <div class="post">
+                <div class="post-user">
+                    <div class="post-avatar">CC</div>
+                    <div class="post-username">CompletionistCoach</div>
+                    <div class="post-role">ADHD Coach</div>
+                    <div class="post-stats">
+                        <div>Posts: 328</div>
+                        <div>Joined: Nov 2022</div>
+                    </div>
+                </div>
+                <div class="post-content-area">
+                    <div class="post-content">
+                        <p>This is such a fantastic discussion! As an ADHD coach who uses gaming as part of my coaching toolkit, I'm loving all these insights.</p>
+                        <p>@DopamineHunter - You're absolutely right about those reward systems. Our brains are literally seeking that dopamine, and game designers who understand this (intentionally or not) create experiences that work better for us.</p>
+                        <p>@GameMaster99 - Your point about games that accommodate task-switching is spot on! I call this the "playground approach" - giving multiple activities within the same space so we can follow our interest shifts without having to completely disengage.</p>
+                        <p>@RapidGamer - Time blindness is such a common challenge. In addition to timers, I recommend the "bookending" technique: decide BEFORE you start gaming both when you'll stop AND what you'll do next. Creating that next anchor helps our brains transition.</p>
+                        <p>One more category I'd add to this discussion: <strong>puzzle games with infinite undos</strong> like <strong>Baba Is You</strong>, <strong>Stephen's Sausage Roll</strong>, or <strong>A Monster's Expedition</strong>. They allow for experimentation without punishment, which works well with our tendency to try multiple approaches rapidly.</p>
+                        <p>For anyone struggling with gaming addiction (which can be especially challenging with ADHD), I recommend checking out the "Healthy Gaming" section on this forum. It's important to distinguish between games that work well with our brains versus those that exploit our vulnerabilities.</p>
+                    </div>
+                    <div class="post-meta">
+                        <div class="post-meta-left">
+                            <div class="post-reactions">
+                                <div class="reaction"><i class="fas fa-thumbs-up"></i> 43</div>
+                                <div class="reaction"><i class="fas fa-lightbulb"></i> 38</div>
+                            </div>
+                        </div>
+                        <div class="post-meta-right">
+                            <a href="#"><i class="fas fa-reply"></i> Reply</a>
+                            <a href="#"><i class="fas fa-quote-right"></i> Quote</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Reply Form -->
+        <div class="reply-form">
+            <h3>Post a Reply</h3>
+            <div class="form-group">
+                <label for="reply">Your Message:</label>
+                <textarea id="reply" placeholder="What are your thoughts?"></textarea>
+            </div>
+            <button type="submit" class="btn">Post Reply</button>
+        </div>
+        
+        <!-- Pagination -->
+        <div class="pagination">
+            <a href="#"><i class="fas fa-angle-double-left"></i></a>
+            <a href="#"><i class="fas fa-angle-left"></i></a>
+            <a href="#" class="active">1</a>
+            <a href="#">2</a>
+            <a href="#">3</a>
+            <a href="#">4</a>
+            <a href="#">5</a>
+            <a href="#"><i class="fas fa-angle-right"></i></a>
+            <a href="#"><i class="fas fa-angle-double-right"></i></a>
+        </div>
+        
+        <!-- Recent Discussions -->
+        <h2>Recent Discussions</h2>
+        <div class="forum-topics">
+            <div class="topics-header">
+                <div>Topic</div>
+                <div style="text-align: center">Replies</div>
+                <div style="text-align: center">Views</div>
+                <div style="text-align: center">Last Activity</div>
+            </div>
+            <div class="topic-row">
+                <div class="topic-title">
+                    <div>
+                        <span class="tag tag-help">Help</span>
+                        <a href="#">Need tips for managing anxiety while gaming competitively</a>
+                    </div>
+                    <div class="topic-meta">Started by <strong>AnxiousGamer</strong> • 2 days ago</div>
+                </div>
+                <div class="topic-replies">21</div>
+                <div class="topic-views">187</div>
+                <div class="topic-activity">
+                    <div>3 hours ago</div>
+                    <div>by <strong>MindfulPlayer</strong></div>
+                </div>
+            </div>
+            <div class="topic-row">
+                <div class="topic-title">
+                    <div>
+                        <span class="tag tag-discussion">Discussion</span>
+                        <a href="#">Gaming setups for sensory-sensitive players</a>
+                    </div>
+                    <div class="topic-meta">Started by <strong>SensorySeeker</strong> • 4 days ago</div>
+                </div>
+                <div class="topic-replies">34</div>
+                <div class="topic-views">412</div>
+                <div class="topic-activity">
+                    <div>5 hours ago</div>
+                    <div>by <strong>ComfortZone</strong></div>
+                </div>
+            </div>
+            <div class="topic-row">
+                <div class="topic-title">
+                    <div>
+                        <span class="tag tag-gaming">Gaming</span>
+                        <a href="#">Mind Spark Game Night - Friday @ 8PM EST (Weekly Event)</a>
+                    </div>
+                    <div class="topic-meta">Started by <strong>EventCoordinator</strong> • Weekly</div>
+                </div>
+                <div class="topic-replies">18</div>
+                <div class="topic-views">203</div>
+                <div class="topic-activity">
+                    <div>Yesterday</div>
+                    <div>by <strong>EventCoordinator</strong></div>
+                </div>
+            </div>
+            <div class="topic-row">
+                <div class="topic-title">
+                    <div>
+                        <span class="tag tag-focus">Focus</span>
+                        <a href="#">How to set up gaming achievements as rewards for completing tasks</a>
+                    </div>
+                    <div class="topic-meta">Started by <strong>RewardHacker</strong> • 1 week ago</div>
+                </div>
+                <div class="topic-replies">47</div>
+                <div class="topic-views">528</div>
+                <div class="topic-activity">
+                    <div>2 days ago</div>
+                    <div>by <strong>ProductivityPro</strong></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer" style="background: var(--dark); padding: 2rem 0;">
+        <div class="container text-center">
+            <div style="margin-bottom: 1rem;">
+                <h3 style="color: var(--accent); margin-bottom: 1rem;">About Us</h3>
+                <div style="margin-bottom: 1.5rem; color: var(--off-white);">
+                    <p style="margin-bottom: 0.5rem;"><strong>Front-end Developer:</strong> Angad Kamra</p>
+                    <p style="margin-bottom: 0.5rem;"><strong>Team Members:</strong></p>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <li>Anubhav Arora</li>
+                        <li>Arman Singh</li>
+                        <li>Aniket Saini</li>
+                    </ul>
+                </div>
+                <div style="display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 1rem;">
+                    <a href="mailto:waymakersofficial4@gmail.com" class="social-btn" style="
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                        padding: 0.6rem 1.2rem;
+                        background: var(--primary);
+                        color: var(--off-white);
+                        border-radius: 50px;
+                        text-decoration: none;
+                        transition: all 0.3s ease;
+                        border: 1px solid rgba(124, 58, 237, 0.4);
+                        box-shadow: var(--shadow);
+                    ">
+                        <i class="fas fa-envelope"></i>
+                        <span>Email Us</span>
+                    </a>
+                    <a href="https://www.instagram.com/mind_spark.01/profilecard/?igsh=MTN3aXYxczVidGswag==" target="_blank" class="social-btn" style="
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                        padding: 0.6rem 1.2rem;
+                        background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+                        color: var(--off-white);
+                        border-radius: 50px;
+                        text-decoration: none;
+                        transition: all 0.3s ease;
+                        border: 1px solid rgba(220, 39, 67, 0.4);
+                        box-shadow: var(--shadow);
+                    ">
+                        <i class="fab fa-instagram"></i>
+                        <span>Follow Us</span>
+                    </a>
+                    <a href="https://youtube.com/@mindsparkbywm?si=FQWHphOLYzvzfVvC" target="_blank" class="social-btn" style="
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                        padding: 0.6rem 1.2rem;
+                        background: #FF0000;
+                        color: var(--off-white);
+                        border-radius: 50px;
+                        text-decoration: none;
+                        transition: all 0.3s ease;
+                        border: 1px solid rgba(255, 0, 0, 0.4);
+                        box-shadow: var(--shadow);
+                    ">
+                        <i class="fab fa-youtube"></i>
+                        <span>Subscribe</span>
+                    </a>
+                </div>
+                <style>
+                    .social-btn:hover {
+                        transform: translateY(-2px);
+                        box-shadow: var(--glow);
+                    }
+                    .social-btn i {
+                        font-size: 1.1rem;
+                    }
+                </style>
+            </div>
+            <p>&copy; 2025 Mind Spark. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle Script would go here
+        
+        // Mobile Menu Toggle
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        if(menuToggle) {
+            menuToggle.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+            });
+        }
+    </script>
+</body>
+</html>

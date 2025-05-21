@@ -1,0 +1,1351 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="dark-mode">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindSpark | ADHD Support & Resources</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base Variables */
+        :root {
+            --primary: #7C3AED;
+            --primary-dark: #6D28D9;
+            --secondary: #F43F5E;
+            --accent: #22D3EE;
+            --dark: #0F172A;
+            --darker: #020617;
+            --medium-dark: #1E293B;
+            --medium: #334155;
+            --light-medium: #475569;
+            --off-white: #E2E8F0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+            --glow: 0 0 15px rgba(124, 58, 237, 0.4);
+        }
+
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: var(--medium-dark);
+            color: var(--off-white);
+            line-height: 1.6;
+            transition: all 0.3s ease;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Navigation */
+        .header {
+            background-color: var(--darker);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+            border-bottom: 1px solid rgba(79, 70, 229, 0.2);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo h1 {
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin: 0;
+            text-shadow: 0 0 10px rgba(79, 70, 229, 0.6);
+            transition: text-shadow 0.3s ease;
+            background: linear-gradient(45deg, var(--accent), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--off-white);
+            text-decoration: none;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links li {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #1E1065 30%, #2E1065 100%);
+            padding: 8rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, 
+                rgba(124, 58, 237, 0.1) 0%,
+                rgba(124, 58, 237, 0.05) 25%,
+                transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            text-shadow: 0 0 20px rgba(124, 58, 237, 0.6);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 20px rgba(124, 58, 237, 0.6); }
+            to { text-shadow: 0 0 30px rgba(124, 58, 237, 0.8), 
+                  0 0 40px rgba(124, 58, 237, 0.6); }
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        /* Sections */
+        .section {
+            padding: 4rem 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            color: var(--accent);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--off-white);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Cards */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: var(--medium-dark);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--primary);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--glow);
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+
+        .card h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .card-link {
+            display: inline-block;
+            margin-top: 1rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .card-link:hover {
+            color: var(--accent);
+        }
+
+        /* Symptom Section Styles */
+        .symptom-details {
+            margin-top: 1rem;
+            border-top: 1px solid var(--primary-dark);
+            padding-top: 1rem;
+        }
+
+        .symptom-toggle {
+            background: none;
+            border: none;
+            color: var(--accent);
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .symptom-toggle:hover {
+            background: rgba(124, 58, 237, 0.1);
+        }
+
+        .symptom-toggle i {
+            transition: transform 0.3s ease;
+        }
+
+        .symptom-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease;
+            padding-left: 1rem;
+        }
+
+        .symptom-content.active {
+            max-height: 500px;
+            padding: 1rem 0 0 1rem;
+        }
+
+        .symptom-toggle.active i {
+            transform: rotate(180deg);
+        }
+
+        .symptom-content ul {
+            list-style-type: disc;
+            margin-left: 1.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .symptom-content li {
+            margin-bottom: 0.5rem;
+            color: var(--off-white);
+        }
+
+        .symptom-content strong {
+            color: var(--accent);
+        }
+
+        /* Feature Grid */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-item {
+            background: var(--medium);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid var(--primary-dark);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--glow);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        /* Tabs */
+        .tabs-container {
+            background: var(--medium);
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 2rem 0;
+        }
+
+        .tabs-header {
+            display: flex;
+            background: var(--dark);
+            border-bottom: 1px solid var(--primary-dark);
+        }
+
+        .tab-btn {
+            padding: 1rem 1.5rem;
+            background: none;
+            border: none;
+            color: var(--off-white);
+            font-family: 'Nunito', sans-serif;
+            font-size: 1rem;
+            cursor: pointer;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .tab-btn:hover {
+            color: var(--accent);
+        }
+
+        .tab-btn.active {
+            color: var(--accent);
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--accent);
+        }
+
+        .tab-content {
+            padding: 2rem;
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .tab-content ul {
+            list-style-type: disc;
+            margin-left: 1.5rem;
+        }
+
+        .tab-content li {
+            margin-bottom: 0.8rem;
+        }
+
+        /* Testimonials */
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background: var(--medium);
+            border-radius: 12px;
+            padding: 2rem;
+            border: 1px solid var(--primary-dark);
+        }
+
+        .testimonial-content {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+
+        .testimonial-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 1rem;
+        }
+
+        /* Resources */
+        .resources-container {
+            margin: 2rem 0;
+        }
+
+        .resource-item {
+            display: flex;
+            margin-bottom: 2rem;
+            background: var(--medium);
+            border-radius: 12px;
+            padding: 2rem;
+            border: 1px solid var(--primary-dark);
+        }
+
+        .resource-icon {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-right: 1.5rem;
+        }
+
+        .resource-content h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        /* Quiz */
+        .quiz-container {
+            background: var(--medium);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-top: 3rem;
+            border: 1px solid var(--primary);
+        }
+
+        .quiz-question {
+            margin-bottom: 2rem;
+        }
+
+        .quiz-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .quiz-option {
+            display: flex;
+            align-items: center;
+            padding: 0.8rem;
+            background: var(--medium-dark);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .quiz-option:hover {
+            background: var(--light-medium);
+        }
+
+        .quiz-option input {
+            margin-right: 0.8rem;
+        }
+
+        .quiz-btn {
+            display: block;
+            margin: 2rem auto 0;
+            padding: 0.8rem 2rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: background 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .quiz-btn:hover {
+            background: var(--primary-dark);
+            box-shadow: var(--glow);
+        }
+
+        .quiz-results {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: var(--dark);
+            border-radius: 8px;
+            border-left: 4px solid var(--accent);
+        }
+
+        /* CTA Section */
+        .cta {
+            background: linear-gradient(135deg, var(--dark) 0%, var(--medium-dark) 100%);
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+
+        .newsletter {
+            margin: 2rem 0;
+        }
+
+        .newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 50px 0 0 50px;
+            background: var(--dark);
+            color: var(--off-white);
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .newsletter-btn {
+            padding: 0.8rem 1.5rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 0 50px 50px 0;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+
+        .newsletter-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        .header-btns {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: var(--primary);
+            color: var(--off-white);
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            font-weight: 600;
+        }
+
+        .btn:hover {
+            background: var(--primary-dark);
+            box-shadow: var(--glow);
+        }
+
+        .outline-btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: transparent !important;
+            color: var(--off-white) !important;
+            border: 2px solid var(--primary) !important;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .outline-btn:hover {
+            background: var(--primary) !important;
+            box-shadow: var(--glow);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--darker);
+            padding: 4rem 0 2rem;
+            border-top: 1px solid rgba(124, 58, 237, 0.2);
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-column h3 {
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: var(--off-white);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        .footer-links i {
+            margin-right: 0.5rem;
+            color: var(--primary);
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: var(--medium);
+            color: var(--off-white);
+            border-radius: 50%;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--medium);
+        }
+
+        .footer-bottom a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .card-grid, .feature-grid, .testimonial-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .resource-item {
+                flex-direction: column;
+            }
+            
+            .resource-icon {
+                margin-bottom: 1rem;
+                margin-right: 0;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+            
+            .newsletter-input {
+                border-radius: 50px;
+                margin-bottom: 1rem;
+            }
+            
+            .newsletter-btn {
+                border-radius: 50px;
+            }
+            
+            .header-btns {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <img src="{% static 'Mindsparklogo4.gif' %}" alt="Site Logo" height="60px" width="60px" style="border-radius:100px;margin-right:20px;">
+                    <h1>MindSpark</h1>
+                </div>
+                <div style="display: flex; align-items: center;">
+                    <ul class="nav-links">
+                        <li><a href="{% url 'Amainpage' %}">Home</a></li>
+                        <li>|</li>
+                        <li><a href="{% url 'Gamepage' %}">Games</a></li>
+                        <li>|</li>
+                        <li><a href="{% url 'ADHDhelp' %}">ADHD Help</a></li>
+                        <li>|</li>
+                        <li><a href="{% url 'community-forum' %}">Community</a></li>
+                        <li>|</li>
+                        <li><a href="{% url 'FAQs' %}">FAQs</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>ADHD Management & Support</h1>
+            <p>Evidence-based strategies and resources to help you thrive with ADHD</p>
+            <div class="header-btns">
+                <a href="#strategies" class="outline-btn">Explore Strategies</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Coping Strategies Section -->
+    <section class="section" id="strategies">
+        <div class="container">
+            <div class="section-header">
+                <h2>Coping Strategies</h2>
+                <p class="section-subtitle">Effective approaches to manage ADHD symptoms and improve daily functioning.</p>
+            </div>
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-icon"><i class="fas fa-calendar-check"></i></div>
+                    <h3>Routine Planning</h3>
+                    <p>Create structured daily routines with clear schedules. Use digital planners or paper organizers to track tasks, appointments, and deadlines. Set reminders for important activities to reduce the cognitive load of remembering.</p>
+                    <a href="#" class="card-link">Planning tips <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="card">
+                    <div class="card-icon"><i class="fas fa-om"></i></div>
+                    <h3>Mindfulness & Meditation</h3>
+                    <p>Regular mindfulness practice helps improve focus, emotional regulation, and stress management. Even short sessions of 5-10 minutes can provide benefits when practiced consistently over time.</p>
+                    <a href="#" class="card-link">Meditation guides <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="card">
+                    <div class="card-icon"><i class="fas fa-running"></i></div>
+                    <h3>Exercise Regularly</h3>
+                    <p>Physical activity increases dopamine, norepinephrine, and serotonin levels in the brain, which can help improve attention and reduce hyperactivity. Aim for at least 30 minutes of moderate exercise daily.</p>
+                    <a href="#" class="card-link">Exercise routines <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Management Techniques Section -->
+    <section class="section" style="background: var(--dark);" id="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>ADHD Management Techniques</h2>
+                <p class="section-subtitle">Research-backed approaches to help navigate daily challenges associated with ADHD.</p>
+            </div>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-layer-group"></i>
+                    </div>
+                    <h3>Task Segmentation</h3>
+                    <p>Break large tasks into smaller, manageable parts. This reduces overwhelm and makes it easier to maintain focus on completing one step at a time.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>Time Boxing</h3>
+                    <p>Allocate specific time blocks for tasks and use timers to maintain focus. The Pomodoro Technique (25-minute work periods followed by 5-minute breaks) works well for many with ADHD.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-map-marked-alt"></i>
+                    </div>
+                    <h3>Visual Management</h3>
+                    <p>Use visual aids like mind maps, color-coding, and visual schedules to organize information in a way that's easier for the ADHD brain to process and remember.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h3>Environment Design</h3>
+                    <p>Create dedicated spaces for specific activities with minimal distractions. Consider noise-canceling headphones and strategic organization systems.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Body Doubling</h3>
+                    <p>Work alongside another person (in person or virtually) to increase accountability and reduce procrastination. Their presence helps maintain focus on tasks.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-bed"></i>
+                    </div>
+                    <h3>Sleep Hygiene</h3>
+                    <p>Prioritize quality sleep with consistent bedtimes, screen-free wind-down routines, and a comfortable sleep environment to improve overall cognitive function.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Diet & Lifestyle Section -->
+    <section class="section" style="background: var(--dark);" id="nutrition">
+        <div class="container">
+            <div class="section-header">
+                <h2>Diet & Lifestyle</h2>
+                <p class="section-subtitle">How nutrition and daily habits can impact ADHD symptom management.</p>
+            </div>
+            <p>Emerging research suggests that dietary choices and lifestyle habits can influence ADHD symptom severity. While not a replacement for professional treatment, these approaches may provide additional support:</p>
+            
+            <div class="tabs-container">
+                <div class="tabs-header">
+                    <button class="tab-btn active" data-tab="diet1">Nutrition</button>
+                    <button class="tab-btn" data-tab="diet2">Sleep</button>
+                    <button class="tab-btn" data-tab="diet3">Supplements</button>
+                    <button class="tab-btn" data-tab="diet4">Lifestyle</button>
+                </div>
+                
+                <div id="diet1" class="tab-content active">
+                    <h3>Nutrition Strategies for ADHD Management</h3>
+                    <p>Making thoughtful dietary choices can help stabilize energy levels and potentially reduce ADHD symptoms:</p>
+                    <ul>
+                        <li><strong>Protein-rich foods:</strong> Begin each day with protein (eggs, Greek yogurt, protein smoothies) to improve focus and stabilize blood sugar</li>
+                        <li><strong>Complex carbohydrates:</strong> Whole grains like oatmeal, brown rice, and quinoa provide steady energy without spikes</li>
+                        <li><strong>Omega-3 fatty acids:</strong> Found in fatty fish (salmon, sardines), flaxseed, and walnuts - may improve brain function</li>
+                        <li><strong>Minimize processed foods:</strong> Reduce artificial colors, preservatives, and excessive sugar that can worsen hyperactivity in some individuals</li>
+                        <li><strong>Regular meal timing:</strong> Eating consistently throughout the day helps maintain stable blood sugar and energy levels</li>
+                        <li><strong>Hydration:</strong> Even mild dehydration can worsen attention and focus difficulties</li>
+                        <li><strong>Consider food sensitivities:</strong> Some people with ADHD report symptom improvement when eliminating common allergens like dairy or gluten (consult with a healthcare provider before making major dietary changes)</li>
+                    </ul>
+                </div>
+                
+                <div id="diet2" class="tab-content">
+                    <h3>Sleep Optimization for ADHD</h3>
+                    <p>Sleep difficulties are common with ADHD, but quality sleep is essential for symptom management:</p>
+                    <ul>
+                        <li><strong>Consistent schedule:</strong> Maintain regular sleep and wake times, even on weekends</li>
+                        <li><strong>Sleep duration:</strong> Adults need 7-9 hours; children and teens need more (8-12 hours depending on age)</li>
+                        <li><strong>Wind-down routine:</strong> Implement a calming pre-sleep ritual (reading, gentle stretching, warm bath) 30-60 minutes before bed</li>
+                        <li><strong>Screen limitations:</strong> Avoid screens 1-2 hours before bedtime; blue light blocking glasses if screens are necessary</li>
+                        <li><strong>Bedroom environment:</strong> Keep sleeping space dark, cool (65-68°F/18-20°C), and quiet</li>
+                        <li><strong>Weighted blankets:</strong> Many with ADHD find weighted blankets (7-12% of body weight) help with sleep</li>
+                        <!-- Completing the Sleep tab content that was cut off -->
+<li><strong>Stimulant timing:</strong> If taking ADHD medication, work with your healthcare provider on proper timing to minimize sleep disruption</li>
+<li><strong>Consider sleep disorders:</strong> ADHD often co-occurs with sleep disorders like sleep apnea or restless leg syndrome; discuss with your doctor if you suspect these issues</li>
+</ul>
+</div>
+
+<div id="diet3" class="tab-content">
+    <h3>Supplements for ADHD Support</h3>
+    <p>While research is ongoing, some supplements show promise for supporting ADHD management. Always consult with a healthcare provider before starting any supplement:</p>
+    <ul>
+        <li><strong>Omega-3 fatty acids:</strong> 1000-2000mg daily (with higher EPA than DHA) may improve attention and reduce hyperactivity</li>
+        <li><strong>Zinc:</strong> Some studies suggest zinc supplementation may help reduce ADHD symptoms in people with deficiency</li>
+        <li><strong>Iron:</strong> Low iron levels correlate with more severe ADHD symptoms; supplementation may help those with deficiency</li>
+        <li><strong>Magnesium:</strong> May help with sleep, anxiety, and hyperactivity when deficient</li>
+        <li><strong>Vitamin D:</strong> Deficiency is common and may worsen cognitive symptoms</li>
+        <li><strong>L-theanine:</strong> An amino acid found in tea that may promote calm focus without sedation</li>
+        <li><strong>Melatonin:</strong> Can help with sleep onset issues common in ADHD (typically 1-3mg, 1-2 hours before bedtime)</li>
+    </ul>
+    <p><em>Note: Supplements are not FDA-approved treatments for ADHD and should complement, not replace, evidence-based treatments.</em></p>
+</div>
+
+<div id="diet4" class="tab-content">
+    <h3>Lifestyle Approaches for ADHD Management</h3>
+    <p>Daily habits and routines play a crucial role in ADHD symptom management:</p>
+    <ul>
+        <li><strong>Morning routine:</strong> Start the day with structure - consistent wake time, hydration, protein-rich breakfast, and brief mindfulness or exercise</li>
+        <li><strong>Regular exercise:</strong> 30+ minutes daily of moderate-intensity physical activity improves executive function and mood</li>
+        <li><strong>Nature exposure:</strong> "Green time" reduces ADHD symptoms; aim for 20+ minutes in natural settings daily</li>
+        <li><strong>Digital boundaries:</strong> Implement screen-free times and use apps to block distracting sites/apps during focused work</li>
+        <li><strong>Stress management:</strong> Regular relaxation practices like deep breathing, progressive muscle relaxation, or yoga</li>
+        <li><strong>Social connections:</strong> Meaningful relationships provide support and reduce isolation</li>
+        <li><strong>Creative outlets:</strong> Music, art, writing, or other creative pursuits can channel ADHD energy productively</li>
+        <li><strong>Mindfulness practice:</strong> Regular meditation or mindfulness exercises improve attention and reduce impulsivity over time</li>
+    </ul>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Symptoms Section -->
+<section class="section" id="symptoms">
+    <div class="container">
+        <div class="section-header">
+            <h2>Understanding ADHD Symptoms</h2>
+            <p class="section-subtitle">ADHD presents differently across individuals. Learn to recognize common symptoms and how they manifest in daily life.</p>
+        </div>
+        
+        <div class="card-grid">
+            <div class="card">
+                <div class="card-icon"><i class="fas fa-brain"></i></div>
+                <h3>Inattention Symptoms</h3>
+                <p>Difficulty sustaining attention, following instructions, and completing tasks. Easily distracted by external stimuli or unrelated thoughts.</p>
+                
+                <div class="symptom-details">
+                    <button class="symptom-toggle">Learn More <i class="fas fa-chevron-down"></i></button>
+                    <div class="symptom-content">
+                        <p>Common manifestations of inattention include:</p>
+                        <ul>
+                            <li><strong>Careless mistakes</strong> in schoolwork, work, or other activities</li>
+                            <li><strong>Difficulty sustaining attention</strong> in tasks or recreational activities</li>
+                            <li><strong>Seems not to listen</strong> when spoken to directly</li>
+                            <li><strong>Fails to follow through</strong> on instructions and fails to finish tasks</li>
+                            <li><strong>Difficulty organizing</strong> tasks and activities</li>
+                            <li><strong>Avoids tasks</strong> requiring sustained mental effort</li>
+                            <li><strong>Loses things</strong> necessary for tasks or activities</li>
+                            <li><strong>Easily distracted</strong> by extraneous stimuli</li>
+                            <li><strong>Forgetful</strong> in daily activities</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-icon"><i class="fas fa-bolt"></i></div>
+                <h3>Hyperactivity & Impulsivity</h3>
+                <p>Excessive restlessness, fidgeting, difficulty remaining seated, and impulsive decision-making. Often speaks or acts before thinking.</p>
+                
+                <div class="symptom-details">
+                    <button class="symptom-toggle">Learn More <i class="fas fa-chevron-down"></i></button>
+                    <div class="symptom-content">
+                        <p>Common manifestations of hyperactivity and impulsivity include:</p>
+                        <ul>
+                            <li><strong>Fidgets</strong> with hands or feet or squirms in seat</li>
+                            <li><strong>Leaves seat</strong> when remaining seated is expected</li>
+                            <li><strong>Runs or climbs</strong> in situations where it is inappropriate (restlessness in adults)</li>
+                            <li><strong>Difficulty engaging</strong> in leisure activities quietly</li>
+                            <li><strong>"On the go"</strong> or acts as if "driven by a motor"</li>
+                            <li><strong>Talks excessively</strong></li>
+                            <li><strong>Blurts out answers</strong> before questions have been completed</li>
+                            <li><strong>Difficulty waiting</strong> for turn</li>
+                            <li><strong>Interrupts or intrudes</strong> on others</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-icon"><i class="fas fa-chart-line"></i></div>
+                <h3>Executive Function Challenges</h3>
+                <p>Difficulties with planning, prioritizing, time management, task initiation, and emotional regulation. Impacts daily productivity and goal achievement.</p>
+                
+                <div class="symptom-details">
+                    <button class="symptom-toggle">Learn More <i class="fas fa-chevron-down"></i></button>
+                    <div class="symptom-content">
+                        <p>Executive function challenges may include difficulties with:</p>
+                        <ul>
+                            <li><strong>Working memory:</strong> Holding information in mind while using it</li>
+                            <li><strong>Planning:</strong> Organizing steps needed to reach a goal</li>
+                            <li><strong>Task initiation:</strong> Starting tasks without procrastination</li>
+                            <li><strong>Prioritization:</strong> Determining what's most important</li>
+                            <li><strong>Organization:</strong> Keeping track of materials and information</li>
+                            <li><strong>Time management:</strong> Estimating and tracking time accurately</li>
+                            <li><strong>Self-monitoring:</strong> Awareness of one's own behavior and performance</li>
+                            <li><strong>Emotional regulation:</strong> Managing feelings appropriately</li>
+                            <li><strong>Cognitive flexibility:</strong> Adapting to changing circumstances</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Treatment Section -->
+<section class="section" style="background: var(--dark);" id="treatment">
+    <div class="container">
+        <div class="section-header">
+            <h2>Treatment Approaches</h2>
+            <p class="section-subtitle">Evidence-based interventions for managing ADHD effectively.</p>
+        </div>
+        
+        <div class="card-grid">
+            <div class="card">
+                <div class="card-icon"><i class="fas fa-pills"></i></div>
+                <h3>Medication</h3>
+                <p>Prescription medications can help regulate brain chemistry to improve attention, reduce impulsivity, and manage hyperactivity.</p>
+                
+                <div class="symptom-details">
+                    <button class="symptom-toggle">Learn More <i class="fas fa-chevron-down"></i></button>
+                    <div class="symptom-content">
+                        <p>Common medication approaches include:</p>
+                        <ul>
+                            <li><strong>Stimulants:</strong> Methylphenidate (Ritalin, Concerta) and amphetamine-based medications (Adderall, Vyvanse) are first-line treatments that increase dopamine and norepinephrine in the brain</li>
+                            <li><strong>Non-stimulants:</strong> Atomoxetine (Strattera), guanfacine (Intuniv), and clonidine (Kapvay) offer alternatives for those who cannot take stimulants</li>
+                            <li><strong>Individual response:</strong> Medication effectiveness varies by person; finding the right medication and dosage often requires trial and adjustment with medical supervision</li>
+                        </ul>
+                        <p><em>Note: All medications should be prescribed and monitored by a qualified healthcare provider.</em></p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-icon"><i class="fas fa-comments"></i></div>
+                <h3>Behavioral Therapy</h3>
+                <p>Therapeutic approaches that help develop skills and strategies to manage ADHD symptoms effectively.</p>
+                
+                <div class="symptom-details">
+                    <button class="symptom-toggle">Learn More <i class="fas fa-chevron-down"></i></button>
+                    <div class="symptom-content">
+                        <p>Effective therapeutic approaches include:</p>
+                        <ul>
+                            <li><strong>Cognitive Behavioral Therapy (CBT):</strong> Addresses negative thought patterns and develops organizational and coping strategies</li>
+                            <li><strong>Behavioral coaching:</strong> Works on practical skills like time management, organization, and planning</li>
+                            <li><strong>Parent training:</strong> Teaches parents effective techniques for supporting children with ADHD</li>
+                            <li><strong>Social skills training:</strong> Helps develop appropriate social behaviors and responses</li>
+                            <li><strong>Mindfulness-Based Cognitive Therapy:</strong> Combines mindfulness practices with cognitive techniques</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-icon"><i class="fas fa-user-cog"></i></div>
+                <h3>Multimodal Approach</h3>
+                <p>Combining multiple treatment strategies often yields the best results for managing ADHD effectively.</p>
+                
+                <div class="symptom-details">
+                    <button class="symptom-toggle">Learn More <i class="fas fa-chevron-down"></i></button>
+                    <div class="symptom-content">
+                        <p>A comprehensive treatment plan may include:</p>
+                        <ul>
+                            <li><strong>Medical management:</strong> Appropriate medication with regular monitoring</li>
+                            <li><strong>Behavioral interventions:</strong> Therapy and/or coaching to develop coping strategies</li>
+                            <li><strong>Lifestyle modifications:</strong> Exercise, nutrition, sleep hygiene, and stress management</li>
+                            <li><strong>Educational/workplace accommodations:</strong> Adjustments that support success in learning or work environments</li>
+                            <li><strong>Support system:</strong> Family education and involvement, support groups, and community resources</li>
+                        </ul>
+                        <p>Research consistently shows that combining approaches is more effective than any single intervention alone.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Resources Section -->
+<section class="section" id="resources">
+    <div class="container">
+        <div class="section-header">
+            <h2>Helpful Resources</h2>
+            <p class="section-subtitle">Trusted sources of information, support, and tools for individuals with ADHD and their families.</p>
+        </div>
+        
+        <div class="resources-container">
+            <div class="resource-item">
+                <div class="resource-icon">
+                    <i class="fas fa-book"></i>
+                </div>
+                <div class="resource-content">
+                    <h3>Recommended Reading</h3>
+                    <p>Books that provide valuable insights and practical strategies:</p>
+                    <ul>
+                        <li><strong>"Driven to Distraction"</strong> by Edward M. Hallowell and John J. Ratey</li>
+                        <li><strong>"Taking Charge of Adult ADHD"</strong> by Russell A. Barkley</li>
+                        <li><strong>"Smart but Scattered"</strong> by Peg Dawson and Richard Guare</li>
+                        <li><strong>"The ADHD Effect on Marriage"</strong> by Melissa Orlov</li>
+                        <li><strong>"Scattered Minds"</strong> by Gabor Maté</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="resource-item">
+                <div class="resource-icon">
+                    <i class="fas fa-globe"></i>
+                </div>
+                <div class="resource-content">
+                    <h3>Online Resources</h3>
+                    <p>Reliable websites and digital tools:</p>
+                    <ul>
+                        <li><strong>CHADD (Children and Adults with ADHD):</strong> Comprehensive information and resource directories</li>
+                        <li><strong>ADDitude Magazine:</strong> Articles, webinars, and expert advice</li>
+                        <li><strong>Understood.org:</strong> Resources for learning and attention issues</li>
+                        <li><strong>ADDA (Attention Deficit Disorder Association):</strong> Adult ADHD resources and community</li>
+                        <li><strong>How to ADHD YouTube Channel:</strong> Accessible videos on ADHD management</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="resource-item">
+                <div class="resource-icon">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <div class="resource-content">
+                    <h3>Helpful Apps</h3>
+                    <p>Digital tools for organization, productivity, and symptom management:</p>
+                    <ul>
+                        <li><strong>Todoist/Microsoft To Do:</strong> Task management with reminders</li>
+                        <li><strong>Focus@Will:</strong> Background music optimized for focus</li>
+                        <li><strong>Forest:</strong> Helps maintain focus by growing virtual trees</li>
+                        <li><strong>Brain.fm:</strong> Focus-enhancing music backed by research</li>
+                        <li><strong>Habitica:</strong> Gamified task and habit tracking</li>
+                        <li><strong>Pomodoro timers:</strong> Various apps that implement the time-blocking technique</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="resource-item">
+                <div class="resource-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="resource-content">
+                    <h3>Support Communities</h3>
+                    <p>Connect with others who understand your experiences:</p>
+                    <ul>
+                        <li><strong>Local support groups:</strong> Check CHADD.org for groups in your area</li>
+                        <li><strong>Reddit communities:</strong> r/ADHD, r/ADHDwomen, r/ADHDers</li>
+                        <li><strong>Facebook groups:</strong> Various ADHD support and discussion groups</li>
+                        <li><strong>Discord servers:</strong> Real-time chat communities for ADHD discussion</li>
+                        <li><strong>ADHD coaching groups:</strong> Guided small-group support</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="section">
+    <div class="container">
+        <div class="section-header">
+            <h2>Success Stories</h2>
+            <p class="section-subtitle">Hear from people who have effectively managed their ADHD symptoms using the strategies and resources we recommend.</p>
+        </div>
+        
+        <div class="testimonial-grid">
+            <div class="testimonial-card">
+                <div class="testimonial-content">
+                    "Learning about time blindness and using visual timers changed everything for me. I finally understood why I was always late and struggling with deadlines. Now I use time blocks and timers religiously, and it's made my work life so much more manageable."
+                </div>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">MC</div>
+                    <div>
+                        <h4>Michael C.</h4>
+                        <p>Software Developer</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <div class="testimonial-content">
+                    "The body doubling technique was a complete revelation. I started joining virtual co-working sessions online, and suddenly I could focus for hours on tasks that I'd been putting off for months. Having that accountability partner makes such a difference."
+                </div>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">SL</div>
+                    <div>
+                        <h4>Sarah L.</h4>
+                        <p>Graduate Student</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <div class="testimonial-content">
+                    "Combining medication with the organizational strategies I learned from this site has transformed my life. I used to feel constantly overwhelmed and behind, but now I have systems that work with my brain instead of against it."
+                </div>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">JW</div>
+                    <div>
+                        <h4>James W.</h4>
+                        <p>Small Business Owner</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta">
+    <div class="container">
+        <div class="cta-content">
+            <h2>Join Our Community</h2>
+            <p>Get personalized strategies, expert advice, and connect with others navigating life with ADHD.</p>
+            
+            <div class="newsletter">
+                <form class="newsletter-form">
+                    <input type="email" class="newsletter-input" placeholder="Your email address" required>
+                    <button type="submit" class="newsletter-btn">Subscribe</button>
+                </form>
+                <p style="margin-top: 1rem; font-size: 0.9rem;">We respect your privacy. Unsubscribe at any time.</p>
+            </div>
+            
+            <div class="header-btns">
+                <a href="#resources" class="outline-btn" style="background: transparent !important; border: 2px solid var(--primary) !important; color: var(--off-white) !important;">Browse Resources</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer" style="background: var(--dark); padding: 2rem 0;">
+    <div class="container text-center">
+        <div style="margin-bottom: 1rem;">
+            <h3 style="color: var(--accent); margin-bottom: 1rem;">About Us</h3>
+            <div style="margin-bottom: 1.5rem; color: var(--off-white);">
+                <p style="margin-bottom: 0.5rem;"><strong>Front-end Developer:</strong> Angad Kamra</p>
+                <p style="margin-bottom: 0.5rem;"><strong>Team Members:</strong></p>
+                <ul style="list-style: none; padding: 0; margin: 0;">
+                    <li>Anubhav Arora</li>
+                    <li>Arman Singh</li>
+                    <li>Aniket Saini</li>
+                </ul>
+            </div>
+            <div style="display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 1rem;">
+                <a href="mailto:waymakersofficial4@gmail.com" class="social-btn" style="
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                    padding: 0.6rem 1.2rem;
+                    background: var(--primary);
+                    color: var(--off-white);
+                    border-radius: 50px;
+                    text-decoration: none;
+                    transition: all 0.3s ease;
+                    border: 1px solid rgba(124, 58, 237, 0.4);
+                    box-shadow: var(--shadow);
+                ">
+                    <i class="fas fa-envelope"></i>
+                    <span>Email Us</span>
+                </a>
+                <a href="https://www.instagram.com/mind_spark.01/profilecard/?igsh=MTN3aXYxczVidGswag==" target="_blank" class="social-btn" style="
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                    padding: 0.6rem 1.2rem;
+                    background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+                    color: var(--off-white);
+                    border-radius: 50px;
+                    text-decoration: none;
+                    transition: all 0.3s ease;
+                    border: 1px solid rgba(220, 39, 67, 0.4);
+                    box-shadow: var(--shadow);
+                ">
+                    <i class="fab fa-instagram"></i>
+                    <span>Follow Us</span>
+                </a>
+                <a href="https://youtube.com/@mindsparkbywm?si=FQWHphOLYzvzfVvC" target="_blank" class="social-btn" style="
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                    padding: 0.6rem 1.2rem;
+                    background: #FF0000;
+                    color: var(--off-white);
+                    border-radius: 50px;
+                    text-decoration: none;
+                    transition: all 0.3s ease;
+                    border: 1px solid rgba(255, 0, 0, 0.4);
+                    box-shadow: var(--shadow);
+                ">
+                    <i class="fab fa-youtube"></i>
+                    <span>Subscribe</span>
+                </a>
+            </div>
+            <style>
+                .social-btn:hover {
+                    transform: translateY(-2px);
+                    box-shadow: var(--glow);
+                }
+                .social-btn i {
+                    font-size: 1.1rem;
+                }
+            </style>
+        </div>
+        <p>&copy; 2025 Mind Spark. All rights reserved.</p>
+    </div>
+</footer>
+
+<!-- JavaScript -->
+<script>
+    // Tab Functionality
+    document.querySelectorAll('.tab-btn').forEach(button => {
+        button.addEventListener('click', () => {
+            const tabId = button.getAttribute('data-tab');
+            
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Deactivate all buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Activate the selected tab and button
+            document.getElementById(tabId).classList.add('active');
+            button.classList.add('active');
+        });
+    });
+    
+    // Symptom toggle functionality
+    document.querySelectorAll('.symptom-toggle').forEach(toggle => {
+        toggle.addEventListener('click', () => {
+            const content = toggle.nextElementSibling;
+            content.classList.toggle('active');
+            toggle.classList.toggle('active');
+        });
+    });
+</script>
+</body>
+</html>

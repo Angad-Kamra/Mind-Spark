@@ -1,0 +1,615 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="dark-mode">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mind Spark | ADHD Gaming & Support Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base Variables */
+        :root {
+            --primary: #7C3AED;
+            --primary-dark: #6D28D9;
+            --secondary: #F43F5E;
+            --accent: #22D3EE;
+            --dark: #0F172A;
+            --darker: #020617;
+            --medium-dark: #1E293B;
+            --medium: #334155;
+            --light-medium: #475569;
+            --off-white: #E2E8F0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+            --glow: 0 0 15px rgba(124, 58, 237, 0.4);
+        }
+
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: var(--medium-dark);
+            color: var(--off-white);
+            line-height: 1.6;
+            transition: all 0.3s ease;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Navigation */
+        .header {
+            background-color: var(--darker);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+            border-bottom: 1px solid rgba(79, 70, 229, 0.2);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo h1 {
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin: 0;
+            text-shadow: 0 0 10px rgba(79, 70, 229, 0.6);
+            transition: text-shadow 0.3s ease;
+            background: linear-gradient(45deg, var(--accent), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--off-white);
+            text-decoration: none;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links li {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #1E1065 30%, #2E1065 100%);
+            padding: 8rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, 
+                rgba(124, 58, 237, 0.1) 0%,
+                rgba(124, 58, 237, 0.05) 25%,
+                transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            text-shadow: 0 0 20px rgba(124, 58, 237, 0.6);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 20px rgba(124, 58, 237, 0.6); }
+            to { text-shadow: 0 0 30px rgba(124, 58, 237, 0.8), 
+                  0 0 40px rgba(124, 58, 237, 0.6); }
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        /* ADHD Info Section */
+        .adhd-info {
+            padding: 4rem 0;
+        }
+
+        .adhd-info h2 {
+            color: var(--accent);
+            margin-bottom: 2rem;
+        }
+
+        .info-card {
+            background: var(--medium-dark);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--primary);
+        }
+
+        .info-card h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .info-card p {
+            margin-bottom: 1rem;
+        }
+
+        .info-card ul {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .info-card li {
+            margin-bottom: 0.5rem;
+        }
+
+        .info-card blockquote {
+            border-left: 3px solid var(--accent);
+            padding-left: 1rem;
+            margin: 1rem 0;
+            color: var(--off-white);
+            font-style: italic;
+        }
+
+        /* Neuro Benefits */
+        .neuro-benefits {
+            background: var(--dark);
+            padding: 4rem 0;
+        }
+
+        .benefit-card {
+            background: var(--medium);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 1rem 0;
+        }
+
+        /* Support Section */
+        .support-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 4rem 0;
+        }
+
+        .support-card {
+            background: var(--medium-dark);
+            border-radius: 12px;
+            padding: 2rem;
+            border: 1px solid var(--accent);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .support-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--glow);
+        }
+
+        .support-card h3 {
+            margin-bottom: 1.5rem;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: var(--primary);
+            color: var(--off-white);
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            font-weight: 600;
+        }
+
+        .btn:hover {
+            background: var(--primary-dark);
+            box-shadow: var(--glow);
+        }
+
+        .btn-accent {
+            background: var(--accent);
+        }
+
+        .btn-accent:hover {
+            background: var(--accent);
+            opacity: 0.9;
+        }
+
+        .btn-full {
+            display: block;
+            width: 100%;
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Play Button Section */
+        .play-section {
+            padding: 6rem 0;
+            text-align: center;
+            background: linear-gradient(135deg, #1E1065 30%, #2E1065 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .play-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, 
+                rgba(124, 58, 237, 0.2) 0%,
+                rgba(124, 58, 237, 0.1) 25%,
+                transparent 50%);
+            pointer-events: none;
+        }
+
+        .play-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .play-content h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 20px rgba(124, 58, 237, 0.6);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        .play-content p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            color: var(--off-white);
+        }
+
+        .play-button {
+            display: inline-block;
+            background: var(--primary);
+            color: var(--off-white);
+            padding: 1.2rem 3.5rem;
+            border-radius: 50px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(124, 58, 237, 0.4);
+            box-shadow: var(--shadow);
+        }
+
+        .play-button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: var(--glow);
+        }
+
+        .play-button i {
+            margin-right: 0.8rem;
+            font-size: 1.4rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <img src="{% static 'Mindsparklogo4.gif' %}" alt="Site Logo" height="60px" width="60px" style="border-radius:100px;margin-right:20px;">
+                    <h1>MindSpark</h1>
+                </div>
+                <div style="display: flex; align-items: center;">
+                    <ul class="nav-links">
+                        <li><a href="{% url 'Amainpage' %}">Home</a></li>
+                        <li>|</li>
+                        <li><a href="{% url 'Gamepage' %}">Games</a></li>
+                        <li>|</li>
+                        <li><a href="{% url 'ADHDhelp' %}">ADHD Help</a></li>
+                        <li>|</li>
+                        <li><a href="{% url 'community-forum' %}">Community</a></li>
+                        <li>|</li>
+                        <li><a href="{% url 'FAQs' %}">FAQs</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>ADHD-Friendly Gaming Redefined</h1>
+            <p>Discover games designed for neurodiverse minds with built-in focus tools and community support</p>
+            <div class="cta-container" style="margin-top: 2rem;">
+                <a href="#adhd-info" class="btn">Learn About ADHD</a>
+                <a href="#support" class="btn" style="background: var(--primary); margin-left: 1rem;">Get Support</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ADHD Info Section -->
+    <section class="adhd-info container" id="adhd-info">
+        <h2>🧠 What is ADHD?</h2>
+        <div class="info-card">
+            <p><em>ADHD (Attention-Deficit/Hyperactivity Disorder)</em> is a common mental health condition that affects how a person focuses, stays organized, and controls impulses. It's not just about being "hyper" — people with ADHD may daydream a lot, struggle to sit still, forget things easily, or find it hard to finish tasks.</p>
+            <p>ADHD is <em>not a disease</em> — it's a neurodevelopmental disorder. This means it's related to how the brain grows and works. With the right tools, support, and strategies, people with ADHD can thrive in school, work, and life.</p>
+        </div>
+
+        <h2>🔍 What Kind of ADHD Are There?</h2>
+        <div class="info-card">
+            <p>There are <em>three main types of ADHD</em>, based on the symptoms a person experiences:</p>
+            
+            <h3>1. <em>Inattentive Type</em></h3>
+            <ul>
+                <li>Easily distracted</li>
+                <li>Frequently forgets things</li>
+                <li>Trouble focusing or finishing tasks</li>
+                <li>May appear to be "daydreaming"</li>
+            </ul>
+            <blockquote>📌 Previously known as <em>ADD (Attention Deficit Disorder)</em></blockquote>
+
+            <h3>2. <em>Hyperactive-Impulsive Type</em></h3>
+            <ul>
+                <li>Fidgets a lot or can't sit still</li>
+                <li>Talks too much or blurts out answers</li>
+                <li>Acts without thinking</li>
+                <li>Always "on the go"</li>
+            </ul>
+
+            <h3>3. <em>Combined Type</em></h3>
+            <ul>
+                <li>A mix of <em>inattentive</em> and <em>hyperactive-impulsive</em> symptoms</li>
+                <li>This is the <em>most common</em> form of ADHD</li>
+            </ul>
+        </div>
+
+        <h2>📝 Take an ADHD Test</h2>
+        <div class="info-card" style="text-align: center;">
+            <p>Not sure if you or someone you know may have ADHD?</p>
+            <p>Try our simple <em>ADHD self-assessment quiz</em>. It's <strong>not a diagnosis</strong>, but it can help you understand your symptoms and decide if you should talk to a doctor or specialist.</p>
+            <p><em>Click Below to Take the Test:</em></p>
+            <a href="{% url 'ADHDtest' %}" class="btn" style="margin-top: 1rem;">Take the ADHD Quiz</a>
+        </div>
+    </section>
+
+    <!-- Neuro Benefits -->
+    <section class="neuro-benefits" id="about">
+        <div class="container">
+            <h2 class="section-title">Why Mind Spark?</h2>
+            <div class="benefit-card">
+                <h3>🧠 ADHD-Adapted Design</h3>
+                <ul>
+                    <li>Adjustable difficulty levels based on your focus capacity</li>
+                    <li>Sensory-friendly interfaces with customizable visual and audio settings</li>
+                    <li>Focus-preserving mechanics that reduce overwhelm</li>
+                    <li>Immediate reward systems to boost dopamine</li>
+                </ul>
+            </div>
+            <div class="benefit-card">
+                <h3>🎮 Created By Neurodivergent Gamers</h3>
+                <p>Our platform was designed by people with ADHD for people with ADHD. We understand the unique challenges and strengths that come with this neurotype because we live it every day.</p>
+                <p>Our team consists of ADHD coaches, game designers, and mental health professionals who are committed to creating experiences that are both fun and beneficial.</p>
+            </div>
+            <div class="benefit-card">
+                <h3>📊 Evidence-Based Approach</h3>
+                <p>Our games incorporate research-backed techniques that have been shown to improve executive functioning, working memory, and sustained attention in people with ADHD.</p>
+                <p>We regularly collaborate with researchers to measure outcomes and refine our approach based on the latest scientific understanding of ADHD.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Support Hub -->
+    <section class="container" id="support">
+        <h2 class="section-title">ADHD Gaming Support</h2>
+        <div class="support-grid">
+            <div class="support-card">
+                <h3>🎮 Gaming Q&A</h3>
+                <p>Expert advice on balancing gaming and ADHD management</p>
+                <a href="{% url 'GamingQandA' %}" class="btn btn-full">Ask a Question</a>
+            </div>
+            <div class="support-card">
+                <h3>🔧 Focus Toolkit</h3>
+                <ul style="list-style: none; margin-bottom: 1.5rem;">
+                    <li>✓ Customizable timers</li>
+                    <li>✓ Progress trackers</li>
+                    <li>✓ Stim management guides</li>
+                </ul>
+                <a href="{% url 'focustoolkit' %}" class="btn btn-full">Access Toolkit</a>
+            </div>
+            <div class="support-card">
+                <h3>👥 Community Forum</h3>
+                <p>Connect with others, share strategies, and find gaming buddies</p>
+                <a href="{% url 'community-forum' %}" class="btn btn-full">Join Community</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Play Button Section -->
+    <section class="play-section">
+        <div class="container">
+            <div class="play-content">
+                <h2>Ready to Level Up?</h2>
+                <p>Jump into our collection of ADHD-friendly games designed to boost focus, improve executive function, and make learning fun!</p>
+                <a href="{% url 'Gamepage' %}" class="play-button">
+                    <i class="fas fa-gamepad"></i>Play Now
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" style="background: var(--dark); padding: 2rem 0;">
+        <div class="container text-center">
+            <div style="margin-bottom: 1rem;">
+                <h3 style="color: var(--accent); margin-bottom: 1rem;">About Us</h3>
+                <div style="margin-bottom: 1.5rem; color: var(--off-white);">
+                    <p style="margin-bottom: 0.5rem;"><strong>Front-end Developer:</strong> Angad Kamra</p>
+                    <p style="margin-bottom: 0.5rem;"><strong>Team Members:</strong></p>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <li>Anubhav Arora</li>
+                        <li>Arman Singh</li>
+                        <li>Aniket Saini</li>
+                    </ul>
+                </div>
+                <div style="display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 1rem;">
+                    <a href="mailto:waymakersofficial4@gmail.com" class="social-btn" style="
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                        padding: 0.6rem 1.2rem;
+                        background: var(--primary);
+                        color: var(--off-white);
+                        border-radius: 50px;
+                        text-decoration: none;
+                        transition: all 0.3s ease;
+                        border: 1px solid rgba(124, 58, 237, 0.4);
+                        box-shadow: var(--shadow);
+                    ">
+                        <i class="fas fa-envelope"></i>
+                        <span>Email Us</span>
+                    </a>
+                    <a href="https://www.instagram.com/mind_spark.01/profilecard/?igsh=MTN3aXYxczVidGswag==" target="_blank" class="social-btn" style="
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                        padding: 0.6rem 1.2rem;
+                        background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+                        color: var(--off-white);
+                        border-radius: 50px;
+                        text-decoration: none;
+                        transition: all 0.3s ease;
+                        border: 1px solid rgba(220, 39, 67, 0.4);
+                        box-shadow: var(--shadow);
+                    ">
+                        <i class="fab fa-instagram"></i>
+                        <span>Follow Us</span>
+                    </a>
+                    <a href="https://youtube.com/@mindsparkbywm?si=FQWHphOLYzvzfVvC" target="_blank" class="social-btn" style="
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                        padding: 0.6rem 1.2rem;
+                        background: #FF0000;
+                        color: var(--off-white);
+                        border-radius: 50px;
+                        text-decoration: none;
+                        transition: all 0.3s ease;
+                        border: 1px solid rgba(255, 0, 0, 0.4);
+                        box-shadow: var(--shadow);
+                    ">
+                        <i class="fab fa-youtube"></i>
+                        <span>Subscribe</span>
+                    </a>
+                </div>
+                <style>
+                    .social-btn:hover {
+                        transform: translateY(-2px);
+                        box-shadow: var(--glow);
+                    }
+                    .social-btn i {
+                        font-size: 1.1rem;
+                    }
+                </style>
+            </div>
+            <p>&copy; 2025 Mind Spark. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle Script
+        const themeToggle = document.getElementById('themeToggle');
+        const htmlElement = document.documentElement;
+
+        if(themeToggle) {
+            themeToggle.addEventListener('click', () => {
+                htmlElement.classList.toggle('light-mode');
+                localStorage.setItem('theme', htmlElement.classList.contains('light-mode') ? 'light' : 'dark');
+            });
+        }
+
+        // Mobile Menu Toggle
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        if(menuToggle) {
+            menuToggle.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+            });
+        }
+    </script>
+</body>
+</html>

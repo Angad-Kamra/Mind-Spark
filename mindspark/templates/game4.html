@@ -1,0 +1,25 @@
+{% load static %}
+<!doctype html>
+<html>
+
+<head>
+    <title>Quest of Tod - js13k-2018</title>
+    <meta name="author" content="SamirH">
+    <style type="text/css">
+        body,html{background:#111;width:100vw;height:100vh;margin:0;padding:0;position:fixed}canvas{-ms-interpolation-mode:nearest-neighbor;image-rendering:-webkit-optimize-contrast;image-rendering:-webkit-crisp-edges;image-rendering:-moz-crisp-edges;image-rendering:-o-crisp-edges;image-rendering:pixelated;margin:auto;top:0;right:0;width:65vmin;height:65vmin}.mobile-block,canvas{position:absolute;bottom:0;left:0}.mobile-block{display:none;width:100%;height:250px}.control{display:inline-flex;width:25%;background-color:#2d3b53;color:#dab74e;font-size:100px;border:2px solid #1a2332;-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.control,.orientation{align-items:center;justify-content:center}.orientation{position:absolute;width:100%;height:100%;background:#111;display:none;font-size:50vh;color:#fff;z-index:99}
+    </style>
+</head>
+
+<body>
+    <canvas id="game"></canvas>
+    <div class="orientation" id="orientation">&#8634;</div>
+    <div class="mobile-block" id="mobile-control">
+        <div class="control" id="left">&#8592;</div>
+        <div class="control" id="up">&#8593;</div>
+        <div class="control" id="down">&#8595;</div>
+        <div class="control" id="right">&#8594;</div>
+    </div>
+	<script type="module" src="{% static 'app4.js' %}"></script>
+</body>
+
+</html>

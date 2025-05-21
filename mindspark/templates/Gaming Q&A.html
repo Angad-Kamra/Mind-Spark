@@ -1,0 +1,1003 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="dark-mode">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mind Spark | Gaming Q&A for ADHD</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base Variables */
+        :root {
+            --primary: #7C3AED;
+            --primary-dark: #6D28D9;
+            --secondary: #F43F5E;
+            --accent: #22D3EE;
+            --dark: #0F172A;
+            --darker: #020617;
+            --medium-dark: #1E293B;
+            --medium: #334155;
+            --light-medium: #475569;
+            --off-white: #E2E8F0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+            --glow: 0 0 15px rgba(124, 58, 237, 0.4);
+        }
+
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: var(--medium-dark);
+            color: var(--off-white);
+            line-height: 1.6;
+            transition: all 0.3s ease;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Navigation */
+        .header {
+            background-color: var(--darker);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+            border-bottom: 1px solid rgba(79, 70, 229, 0.2);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo h1 {
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin: 0;
+            text-shadow: 0 0 10px rgba(79, 70, 229, 0.6);
+            transition: text-shadow 0.3s ease;
+            background: linear-gradient(45deg, var(--accent), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--off-white);
+            text-decoration: none;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links li {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #1E1065 30%, #2E1065 100%);
+            padding: 5rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, 
+                rgba(124, 58, 237, 0.1) 0%,
+                rgba(124, 58, 237, 0.05) 25%,
+                transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            text-shadow: 0 0 20px rgba(124, 58, 237, 0.6);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 20px rgba(124, 58, 237, 0.6); }
+            to { text-shadow: 0 0 30px rgba(124, 58, 237, 0.8), 
+                  0 0 40px rgba(124, 58, 237, 0.6); }
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        /* QA Content Styles */
+        .qa-content {
+            padding: 4rem 0;
+        }
+
+        .qa-section {
+            margin-bottom: 3rem;
+        }
+
+        .qa-section h2 {
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 0.5rem;
+        }
+
+        .qa-card {
+            background: var(--medium);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--primary);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .qa-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--glow);
+        }
+
+        .qa-card h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .qa-card h3 i {
+            margin-right: 0.75rem;
+            color: var(--primary);
+        }
+
+        .qa-card p {
+            margin-bottom: 1rem;
+        }
+
+        .qa-card ul {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .qa-card li {
+            margin-bottom: 0.5rem;
+        }
+
+        .qa-card .tips {
+            background: var(--dark);
+            border-left: 4px solid var(--accent);
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+
+        .qa-card .expert-tip {
+            display: flex;
+            align-items: flex-start;
+            background: rgba(124, 58, 237, 0.1);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+
+        .qa-card .expert-tip i {
+            color: var(--accent);
+            font-size: 1.5rem;
+            margin-right: 1rem;
+        }
+
+        /* Ask Question Form */
+        .ask-form {
+            background: var(--dark);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--light-medium);
+            border-radius: 8px;
+            background: var(--medium-dark);
+            color: var(--off-white);
+            font-family: 'Nunito', sans-serif;
+        }
+
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: var(--primary);
+            color: var(--off-white);
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: var(--primary-dark);
+            box-shadow: var(--glow);
+        }
+
+        .btn-accent {
+            background: var(--accent);
+        }
+
+        .btn-accent:hover {
+            background: var(--accent);
+            opacity: 0.9;
+        }
+
+        /* Accordion Styles */
+        .accordion {
+            margin-bottom: 2rem;
+        }
+
+        .accordion-item {
+            border: 1px solid var(--primary);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        .accordion-header {
+            background: var(--medium);
+            padding: 1rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+        }
+
+        .accordion-header:hover {
+            background: var(--light-medium);
+        }
+
+        .accordion-body {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background: var(--dark);
+        }
+
+        .accordion-body-content {
+            padding: 1rem;
+        }
+
+        .accordion-item.active .accordion-body {
+            max-height: 500px;
+        }
+
+        /* Topic Navigation */
+        .topic-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .topic-badge {
+            padding: 0.5rem 1rem;
+            background: var(--medium);
+            border-radius: 50px;
+            color: var(--off-white);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            border: 1px solid var(--light-medium);
+        }
+
+        .topic-badge:hover, .topic-badge.active {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .topic-nav {
+                justify-content: center;
+            }
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark);
+            padding: 2rem 0;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <img src="{% static 'Mindsparklogo4.gif' %}" alt="Site Logo" height="60px" width="60px" style="border-radius:100px;margin-right:20px;">
+                    <h1>MindSpark</h1>
+                </div>
+                <div style="display: flex; align-items: center;">
+                    <ul class="nav-links">
+                        <li><a href="#">Home</a></li>
+                        <li>|</li>
+                        <li><a href="#">Games</a></li>
+                        <li>|</li>
+                        <li><a href="#">ADHD Help</a></li>
+                        <li>|</li>
+                        <li><a href="#">Community</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Gaming Q&A for ADHD</h1>
+            <p>Expert advice on balancing your love for gaming with effective ADHD management strategies</p>
+        </div>
+    </section>
+
+    <!-- Topic Navigation -->
+    <section class="container" style="margin-top: 2rem;">
+        <div class="topic-nav">
+            <a href="#focus" class="topic-badge active">Focus & Gaming</a>
+            <a href="#time" class="topic-badge">Time Management</a>
+            <a href="#hyperfocus" class="topic-badge">Hyperfocus</a>
+            <a href="#balance" class="topic-badge">Gaming Balance</a>
+            <a href="#social" class="topic-badge">Social Gaming</a>
+            <a href="#parents" class="topic-badge">Parents Corner</a>
+        </div>
+    </section>
+
+    <!-- Q&A Content -->
+    <section class="qa-content container">
+        <!-- Ask a Question Form -->
+        <div class="ask-form">
+            <h2>Ask Our ADHD Gaming Experts</h2>
+            <p>Have a specific question about gaming with ADHD? Our team of ADHD coaches and gaming specialists can help!</p>
+            
+            <form id="questionForm">
+                <div class="form-group">
+                    <label for="name">Your Name (or Gamertag)</label>
+                    <input type="text" id="name" class="form-control" placeholder="Enter your name or gamertag">
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" class="form-control" placeholder="Where should we send our response?">
+                </div>
+                
+                <div class="form-group">
+                    <label for="topic">Topic</label>
+                    <select id="topic" class="form-control">
+                        <option value="">Select a topic</option>
+                        <option value="focus">Focus & Gaming</option>
+                        <option value="time">Time Management</option>
+                        <option value="hyperfocus">Hyperfocus</option>
+                        <option value="balance">Gaming Balance</option>
+                        <option value="social">Social Gaming</option>
+                        <option value="parents">Advice for Parents</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="question">Your Question</label>
+                    <textarea id="question" class="form-control" placeholder="What would you like advice about?"></textarea>
+                </div>
+                
+                <button type="submit" class="btn">Submit Question</button>
+            </form>
+        </div>
+        
+        <!-- Frequently Asked Questions -->
+        <div class="qa-section" id="focus">
+            <h2>Focus & Gaming</h2>
+            
+            <div class="qa-card">
+                <h3><i class="fas fa-gamepad"></i> How can I stay focused during longer gaming sessions?</h3>
+                <p>Many gamers with ADHD find it difficult to maintain attention during extended gameplay. Here are some strategies that can help:</p>
+                <ul>
+                    <li><strong>Use the Pomodoro Technique</strong> - Play in focused 25-minute sessions with 5-minute breaks in between.</li>
+                    <li><strong>Set up visual timers</strong> - Keep a timer within your field of vision to maintain time awareness.</li>
+                    <li><strong>Create a distraction-free zone</strong> - Minimize external stimuli that could pull your attention away.</li>
+                    <li><strong>Stay hydrated and fueled</strong> - Dehydration and hunger can worsen ADHD symptoms.</li>
+                </ul>
+                
+                <div class="expert-tip">
+                    <i class="fas fa-lightbulb"></i>
+                    <div>
+                        <strong>Expert Tip:</strong> Try using noise-canceling headphones with game audio only (no music or chat) when you need to focus intensely on game objectives.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="qa-card">
+                <h3><i class="fas fa-brain"></i> Which game genres work best for different ADHD types?</h3>
+                <p>Different ADHD presentations may respond better to certain types of games:</p>
+                
+                <h4>Primarily Inattentive Type:</h4>
+                <ul>
+                    <li><strong>Strategy games</strong> with clear objectives and visible progress</li>
+                    <li><strong>Puzzle games</strong> that require sustained but varied attention</li>
+                    <li><strong>Racing games</strong> that demand continuous focus for short periods</li>
+                </ul>
+                
+                <h4>Primarily Hyperactive-Impulsive Type:</h4>
+                <ul>
+                    <li><strong>Action games</strong> with movement and frequent rewards</li>
+                    <li><strong>Rhythm games</strong> that channel physical energy</li>
+                    <li><strong>Games with controller rumble</strong> for tactile stimulation</li>
+                </ul>
+                
+                <h4>Combined Type:</h4>
+                <ul>
+                    <li><strong>Open-world games</strong> with flexibility and varied pacing</li>
+                    <li><strong>RPGs</strong> with customizable difficulty and engagement levels</li>
+                    <li><strong>Games with accessibility settings</strong> for sensory management</li>
+                </ul>
+                
+                <div class="tips">
+                    <p><strong>Remember:</strong> Individual preferences matter more than these generalizations. Pay attention to which games help you feel regulated versus overstimulated.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="qa-section" id="time">
+            <h2>Time Management</h2>
+            
+            <div class="qa-card">
+                <h3><i class="fas fa-clock"></i> How do I avoid losing track of time while gaming?</h3>
+                <p>Time blindness is a common ADHD challenge that can impact gaming habits. Here are effective strategies:</p>
+                
+                <ul>
+                    <li><strong>Set alarms</strong> - Use phone alarms or smart home devices to alert you at specific intervals.</li>
+                    <li><strong>Try the "Next Task" technique</strong> - Before starting to game, decide what you'll do after gaming and set a specific time to transition.</li>
+                    <li><strong>Use visual timers</strong> - Time Timer apps or physical timers provide visual cues of passing time.</li>
+                    <li><strong>Create gaming schedules</strong> - Designate specific times for gaming rather than playing "whenever."</li>
+                    <li><strong>Try game-specific limits</strong> - "I'll play 3 matches" instead of "I'll play for 2 hours."</li>
+                </ul>
+                
+                <div class="expert-tip">
+                    <i class="fas fa-lightbulb"></i>
+                    <div>
+                        <strong>Expert Tip:</strong> Many gaming platforms now offer parental controls that can be repurposed as self-regulation tools. Set daily time limits that automatically remind you when it's time to wrap up.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="accordion">
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <span>My alarms don't work - I just dismiss them and keep playing</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="accordion-body">
+                        <div class="accordion-body-content">
+                            <p>This is a common issue! Try these enhanced strategies:</p>
+                            <ul>
+                                <li><strong>Body doubling</strong> - Stream your gaming with a friend who will help hold you accountable to your time limits.</li>
+                                <li><strong>Physical alarms</strong> - Place your phone/alarm across the room so you must physically get up to turn it off.</li>
+                                <li><strong>Reward system</strong> - Create a reward for successfully stopping when planned (can be small, like a favorite snack).</li>
+                                <li><strong>Consequence system</strong> - If you miss your stopping time by more than 10 minutes, you reduce gaming time the next day.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <span>How do I balance gaming with other responsibilities?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="accordion-body">
+                        <div class="accordion-body-content">
+                            <p>Try these structured approaches:</p>
+                            <ul>
+                                <li><strong>"First-Then" system</strong> - Complete priority tasks first, then game as a reward.</li>
+                                <li><strong>Task-Gaming-Task sandwich</strong> - Schedule gaming between two important tasks to maintain productivity.</li>
+                                <li><strong>Weekend/weekday divisions</strong> - Create different rules for gaming on weekdays vs. weekends.</li>
+                                <li><strong>Visual schedules</strong> - Use a visual calendar or chart to map out gaming time alongside other commitments.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="qa-section" id="hyperfocus">
+            <h2>Hyperfocus & Gaming</h2>
+            
+            <div class="qa-card">
+                <h3><i class="fas fa-fire"></i> How can I use gaming hyperfocus productively?</h3>
+                <p>Hyperfocus is that intense state of concentration where you become completely absorbed in a game - sometimes for hours. While often seen as problematic, hyperfocus can actually be channeled productively:</p>
+                
+                <h4>Healthy Ways to Use Gaming Hyperfocus:</h4>
+                <ul>
+                    <li><strong>Learning through gaming</strong> - Choose games that build valuable skills like problem-solving, strategy, or even coding.</li>
+                    <li><strong>Flow state training</strong> - Use gaming hyperfocus to understand what your optimal engagement state feels like, then apply to work/study.</li>
+                    <li><strong>Stress reduction</strong> - Scheduled hyperfocus gaming sessions can be therapeutic after high-stress days.</li>
+                    <li><strong>Social connection</strong> - Channel hyperfocus into team-based games to develop communication skills.</li>
+                </ul>
+                
+                <div class="expert-tip">
+                    <i class="fas fa-lightbulb"></i>
+                    <div>
+                        <strong>Expert Tip:</strong> Consider using a "hyperfocus journal" - whenever you exit a state of hyperfocus, take 2 minutes to note what triggered it, how long it lasted, and how you feel afterward. This data can help you better understand and manage your attention patterns.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="qa-card">
+                <h3><i class="fas fa-exclamation-triangle"></i> Signs that gaming hyperfocus has become unhealthy</h3>
+                <p>While hyperfocus can be positive, it's important to recognize when it becomes problematic:</p>
+                
+                <ul>
+                    <li><strong>Physical neglect</strong> - Regularly forgetting to eat, drink, or use the bathroom while gaming</li>
+                    <li><strong>Sleep disruption</strong> - Frequently playing until extremely late, sacrificing needed sleep</li>
+                    <li><strong>Emotional dysregulation</strong> - Extreme irritability when interrupted during gaming</li>
+                    <li><strong>Responsibility neglect</strong> - Consistently missing work, school, or family obligations</li>
+                    <li><strong>Relationship strain</strong> - Conflicts with loved ones about gaming time increasing in frequency</li>
+                </ul>
+                
+                <div class="tips">
+                    <p><strong>If you notice these signs:</strong> Try introducing structured breaks, using external regulation tools, or speaking with an ADHD coach who specializes in gaming balance.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="qa-section" id="balance">
+            <h2>Gaming Balance</h2>
+            
+            <div class="qa-card">
+                <h3><i class="fas fa-balance-scale"></i> How can I develop a healthy gaming routine with ADHD?</h3>
+                <p>Creating structure is especially important for ADHD brains. Here's how to develop a balanced gaming routine:</p>
+                
+                <ol>
+                    <li><strong>Designate specific gaming days/times</strong> - For example, Tuesday and Thursday evenings plus weekend afternoons</li>
+                    <li><strong>Create transition rituals</strong> - Develop a consistent 5-minute routine for starting and ending gaming sessions</li>
+                    <li><strong>Implement the 1:1 rule</strong> - For every hour of gaming, spend an hour on physical activity or outdoor time</li>
+                    <li><strong>Use game selection strategically</strong> - Choose different game types based on your energy levels and needs</li>
+                    <li><strong>Practice mindful gaming</strong> - Set an intention before each session about what you want to accomplish</li>
+                </ol>
+                
+                <div class="expert-tip">
+                    <i class="fas fa-lightbulb"></i>
+                    <div>
+                        <strong>Expert Tip:</strong> Create a visual gaming schedule using color coding or icons. The ADHD brain responds well to visual cues and having your gaming plan visible can significantly improve adherence to boundaries.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="qa-card">
+                <h3><i class="fas fa-brain"></i> What games are best when my ADHD medication is wearing off?</h3>
+                <p>Many people with ADHD experience a "medication crash" as their treatment wears off. During this time:</p>
+                
+                <h4>Recommended Game Types:</h4>
+                <ul>
+                    <li><strong>Low-stakes sandbox games</strong> - Games like Minecraft or Animal Crossing that don't punish mistakes</li>
+                    <li><strong>Rhythm games</strong> - Help regulate your nervous system through consistent patterns</li>
+                    <li><strong>Turn-based games</strong> - Allow you to take breaks between actions without penalty</li>
+                    <li><strong>Cozy games</strong> - Low-pressure environments with calming aesthetics</li>
+                </ul>
+                
+                <h4>Games to Avoid During Medication Crashes:</h4>
+                <ul>
+                    <li><strong>Competitive multiplayer</strong> - May increase frustration when executive function is compromised</li>
+                    <li><strong>Complex strategy</strong> - Games requiring extensive planning may become overwhelming</li>
+                    <li><strong>High-stimulus shooters</strong> - May overstimulate an already dysregulated nervous system</li>
+                </ul>
+                
+                <div class="tips">
+                    <p><strong>Pro Tip:</strong> Create a "crash playlist" of games specifically chosen for when your medication is wearing off. Having these pre-selected reduces decision fatigue.</p>
+                </div>
+            </div>
+            
+            <div class="qa-card">
+                <h3><i class="fas fa-chart-line"></i> How do I recognize when gaming becomes unhealthy for my ADHD?</h3>
+                <p>While gaming can be beneficial for ADHD brains, it's important to recognize warning signs that it's becoming problematic:</p>
+                
+                <h4>Warning Signs:</h4>
+                <ul>
+                    <li><strong>Using gaming to avoid emotional regulation</strong> - Consistently gaming to escape uncomfortable feelings</li>
+                    <li><strong>Decreased interest in previously enjoyed non-gaming activities</strong></li>
+                    <li><strong>Gaming interfering with sleep</strong> - Regularly staying up past intended bedtime</li>
+                    <li><strong>Significant distress when unable to game</strong> - Beyond normal disappointment</li>
+                    <li><strong>Neglecting basic self-care</strong> - Skipping meals, hygiene, or medications</li>
+                </ul>
+                
+                <h4>Self-Assessment Questions:</h4>
+                <ul>
+                    <li>"Do I feel gaming enhances my life or restricts it?"</li>
+                    <li>"Am I using gaming to connect or to isolate?"</li>
+                    <li>"Does gaming energize me or leave me depleted?"</li>
+                    <li>"Can I stop gaming when I intend to?"</li>
+                </ul>
+                
+                <div class="expert-tip">
+                    <i class="fas fa-lightbulb"></i>
+                    <div>
+                        <strong>Expert Tip:</strong> Try a 3-day gaming break once every few months. The difficulty level of taking this break can be revealing about your relationship with gaming. Use this time to check in with yourself about your gaming habits.
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="qa-section" id="social">
+            <h2>Social Gaming</h2>
+            
+            <div class="qa-card">
+                <h3><i class="fas fa-users"></i> How can multiplayer gaming help with ADHD social skills?</h3>
+                <p>Online multiplayer games can provide unique opportunities for developing social skills:</p>
+                
+                <ul>
+                    <li><strong>Structured social interaction</strong> - Games provide clear objectives and contexts for communication</li>
+                    <li><strong>Practice with turn-taking</strong> - Many games naturally require waiting and listening</li>
+                    <li><strong>Team collaboration</strong> - Learning to work with others toward shared goals</li>
+                    <li><strong>Feedback processing</strong> - Gaming provides immediate feedback on social interactions</li>
+                </ul>
+                
+                <div class="tips">
+                    <p><strong>Suggested Games for Social Skills:</strong> Team-based shooters (with voice chat), MMORPGs with guilds/clans, cooperative puzzle games, and social deduction games.</p>
+                </div>
+            </div>
+            
+            <div class="qa-card">
+                <h3><i class="fas fa-comment-dots"></i> How do I manage interrupting others during multiplayer gaming?</h3>
+                <p>Impulsive interruption is a common ADHD challenge that can affect team communication during gaming:</p>
+                
+                <h4>Strategies for Better Communication:</h4>
+                <ul>
+                    <li><strong>Use push-to-talk</strong> - This creates a small barrier that gives you a moment to consider if now is the right time to speak</li>
+                    <li><strong>Create a "thought parking lot"</strong> - Keep a notepad next to you to jot down thoughts so you don't forget them while waiting for your turn to speak</li>
+                    <li><strong>Establish team communication protocols</strong> - Work with your gaming friends to create clear rules about when to speak (e.g., during downtime vs. intense moments)</li>
+                    <li><strong>Practice active listening</strong> - Challenge yourself to summarize what a teammate said before responding</li>
+                </ul>
+                
+                <div class="expert-tip">
+                    <i class="fas fa-lightbulb"></i>
+                    <div>
+                        <strong>Expert Tip:</strong> If you're playing with trusted friends, create a gentle "interrupt signal" that they can use when you're talking over others. This immediate feedback helps build awareness of your communication patterns.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="qa-card">
+                <h3><i class="fas fa-headset"></i> Finding ADHD-friendly gaming communities</h3>
+                <p>The social environment of your gaming groups can significantly impact your experience:</p>
+                
+                <h4>What to Look For:</h4>
+                <ul>
+                    <li><strong>Clear community guidelines</strong> - Groups with established rules tend to be more structured and supportive</li>
+                    <li><strong>Neurodiversity-affirming language</strong> - Communities that already understand ADHD and other neurotypes</li>
+                    <li><strong>Flexible participation expectations</strong> - Groups that don't require rigid scheduling</li>
+                    <li><strong>Low-toxicity environments</strong> - ADHD can make emotional regulation challenging; toxic gaming environments can be particularly harmful</li>
+                </ul>
+                
+                <h4>Where to Find These Communities:</h4>
+                <ul>
+                    <li><strong>Discord servers</strong> specifically for neurodivergent gamers</li>
+                    <li><strong>Reddit communities</strong> like r/ADHDGamers</li>
+                    <li><strong>MindSpark's own community forums</strong> where you can connect with other ADHD gamers</li>
+                </ul>
+                
+                <div class="tips">
+                    <p><strong>Remember:</strong> It's okay to leave gaming communities that don't support your needs. Finding the right social environment is crucial for a positive gaming experience.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="qa-section" id="parents">
+            <h2>Parents Corner</h2>
+            
+            <div class="qa-card">
+                <h3><i class="fas fa-child"></i> How can I support my child with ADHD who loves gaming?</h3>
+                <p>For parents navigating gaming with an ADHD child, balance is key:</p>
+                
+                <h4>Do's:</h4>
+                <ul>
+                    <li><strong>Collaborate on limits</strong> - Work with your child to establish reasonable boundaries</li>
+                    <li><strong>Recognize gaming skills</strong> - Acknowledge the executive function skills certain games develop</li>
+                    <li><strong>Play together sometimes</strong> - Show interest in their gaming world</li>
+                    <li><strong>Look for gamification opportunities</strong> - Find ways to make non-gaming activities more game-like</li>
+                </ul>
+                
+                <h4>Don'ts:</h4>
+                <ul>
+                    <li><strong>Don't use gaming as the only reward</strong> - Diversify motivators</li>
+                    <li><strong>Avoid abrupt transitions</strong> - Give 10-minute warnings before gaming time ends</li>
+                    <li><strong>Don't dismiss gaming interests</strong> - They can lead to career paths in tech, design, etc.</li>
+                </ul>
+                
+                <div class="expert-tip">
+                    <i class="fas fa-lightbulb"></i>
+                    <div>
+                        <strong>Expert Tip:</strong> Try a weekly "Gaming Report" where your child spends 5 minutes explaining something they accomplished or learned in their game. This builds communication skills and helps you understand their interests.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Expert Consultation -->
+    <section class="container" style="margin-bottom: 4rem;">
+        <div class="qa-card" style="text-align: center;">
+            <h3><i class="fas fa-user-md"></i> Need Personalized ADHD Gaming Support?</h3>
+            <p>Our team of ADHD specialists and gaming experts offer one-on-one consultation sessions to help you develop strategies tailored to your specific needs.</p>
+            <p>Whether you're struggling with gaming boundaries, want to optimize your gaming for ADHD benefits, or need help finding the right games for your neurotype, we're here to help.</p>
+            <a href="#" class="btn" style="margin-top: 1rem;">Book a Consultation</a>
+        </div>
+    </section>
+    
+    <!-- Resources Section -->
+    <section class="container" style="margin-bottom: 4rem;">
+        <h2 class="section-title">Helpful Resources</h2>
+        
+        <div class="support-grid">
+            <div class="support-card">
+                <h3><i class="fas fa-book"></i> ADHD Gaming Guides</h3>
+                <ul style="list-style: none; margin-bottom: 1.5rem; text-align: left;">
+                    <li>✓ Game Recommendations by ADHD Type</li>
+                    <li>✓ Setting Up a Gaming Environment for Success</li>
+                    <li>✓ Gaming Parent's Guide to ADHD</li>
+                </ul>
+                <a href="#" class="btn btn-full">Download Guides</a>
+            </div>
+            
+            <div class="support-card">
+                <h3><i class="fas fa-tools"></i> Digital Wellbeing Tools</h3>
+                <ul style="list-style: none; margin-bottom: 1.5rem; text-align: left;">
+                    <li>✓ Gaming Time Trackers</li>
+                    <li>✓ Focus-Enhancing Overlays</li>
+                    <li>✓ Break Reminder Apps</li>
+                </ul>
+                <a href="#" class="btn btn-full">Explore Tools</a>
+            </div>
+            
+            <div class="support-card">
+                <h3><i class="fas fa-podcast"></i> ADHD Gaming Podcast</h3>
+                <p style="text-align: left;">Weekly episodes discussing gaming strategies, interviews with ADHD gamers, and latest research.</p>
+                <a href="#" class="btn btn-full">Listen Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" style="background: var(--dark); padding: 2rem 0;">
+        <div class="container text-center">
+            <div style="margin-bottom: 1rem;">
+                <h3 style="color: var(--accent); margin-bottom: 1rem;">About Us</h3>
+                <div style="margin-bottom: 1.5rem; color: var(--off-white);">
+                    <p style="margin-bottom: 0.5rem;"><strong>Front-end Developer:</strong> Angad Kamra</p>
+                    <p style="margin-bottom: 0.5rem;"><strong>Team Members:</strong></p>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <li>Anubhav Arora</li>
+                        <li>Arman Singh</li>
+                        <li>Aniket Saini</li>
+                    </ul>
+                </div>
+                <div style="display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 1rem;">
+                    <a href="mailto:waymakersofficial4@gmail.com" class="social-btn" style="
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                        padding: 0.6rem 1.2rem;
+                        background: var(--primary);
+                        color: var(--off-white);
+                        border-radius: 50px;
+                        text-decoration: none;
+                        transition: all 0.3s ease;
+                        border: 1px solid rgba(124, 58, 237, 0.4);
+                        box-shadow: var(--shadow);
+                    ">
+                        <i class="fas fa-envelope"></i>
+                        <span>Email Us</span>
+                    </a>
+                    <a href="https://www.instagram.com/mind_spark.01/profilecard/?igsh=MTN3aXYxczVidGswag==" target="_blank" class="social-btn" style="
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                        padding: 0.6rem 1.2rem;
+                        background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+                        color: var(--off-white);
+                        border-radius: 50px;
+                        text-decoration: none;
+                        transition: all 0.3s ease;
+                        border: 1px solid rgba(220, 39, 67, 0.4);
+                        box-shadow: var(--shadow);
+                    ">
+                        <i class="fab fa-instagram"></i>
+                        <span>Follow Us</span>
+                    </a>
+                    <a href="https://youtube.com/@mindsparkbywm?si=FQWHphOLYzvzfVvC" target="_blank" class="social-btn" style="
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                        padding: 0.6rem 1.2rem;
+                        background: #FF0000;
+                        color: var(--off-white);
+                        border-radius: 50px;
+                        text-decoration: none;
+                        transition: all 0.3s ease;
+                        border: 1px solid rgba(255, 0, 0, 0.4);
+                        box-shadow: var(--shadow);
+                    ">
+                        <i class="fab fa-youtube"></i>
+                        <span>Subscribe</span>
+                    </a>
+                </div>
+                <style>
+                    .social-btn:hover {
+                        transform: translateY(-2px);
+                        box-shadow: var(--glow);
+                    }
+                    .social-btn i {
+                        font-size: 1.1rem;
+                    }
+                </style>
+            </div>
+            <p>&copy; 2025 Mind Spark. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Accordion Functionality
+        document.querySelectorAll('.accordion-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const item = header.parentElement;
+                const isActive = item.classList.contains('active');
+                
+                // Close all items
+                document.querySelectorAll('.accordion-item').forEach(accordionItem => {
+                    accordionItem.classList.remove('active');
+                });
+                
+                // If the clicked item wasn't active, open it
+                if (!isActive) {
+                    item.classList.add('active');
+                }
+            });
+        });
+        
+        // Form Submission
+        document.getElementById('questionForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const topic = document.getElementById('topic').value;
+            const question = document.getElementById('question').value;
+            
+            // Basic validation
+            if (!name || !email || !topic || !question) {
+                alert('Please fill out all fields');
+                return;
+            }
+            
+            // Here you would normally send this data to your server
+            // For demo purposes, we'll just show a success message
+            alert('Thank you for your question! Our ADHD gaming experts will respond within 48 hours.');
+            
+            // Reset the form
+            document.getElementById('questionForm').reset();
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    // Add active class to clicked topic badge
+                    document.querySelectorAll('.topic-badge').forEach(badge => {
+                        badge.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                    
+                    // Scroll to the section
+                    window.scrollTo({
+                        top: target.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Mobile menu toggle (if needed for responsive design)
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        
+        if(menuToggle) {
+            menuToggle.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+            });
+        }
+    </script>
+</body>
+</html>

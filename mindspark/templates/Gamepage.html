@@ -1,0 +1,372 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="dark-mode">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MindSpark | ADHD Relaxation Games</title>
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- External CSS -->
+  <link rel="stylesheet" href="{% static 'indexstyle.css' %}">
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <nav class="navbar">
+        <div class="logo">
+          <img src="{% static 'Mindsparklogo4.gif' %}" alt="Site Logo" height="60px" width="60px" style="border-radius:100px;margin-right:20px;">
+          <h1>MindSpark</h1>
+        </div>
+        <ul class="nav-links">
+          <li><a href="{% url 'Amainpage' %}">Home</a></li>
+          <li>|</li>
+          <li><a href="{% url 'ADHDhelp' %}">ADHD Help</a></li>
+          <li>|</li>
+          <li><a href="{% url 'community-forum' %}">Community</a></li>
+          <li>|</li>
+          <li><a href="{% url 'FAQs' %}">FAQs</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <h2><div class="typewriter">Welcome to Gaming Hub</div></h2>
+      <p>Engaging games and tools to help manage ADHD in a fun way!</p>
+      <a href="#games" class="btn">Play Now</a>
+    </div>
+    {% comment %} <div class="ADHDphoto"><img src="{% static 'ADHDpreview.png' %}" alt="ADHD Logo" style="opacity:75%;"></div> {% endcomment %}
+  </section>
+
+  <!-- Adventure Games Section -->
+  <section class="section" id="games">
+    <div class="container">
+      <h2 class="section-title">Adventure Time!</h2>
+      <div class="games-grid">
+        <!-- Triangle: Back to home -->
+        <div class="game-card">
+          <div class="game-card-image">
+            <img src="{% static 'c1.jpg' %}" alt="Triangle">
+          </div>
+          <div class="game-card-content">
+            <h3>Triangle: Back To Home</h3>
+            <p>You are lost in the cave. Try to get out and back to home. Sometimes it can be easy, sometimes not… but don't give up and you will do it.</p>
+            <a href="{% url 'game1' %}" class="play-btn">Play</a>
+          </div>
+        </div>
+        
+        <!-- Wander -->
+        <div class="game-card">
+          <div class="game-card-image">
+            <img src="{% static 'c2.jpg' %}" alt="Wander">
+          </div>
+          <div class="game-card-content">
+            <h3>Wander</h3>
+            <p>Explore a desolate wilderness with your grappling hook. Touch the crystals to save your progress. Find the treasure.</p>
+            <a href="{% url 'game2' %}" class="play-btn">Play</a>
+          </div>
+        </div>
+        
+        <!-- Offline Paradise -->
+        <div class="game-card">
+          <div class="game-card-image">
+            <img src="{% static 'c3.jpg' %}" alt="Offline Paradise">
+          </div>
+          <div class="game-card-content">
+            <h3>Offline Paradise</h3>
+            <p>The world, a paradise, has gone offline; everything has become grey and dangerous. Traverse, jump and dash over the obstacles to turn the world back into normal.</p>
+            <a href="{% url 'game3' %}" class="play-btn">Play</a>
+          </div>
+        </div>
+        
+        <!-- Quest of Tod -->
+        <div class="game-card">
+          <div class="game-card-image">
+            <img src="{% static 'c4.jpg' %}" alt="Quest of Tod">
+          </div>
+          <div class="game-card-content">
+            <h3>Quest of Tod</h3>
+            <p>Quest of Tod is a speed running adventure game, where you stuck inside unknown place controlled by strange machine. Can you find all the keys and codes to unlock the exit before the time runs out?</p>
+            <a href="{% url 'game4' %}" class="play-btn">Play</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Arcade Games Section -->
+  <section class="section arcade-section">
+    <div class="container">
+      <h2 class="section-title">Arcade Time!</h2>
+      <div class="games-grid">
+        <!-- Everyone's Sky -->
+        <div class="game-card">
+          <div class="game-card-image">
+            <img src="{% static 'cA1.jpg' %}" alt="Everyone's Sky">
+          </div>
+          <div class="game-card-content">
+            <h3>Everyone's Sky</h3>
+            <p>Bring peace to the galaxy... or war? Make allies by completing missions, study other planets, stars, defend yourself against planetary defenses and pirate groups, or makes enemies by attacking them.</p>
+            <a href="{% url 'gameA1' %}" class="play-btn">Play</a>
+          </div>
+        </div>
+        
+        <!-- Evil Glitch -->
+        <div class="game-card">
+          <div class="game-card-image">
+            <img src="{% static 'cA2.jpg' %}" alt="Evil Glitch">
+          </div>
+          <div class="game-card-content">
+            <h3>Evil Glitch</h3>
+            <p>Strange glitches appear in your dimension, could you stop them to assimilate your world?</p>
+            <a href="{% url 'gameA2' %}" class="play-btn">Play</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Platform Games Section -->
+  <section class="section arcade-section">
+    <div class="container">
+      <h2 class="section-title">Platform Time!</h2>
+      <div class="games-grid">
+        <!-- The Wandering Wraith -->
+        <div class="game-card">
+          <div class="game-card-image">
+            <img src="{% static 'cB1.jpg' %}" alt="The Wandering Wraith">
+          </div>
+          <div class="game-card-content">
+            <h3>The Wandering Wraith</h3>
+            <p>A lost wraith is wandering through the world seeking for peace. Will you guide him back to his grave so he can finally rest?</p>
+            <a href="{% url 'gameB1' %}" class="play-btn">Play</a>
+          </div>
+        </div>
+        
+        <!-- ONOFF -->
+        <div class="game-card">
+          <div class="game-card-image">
+            <img src="{% static 'cB2.jpg' %}" alt="ONOFF">
+          </div>
+          <div class="game-card-content">
+            <h3>ONOFF</h3>
+            <p>Navigate through 25 brain-teasing levels in this fast-paced, hand-crafted platformer. You'll dodge spikes, jump over pits, and toggle between dimensions.</p>
+            <a href="{% url 'gameB2' %}" class="play-btn">Play</a>
+          </div>
+        </div>
+
+        <!-- The Matr13k -->
+        <div class="game-card">
+          <div class="game-card-image">
+            <img src="{% static 'cB3.jpg' %}" alt="The Matr13k">
+          </div>
+          <div class="game-card-content">
+            <h3>The Matr13k</h3>
+            <p>After saving Morpheus, Neo needs to find an exit from this JavaScript version of the matrix. This is a beat em up, your objective is to kill everyone in your way in order to advance to the end of the rabbit hole. Use the arrow keys to move, S and D keys to punch and kick, space to jump, you also have some special moves.</p>
+            <a href="{% url 'gameB3' %}" class="play-btn">Play</a>
+          </div>
+        </div>
+
+        <!-- Glitch Buster -->
+        <div class="game-card">
+          <div class="game-card-image">
+            <img src="{% static 'cB4.jpg' %}" alt="Glitch Buster">
+          </div>
+          <div class="game-card-content">
+            <h3>VIER - Wizard Wars</h3>
+            <p>You have the power to control the 4 elements with the VIER stone, It's time to destroy all the wizards and become the ruler of the universe. Platfomer - shoot'em up</p>
+            <a href="{% url 'gameB4' %}" class="play-btn">Play</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Puzzle games section -->
+  <section class="section arcade-section">
+    <div class="container">
+      <h2 class="section-title">Puzzle Time!</h2>
+      <div class="games-grid">
+        <!-- Play Back -->
+        <div class="game-card">
+          <div class="game-card-image">
+            <img src="{% static 'cC1.jpg' %}" alt="Play Back">
+          </div>
+          <div class="game-card-content">
+            <h3>Play Back</h3>
+            <p>Oh no, you've been kicked out of the castle! Solve puzzles and make your way back to your rightful home.<br>Puzzle-platformer game with an audio mechanic. Robots and platforms will only respond to sounds from tapes of the same color. Platforms with dark arrows on them will remember their position after saving, so you don't need to worry about losing too much progress if you die.</p>
+            <a href="{% url 'gameC1' %}" class="play-btn">Play</a>
+          </div>
+        </div>
+        
+        <!-- xx142-b2.exe -->
+        <div class="game-card">
+          <div class="game-card-image">
+            <img src="{% static 'cC2.jpg' %}" alt="xx142-b2.exe">
+          </div>
+          <div class="game-card-content">
+            <h3>xx142-b2.exe</h3>
+            <p>This is the year 2413, humanity is enslaved by an alien race for more than two centuries already.<br>You are an AI weaponized virus built to infiltrate the alien network and deactivate all power generators and weapon systems.<br>The alien antivirus will detect and delete you after 13 seconds.<br>But remember: a file is never really deleted. Use the execution backtrace from your previous attempts to break in and destroy the main memory core.</p>
+            <a href="{% url 'gameC2' %}" class="play-btn">Play</a>
+          </div>
+        </div>
+
+        <!-- 1024 Moves -->
+        <div class="game-card">
+          <div class="game-card-image">
+            <img src="{% static 'cC3.jpg' %}" alt="1024 Moves">
+          </div>
+          <div class="game-card-content">
+            <h3>1024 Moves</h3>
+            <p>This puzzle can be solved in 1024 movements. That is to say, I think it is not possible to do it in less than 1024 movements.<br>And you ?</p>
+            <a href="{% url 'gameC3' %}" class="play-btn">Play</a>
+          </div>
+        </div>
+
+        <!-- Re-Wire -->
+        <div class="game-card">
+          <div class="game-card-image">
+            <img src="{% static 'cC4.jpg' %}" alt="Re-Wire">
+          </div>
+          <div class="game-card-content">
+            <h3>Re-Wire</h3>
+            <p>Bring the system back online by rewiring the power nodes.<br>Drag the cable around the power nodes and plug it into the socket!<br>Avoid the blades!<br>You can cross other cables by using isolators.<br>The game saves progress automatically, you can come back later and continue from the last played level.</p>
+            <a href="{% url 'gameC4' %}" class="play-btn">Play</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Misc games section -->
+  <section class="section arcade-section">
+    <div class="container">
+      <h2 class="section-title">Misc</h2>
+      <div class="games-grid">
+        <!-- The Chroma Incident -->
+        <div class="game-card">
+          <div class="game-card-image">
+            <img src="{% static 'cD1.jpg' %}" alt="The Chroma Incident">
+          </div>
+          <div class="game-card-content">
+            <h3>The Chroma Incident</h3>
+            <p>The Achromats have taken the worlds color offline! </end shamelessThemePlug> Raid their colorless lair and vanquish them all, restoring the world to it's technicolor glory. A twin-stick shooter playable with gamepad or keyboard+mouse. Huge thanks to Herebefrogs for naming the game!</p>
+            <a href="{% url 'gameD1' %}" class="play-btn">Play</a>
+          </div>
+        </div>
+        
+        <!-- Elematter -->
+        <div class="game-card">
+          <div class="game-card-image">
+            <img src="{% static 'cD2.jpg' %}" alt="Elematter">
+          </div>
+          <div class="game-card-content">
+            <h3>Elematter</h3>
+            <p>Elematter is a tower defense game based on the four elements: Earth, Water, Air and Fire. Construct your defense and stop the enemy forces from stealing scarce elemental matter!</p>
+            <a href="{% url 'gameD2' %}" class="play-btn">Play</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ADHD Help Section -->
+  <section class="adhd-section" id="adhd">
+    <div class="container">
+      <h2 class="section-title">ADHD Help & Resources</h2>
+      <div class="resources">
+        <p>Explore tips, articles, and resources for managing ADHD more effectively.</p>
+        <a href="{% url 'ADHDhelp' %}" class="btn">Learn More</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer" style="background: var(--dark); padding: 2rem 0;">
+    <div class="container text-center">
+      <div style="margin-bottom: 1rem;">
+        <h3 style="color: var(--accent); margin-bottom: 1rem;">About Us</h3>
+        <div style="margin-bottom: 1.5rem; color: var(--off-white);">
+          <p style="margin-bottom: 0.5rem;"><strong>Front-end Developer:</strong> Angad Kamra</p>
+          <p style="margin-bottom: 0.5rem;"><strong>Team Members:</strong></p>
+          <ul style="list-style: none; padding: 0; margin: 0;">
+            <li>Anubhav Arora</li>
+            <li>Arman Singh</li>
+            <li>Aniket Saini</li>
+          </ul>
+        </div>
+        <div style="display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 1rem;">
+          <a href="mailto:waymakersofficial4@gmail.com" class="social-btn" style="
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.2rem;
+            background: var(--primary);
+            color: var(--off-white);
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(124, 58, 237, 0.4);
+            box-shadow: var(--shadow);
+          ">
+            <i class="fas fa-envelope"></i>
+            <span>Email Us</span>
+          </a>
+          <a href="https://www.instagram.com/mind_spark.01/profilecard/?igsh=MTN3aXYxczVidGswag==" target="_blank" class="social-btn" style="
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.2rem;
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            color: var(--off-white);
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(220, 39, 67, 0.4);
+            box-shadow: var(--shadow);
+          ">
+            <i class="fab fa-instagram"></i>
+            <span>Follow Us</span>
+          </a>
+          <a href="https://youtube.com/@mindsparkbywm?si=FQWHphOLYzvzfVvC" target="_blank" class="social-btn" style="
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.2rem;
+            background: #FF0000;
+            color: var(--off-white);
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 0, 0, 0.4);
+            box-shadow: var(--shadow);
+          ">
+            <i class="fab fa-youtube"></i>
+            <span>Subscribe</span>
+          </a>
+        </div>
+        <style>
+          .social-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--glow);
+          }
+          .social-btn i {
+            font-size: 1.1rem;
+          }
+        </style>
+      </div>
+      <p>&copy; 2025 Mind Spark. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- External JavaScript -->
+  <script src="{% static 'indexstyle.js' %}"></script>
+</body>
+</html>

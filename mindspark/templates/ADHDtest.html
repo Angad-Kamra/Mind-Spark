@@ -1,0 +1,1256 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="dark-mode">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mind Spark - ADHD Gaming Therapy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #7C3AED;
+            --primary-dark: #6D28D9;
+            --secondary: #F43F5E;
+            --accent: #22D3EE;
+            --dark: #0F172A;
+            --darker: #020617;
+            --medium-dark: #1E293B;
+            --medium: #334155;
+            --light-medium: #475569;
+            --off-white: #E2E8F0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+            --glow: 0 0 15px rgba(124, 58, 237, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: var(--darker);
+            color: var(--off-white);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Header Styles */
+        .header {
+            background-color: var(--darker);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(79, 70, 229, 0.2);
+            transition: background-color 0.3s ease, border-bottom 0.3s ease;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo h1 {
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin: 0;
+            text-shadow: 0 0 10px rgba(79, 70, 229, 0.6);
+            transition: text-shadow 0.3s ease;
+            background: linear-gradient(45deg, var(--accent), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
+
+        .logo img {
+            border-radius: 100px;
+            margin-right: 20px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links li {
+            margin: 0 0.75rem;
+        }
+
+        .nav-links a {
+            color: var(--off-white);
+            font-weight: 600;
+            font-size: 1rem;
+            position: relative;
+            padding: 0.5rem 0;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--accent);
+            transition: width 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+            box-shadow: 0 0 8px var(--accent);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            width: 50px;
+            height: 25px;
+            background: var(--medium-dark);
+            border-radius: 25px;
+            position: relative;
+            cursor: pointer;
+            margin-left: 20px;
+            transition: background 0.3s ease;
+        }
+
+        .toggle-circle {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 21px;
+            height: 21px;
+            background: var(--primary);
+            border-radius: 50%;
+            transition: transform 0.3s ease, background 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .theme-toggle.light .toggle-circle {
+            transform: translateX(25px);
+            background: #F59E0B;
+        }
+
+        .toggle-icon {
+            color: var(--off-white);
+            font-size: 12px;
+        }
+
+        /* Hero Section */
+        .mindspark-hero {
+            background: linear-gradient(135deg, #2E1065 30%, #4F46E5 100%);
+            padding: 6rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mindspark-hero h1 {
+            font-size: 3.2rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        /* Quiz Styles */
+        .quiz-card {
+            background: var(--medium-dark);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 2px solid var(--primary);
+            box-shadow: var(--glow);
+        }
+
+        .quiz-question {
+            margin-bottom: 2rem;
+        }
+
+        .quiz-option {
+            display: block;
+            padding: 1.2rem;
+            margin: 1rem 0;
+            background: var(--medium);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quiz-option:hover {
+            transform: translateX(10px);
+            background: var(--primary);
+        }
+
+        /* Results Section */
+        .result-card {
+            background: var(--dark);
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+            border: 2px solid var(--accent);
+        }
+
+        .game-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            margin: 0.5rem;
+            background: var(--secondary);
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        /* Buttons */
+        .spark-btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            color: white;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+
+        .spark-btn:hover {
+            transform: scale(1.05);
+            box-shadow: var(--glow);
+        }
+
+        /* Additional styling from first document */
+        .type-info-card {
+            background: var(--dark);
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+            border-left: 4px solid var(--accent);
+        }
+        
+        .strength-list {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+        }
+        
+        .strength-badge {
+            background: var(--primary-dark);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            margin: 0.5rem;
+            display: inline-block;
+        }
+        
+        .challenge-item {
+            padding: 1rem;
+            margin: 0.5rem 0;
+            background: var(--medium);
+            border-radius: 8px;
+            position: relative;
+        }
+        
+        .challenge-item::before {
+            content: "⚠️";
+            margin-right: 1rem;
+        }
+
+        /* Progress indicator */
+        .progress-container {
+            width: 100%;
+            height: 8px;
+            background-color: var(--medium);
+            border-radius: 4px;
+            margin-bottom: 2rem;
+        }
+
+        .progress-bar {
+            height: 100%;
+            border-radius: 4px;
+            background: linear-gradient(to right, var(--accent), var(--primary));
+            transition: width 0.3s ease;
+        }
+
+        /* Question visibility */
+        .quiz-question {
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .quiz-question.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+            z-index: 2;
+        }
+
+        .nav-buttons {
+            position: relative;
+            z-index: 3;
+        }
+
+        .spark-btn {
+            position: relative;
+            z-index: 3;
+            cursor: pointer;
+        }
+
+        .spark-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .spark-btn:active {
+            transform: translateY(0);
+        }
+
+        .strategy-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        
+        .strategy-list li {
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .strategy-list li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        @media (max-width: 768px) {
+            .mindspark-hero h1 {
+                font-size: 2.4rem;
+            }
+            
+            .quiz-option {
+                padding: 1rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+
+        /* Add styles for progress text */
+        .progress-container {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+        
+        .progress-text {
+            position: absolute;
+            right: 0;
+            top: -20px;
+            font-size: 0.9rem;
+            color: var(--off-white);
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <img src="{% static 'Mindsparklogo4.gif' %}" alt="Site Logo" height="60px" width="60px">
+                    <h1>MindSpark</h1>
+                </div>
+                <div style="display: flex; align-items: center;">
+                    <ul class="nav-links">
+                        <li><a href="{% url 'Amainpage' %}">Home</a></li>
+                        <li>|</li>
+                        <li><a href="{% url 'Gamepage' %}">Games</a></li>
+                        <li>|</li>
+                        <li><a href="{% url 'ADHDhelp' %}">ADHD Help</a></li>
+                        <li>|</li>
+                        <li><a href="{% url 'community-forum' %}">Community</a></li>
+                        <li>|</li>
+                        <li><a href="{% url 'FAQs' %}">FAQs</a></li>
+                    </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="mindspark-hero">
+        <div class="container">
+            <h1>Ignite Your Focus Through Play</h1>
+            <p>Discover game genres that align with your cognitive style</p>
+        </div>
+    </section>
+
+    <main class="container">
+        <div class="quiz-card">
+            <h2>ADHD Type Assessment</h2>
+            <div class="progress-container">
+                <div class="progress-bar" style="width: 10%;"></div>
+                <div class="progress-text">Question 1 of 11</div>
+            </div>
+            
+            <form id="mindSparkQuiz">
+                <!-- Question 1 -->
+                <div class="quiz-question active" data-question="1">
+                    <h3>When facing a complex task, you:</h3>
+                    <label class="quiz-option">
+                        <input type="radio" name="q1" value="hyperactive">
+                        Dive in immediately without planning
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q1" value="inattentive">
+                        Get overwhelmed and procrastinate
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q1" value="combined">
+                        Alternate between both approaches
+                    </label>
+                    <div class="nav-buttons">
+                        <span></span> <!-- Empty span for flex spacing -->
+                        <button type="button" class="spark-btn next-btn">Next</button>
+                    </div>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="quiz-question" data-question="2">
+                    <h3>Your ideal break activity:</h3>
+                    <label class="quiz-option">
+                        <input type="radio" name="q2" value="hyperactive">
+                        Physical movement/exercise
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q2" value="inattentive">
+                        Quiet meditation or reading
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q2" value="combined">
+                        Mix of active and quiet time
+                    </label>
+                    <div class="nav-buttons">
+                        <button type="button" class="spark-btn prev-btn">Previous</button>
+                        <button type="button" class="spark-btn next-btn">Next</button>
+                    </div>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="quiz-question" data-question="3">
+                    <h3>How do you handle time management?</h3>
+                    <label class="quiz-option">
+                        <input type="radio" name="q3" value="hyperactive">
+                        Often lose track of time, jump between tasks
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q3" value="inattentive">
+                        Frequently underestimate time needed
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q3" value="combined">
+                        Both of these happen regularly
+                    </label>
+                    <div class="nav-buttons">
+                        <button type="button" class="spark-btn prev-btn">Previous</button>
+                        <button type="button" class="spark-btn next-btn">Next</button>
+                    </div>
+                </div>
+
+                <!-- Question 4 -->
+                <div class="quiz-question" data-question="4">
+                    <h3>In social situations, you:</h3>
+                    <label class="quiz-option">
+                        <input type="radio" name="q4" value="hyperactive">
+                        Often interrupt or speak impulsively
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q4" value="inattentive">
+                        Get distracted or zone out
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q4" value="combined">
+                        Experience both regularly
+                    </label>
+                    <div class="nav-buttons">
+                        <button type="button" class="spark-btn prev-btn">Previous</button>
+                        <button type="button" class="spark-btn next-btn">Next</button>
+                    </div>
+                </div>
+
+                <!-- Question 5 -->
+                <div class="quiz-question" data-question="5">
+                    <h3>When completing tasks, you:</h3>
+                    <label class="quiz-option">
+                        <input type="radio" name="q5" value="hyperactive">
+                        Start strong but struggle to finish
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q5" value="inattentive">
+                        Procrastinate but finish carefully
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q5" value="combined">
+                        Alternate between these patterns
+                    </label>
+                    <div class="nav-buttons">
+                        <button type="button" class="spark-btn prev-btn">Previous</button>
+                        <button type="button" class="spark-btn next-btn">Next</button>
+                    </div>
+                </div>
+
+                <!-- Question 6 -->
+                <div class="quiz-question" data-question="6">
+                    <h3>When reading or studying, you:</h3>
+                    <label class="quiz-option">
+                        <input type="radio" name="q6" value="hyperactive">
+                        Need to move or fidget to concentrate
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q6" value="inattentive">
+                        Read the same paragraph multiple times
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q6" value="combined">
+                        Experience both issues frequently
+                    </label>
+                    <div class="nav-buttons">
+                        <button type="button" class="spark-btn prev-btn">Previous</button>
+                        <button type="button" class="spark-btn next-btn">Next</button>
+                    </div>
+                </div>
+
+                <!-- Question 7 -->
+                <div class="quiz-question" data-question="7">
+                    <h3>When making decisions, you:</h3>
+                    <label class="quiz-option">
+                        <input type="radio" name="q7" value="hyperactive">
+                        Make quick, impulsive choices
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q7" value="inattentive">
+                        Feel paralyzed by too many options
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q7" value="combined">
+                        Switch between quick decisions and overthinking
+                    </label>
+                    <div class="nav-buttons">
+                        <button type="button" class="spark-btn prev-btn">Previous</button>
+                        <button type="button" class="spark-btn next-btn">Next</button>
+                    </div>
+                </div>
+
+                <!-- Question 8 -->
+                <div class="quiz-question" data-question="8">
+                    <h3>When you're bored in a meeting or class, you:</h3>
+                    <label class="quiz-option">
+                        <input type="radio" name="q8" value="hyperactive">
+                        Fidget, doodle, or find ways to move
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q8" value="inattentive">
+                        Daydream or mentally drift away
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q8" value="combined">
+                        Both - alternate between restlessness and zoning out
+                    </label>
+                    <div class="nav-buttons">
+                        <button type="button" class="spark-btn prev-btn">Previous</button>
+                        <button type="button" class="spark-btn next-btn">Next</button>
+                    </div>
+                </div>
+
+                <!-- Question 9 -->
+                <div class="quiz-question" data-question="9">
+                    <h3>When engaged in something interesting:</h3>
+                    <label class="quiz-option">
+                        <input type="radio" name="q9" value="hyperactive">
+                        You have boundless energy and enthusiasm
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q9" value="inattentive">
+                        You can hyperfocus for hours, forgetting time
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q9" value="combined">
+                        Both states occur depending on the activity
+                    </label>
+                    <div class="nav-buttons">
+                        <button type="button" class="spark-btn prev-btn">Previous</button>
+                        <button type="button" class="spark-btn next-btn">Next</button>
+                    </div>
+                </div>
+
+                <!-- Question 10 -->
+                <div class="quiz-question" data-question="10">
+                    <h3>Your approach to instructions:</h3>
+                    <label class="quiz-option">
+                        <input type="radio" name="q10" value="hyperactive">
+                        Skip details to get started quicker
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q10" value="inattentive">
+                        Need to read them multiple times
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q10" value="combined">
+                        Skim instructions but then refer back frequently
+                    </label>
+                    <div class="nav-buttons">
+                        <button type="button" class="spark-btn prev-btn">Previous</button>
+                        <button type="button" class="spark-btn next-btn">Next</button>
+                    </div>
+                </div>
+
+                <!-- Question 11 -->
+                <div class="quiz-question" data-question="11">
+                    <h3>Your energy levels throughout the day:</h3>
+                    <label class="quiz-option">
+                        <input type="radio" name="q11" value="hyperactive">
+                        High and consistent, but crash suddenly
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q11" value="inattentive">
+                        Low to moderate, struggle with motivation
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q11" value="combined">
+                        Extremely variable - high peaks and low valleys
+                    </label>
+                    <div class="nav-buttons">
+                        <button type="button" class="spark-btn prev-btn">Previous</button>
+                        <button type="submit" class="spark-btn submit-btn">Get My Game Plan</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div id="mindsparkResults" class="result-card" style="display: none;">
+            <h2>Your Cognitive Play Profile</h2>
+            <div id="resultContent"></div>
+            <button onclick="retakeQuiz()" class="spark-btn">Try Again</button>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" style="background: var(--dark); padding: 2rem 0;">
+        <div class="container text-center">
+            <div style="margin-bottom: 1rem;">
+                <h3 style="color: var(--accent); margin-bottom: 1rem;">About Us</h3>
+                <div style="margin-bottom: 1.5rem; color: var(--off-white);">
+                    <p style="margin-bottom: 0.5rem;"><strong>Front-end Developer:</strong> Angad Kamra</p>
+                    <p style="margin-bottom: 0.5rem;"><strong>Team Members:</strong></p>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <li>Anubhav Arora</li>
+                        <li>Arman Singh</li>
+                        <li>Aniket Saini</li>
+                    </ul>
+                </div>
+                <div style="display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 1rem;">
+                    <a href="mailto:waymakersofficial4@gmail.com" class="social-btn" style="
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                        padding: 0.6rem 1.2rem;
+                        background: var(--primary);
+                        color: var(--off-white);
+                        border-radius: 50px;
+                        text-decoration: none;
+                        transition: all 0.3s ease;
+                        border: 1px solid rgba(124, 58, 237, 0.4);
+                        box-shadow: var(--shadow);
+                    ">
+                        <i class="fas fa-envelope"></i>
+                        <span>Email Us</span>
+                    </a>
+                    <a href="https://www.instagram.com/mind_spark.01/profilecard/?igsh=MTN3aXYxczVidGswag==" target="_blank" class="social-btn" style="
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                        padding: 0.6rem 1.2rem;
+                        background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+                        color: var(--off-white);
+                        border-radius: 50px;
+                        text-decoration: none;
+                        transition: all 0.3s ease;
+                        border: 1px solid rgba(220, 39, 67, 0.4);
+                        box-shadow: var(--shadow);
+                    ">
+                        <i class="fab fa-instagram"></i>
+                        <span>Follow Us</span>
+                    </a>
+                    <a href="https://youtube.com/@mindsparkbywm?si=FQWHphOLYzvzfVvC" target="_blank" class="social-btn" style="
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                        padding: 0.6rem 1.2rem;
+                        background: #FF0000;
+                        color: var(--off-white);
+                        border-radius: 50px;
+                        text-decoration: none;
+                        transition: all 0.3s ease;
+                        border: 1px solid rgba(255, 0, 0, 0.4);
+                        box-shadow: var(--shadow);
+                    ">
+                        <i class="fab fa-youtube"></i>
+                        <span>Subscribe</span>
+                    </a>
+                </div>
+                <style>
+                    .social-btn:hover {
+                        transform: translateY(-2px);
+                        box-shadow: var(--glow);
+                    }
+                    .social-btn i {
+                        font-size: 1.1rem;
+                    }
+                </style>
+            </div>
+            <p>&copy; 2025 Mind Spark. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const mindSparkRecommendations = {
+            hyperactive: {
+                mild: {
+                    type: "Energetic Explorer",
+                    desc: "Your energy needs gentle channeling",
+                    strengths: ["Quick thinking", "Adaptable energy", "Creative spontaneity", "Social engagement", "Task initiation"],
+                    challenges: [
+                        "Occasional impulsivity",
+                        "Mild restlessness",
+                        "Variable focus",
+                        "Intermittent interruptions",
+                        "Some task completion issues"
+                    ],
+                    strategies: [
+                        "Take regular movement breaks",
+                        "Use fidget tools during focus time",
+                        "Break tasks into 25-minute chunks",
+                        "Practice mindful transitions",
+                        "Use visual task tracking"
+                    ],
+                    games: ["Party Games (Mario Party, Jackbox)", "Cooperative Games (Portal 2, It Takes Two)", "Light Action Games", "Casual Sports Games", "Social VR Games"]
+                },
+                moderate: {
+                    type: "Kinetic Controller",
+                    desc: "Your energy needs strategic channeling",
+                    strengths: ["High energy", "Quick thinking", "Spontaneous creativity", "Ability to multitask", "Adaptable to change"],
+                    challenges: [
+                        "Impulsive decisions",
+                        "Restlessness during passive activities",
+                        "Difficulty maintaining routines",
+                        "Tendency to interrupt others",
+                        "May struggle with detailed work"
+                    ],
+                    strategies: [
+                        "Use movement breaks every 30 minutes",
+                        "Try 'body-doubling' for focused work",
+                        "Use timers for task transitions",
+                        "Break work into short, intense sprints",
+                        "Use fidget tools while concentrating"
+                    ],
+                    games: ["Rhythm Games (Beat Saber, Guitar Hero)", "Sports Simulators (FIFA, NBA 2K)", "Action RPGs (Diablo, Path of Exile)", "Fast-paced FPS Games (Doom, Overwatch)", "Racing Games (Forza, Mario Kart)"]
+                },
+                strong: {
+                    type: "High-Energy Dynamo",
+                    desc: "Your intense energy needs powerful channeling",
+                    strengths: ["Exceptional energy", "Rapid processing", "Dynamic creativity", "High adaptability", "Quick decision making"],
+                    challenges: [
+                        "Strong impulsive tendencies",
+                        "Significant restlessness",
+                        "Difficulty with sustained focus",
+                        "Frequent interruptions",
+                        "Task completion struggles"
+                    ],
+                    strategies: [
+                        "Implement intensive movement breaks",
+                        "Use high-stimulation work environments",
+                        "Break tasks into 15-minute sprints",
+                        "Practice structured transitions",
+                        "Use multiple fidget tools"
+                    ],
+                    games: ["Intense FPS (Doom Eternal, Apex Legends)", "Competitive Racing (Forza Horizon, Gran Turismo)", "High-Octane Action Games (Devil May Cry, Bayonetta)", "Competitive Multiplayer (Valorant, CS:GO)", "VR Action Games (Beat Saber Expert+, Pistol Whip)"]
+                }
+            },
+            inattentive: {
+                mild: {
+                    type: "Focused Dreamer",
+                    desc: "Your attention needs gentle guidance",
+                    strengths: ["Creative thinking", "Detail awareness", "Methodical approach", "Deep focus when engaged", "Thoughtful analysis"],
+                    challenges: [
+                        "Occasional distraction",
+                        "Mild procrastination",
+                        "Some focus fluctuations",
+                        "Basic organization needs",
+                        "Minor time management issues"
+                    ],
+                    strategies: [
+                        "Use gentle focus timers",
+                        "Create quiet workspaces",
+                        "Implement basic organization systems",
+                        "Practice mindful transitions",
+                        "Use visual reminders"
+                    ],
+                    games: ["Relaxing Puzzle Games (Tetris Effect, Monument Valley)", "Casual Strategy Games (Plants vs Zombies, Two Point Hospital)", "Visual Novels (Life is Strange, Firewatch)", "Calm Building Games (Townscaper, Dorfromantik)", "Mindful VR Experiences (Moss, Tetris Effect VR)"]
+                },
+                moderate: {
+                    type: "Strategic Architect",
+                    desc: "Your focus thrives on structured engagement",
+                    strengths: ["Deep thinking", "Attention to detail", "Methodical approach", "Creative problem-solving", "Thoughtful analysis"],
+                    challenges: [
+                        "Overwhelm from complex tasks",
+                        "Time management difficulties",
+                        "Maintaining consistent focus",
+                        "Organizing physical spaces",
+                        "Following multi-step instructions"
+                    ],
+                    strategies: [
+                        "Break tasks into micro-steps",
+                        "Use visual organization tools",
+                        "Implement sensory-friendly environments",
+                        "Set calendar reminders for transitions",
+                        "Use interest-based motivation"
+                    ],
+                    games: ["Puzzle Games (Portal, The Witness)", "City Builders (SimCity, Cities: Skylines)", "Turn-Based Strategy (Civilization, XCOM)", "Visual Novels (Phoenix Wright, Disco Elysium)", "Card Strategy Games (Slay the Spire, Hearthstone)"]
+                },
+                strong: {
+                    type: "Deep Focus Specialist",
+                    desc: "Your attention needs intensive support",
+                    strengths: ["Exceptional depth of focus", "Analytical thinking", "Creative problem-solving", "Detail orientation", "Strategic planning"],
+                    challenges: [
+                        "Severe task overwhelm",
+                        "Significant time management issues",
+                        "Difficulty maintaining focus",
+                        "Major organization challenges",
+                        "Complex instruction processing"
+                    ],
+                    strategies: [
+                        "Implement intensive focus systems",
+                        "Use advanced organization tools",
+                        "Create distraction-free environments",
+                        "Practice structured mindfulness",
+                        "Develop detailed routines"
+                    ],
+                    games: ["Complex Strategy Games (Europa Universalis, Crusader Kings)", "Deep Puzzle Games (Baba is You, The Talos Principle)", "Management Sims (Factorio, Oxygen Not Included)", "Narrative RPGs (Divinity: Original Sin, Pillars of Eternity)", "Brain Training Games (Lumosity, Peak)"]
+                }
+            },
+            combined: {
+                mild: {
+                    type: "Adaptive Explorer",
+                    desc: "Your dynamic nature needs balanced support",
+                    strengths: ["Versatile thinking", "Adaptable focus", "Creative flexibility", "Balanced energy", "Social awareness"],
+                    challenges: [
+                        "Variable energy levels",
+                        "Some focus fluctuations",
+                        "Basic organization needs",
+                        "Mild impulsivity",
+                        "Occasional overwhelm"
+                    ],
+                    strategies: [
+                        "Use flexible scheduling",
+                        "Implement basic organization systems",
+                        "Practice mindful transitions",
+                        "Balance activity types",
+                        "Use visual task tracking"
+                    ],
+                    games: ["Casual RPGs (Stardew Valley, Animal Crossing)", "Light Strategy Games (Into the Breach, FTL)", "Social Simulation Games (The Sims, Two Point Hospital)", "Adventure Games (Life is Strange, Telltale Games)", "Creative Sandbox Games (Minecraft, Terraria)"]
+                },
+                moderate: {
+                    type: "Adaptive Visionary",
+                    desc: "You need dynamic stimulation with clear goals",
+                    strengths: ["Versatile thinking", "Adaptability", "Big-picture vision", "Innovative ideas", "Energy when passionate"],
+                    challenges: [
+                        "Inconsistent energy levels",
+                        "Difficulty prioritizing tasks",
+                        "Emotional regulation",
+                        "Balancing details with vision",
+                        "Sustaining motivation"
+                    ],
+                    strategies: [
+                        "Use variable reward systems",
+                        "Implement flexible schedules",
+                        "Practice mindfulness transitions",
+                        "Create clear goal hierarchies",
+                        "Balance structure with novelty"
+                    ],
+                    games: ["Open-World RPGs (Skyrim, Witcher 3)", "Sandbox Games (Minecraft, Terraria)", "Roguelikes (Hades, Dead Cells)", "Management Sims (Stardew Valley, Animal Crossing)", "Narrative Adventures (Life is Strange, Detroit: Become Human)"]
+                },
+                strong: {
+                    type: "Dynamic Innovator",
+                    desc: "Your intense variability needs powerful support",
+                    strengths: ["Exceptional adaptability", "Creative innovation", "Dynamic thinking", "Versatile focus", "Energy management"],
+                    challenges: [
+                        "Extreme energy fluctuations",
+                        "Severe task overwhelm",
+                        "Intense emotional responses",
+                        "Major organization needs",
+                        "Complex motivation issues"
+                    ],
+                    strategies: [
+                        "Implement intensive support systems",
+                        "Use advanced organization tools",
+                        "Practice structured transitions",
+                        "Develop detailed routines",
+                        "Balance high and low stimulation"
+                    ],
+                    games: ["Complex RPGs (Divinity: Original Sin, Pathfinder)", "Advanced Strategy Games (Total War, Stellaris)", "Creative Sandbox Games (Minecraft, Terraria)", "Narrative Adventures (Disco Elysium, Planescape: Torment)", "Management Sims (RimWorld, Oxygen Not Included)"]
+                }
+            }
+        };
+
+        // Question weights for scoring
+        const questionWeights = {
+            q1: { hyperactive: 3, inattentive: 2, combined: 2 },
+            q2: { hyperactive: 2, inattentive: 2, combined: 1 },
+            q3: { hyperactive: 3, inattentive: 3, combined: 2 },
+            q4: { hyperactive: 3, inattentive: 2, combined: 2 },
+            q5: { hyperactive: 2, inattentive: 2, combined: 3 },
+            q6: { hyperactive: 2, inattentive: 3, combined: 2 },
+            q7: { hyperactive: 3, inattentive: 2, combined: 2 },
+            q8: { hyperactive: 2, inattentive: 2, combined: 1 },
+            q9: { hyperactive: 2, inattentive: 3, combined: 2 },
+            q10: { hyperactive: 2, inattentive: 2, combined: 1 },
+            q11: { hyperactive: 3, inattentive: 2, combined: 3 }
+        };
+
+        let currentQuestion = 1;
+        const totalQuestions = 11;
+
+        function calculateResult(answers) {
+            const scores = { hyperactive: 0, inattentive: 0, combined: 0 };
+            
+            answers.forEach((answer, index) => {
+                const questionKey = `q${index + 1}`;
+                scores[answer] += questionWeights[questionKey][answer];
+            });
+            
+            const winningType = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
+            const intensity = getIntensityLevel(scores, winningType);
+            
+            return {
+                type: winningType,
+                intensity: intensity,
+                scores: scores,
+                insights: generatePersonalizedInsights(answers, winningType)
+            };
+        }
+
+        function getIntensityLevel(scores, winningType) {
+            const total = Object.values(scores).reduce((a, b) => a + b, 0);
+            const percentage = (scores[winningType] / total) * 100;
+            
+            if (percentage > 70) return "strong";
+            if (percentage > 55) return "moderate";
+            return "mild";
+        }
+
+        function generatePersonalizedInsights(answers, type) {
+            const insights = [];
+            
+            // Task approach insights
+            if (answers[0] === 'hyperactive') {
+                insights.push("Your approach to complex tasks shows high action-orientation");
+            } else if (answers[0] === 'inattentive') {
+                insights.push("You tend to approach complex tasks with careful consideration");
+            }
+            
+            // Time management insights
+            if (answers[2] === 'inattentive') {
+                insights.push("Time management is a key area where you experience ADHD symptoms");
+            } else if (answers[2] === 'hyperactive') {
+                insights.push("Your time management style shows high energy and quick transitions");
+            }
+            
+            // Social behavior insights
+            if (answers[3] === 'hyperactive') {
+                insights.push("Your social interactions show high energy and engagement");
+            } else if (answers[3] === 'inattentive') {
+                insights.push("You may need support in maintaining focus during social interactions");
+            }
+            
+            // Energy level insights
+            if (answers[10] === 'combined') {
+                insights.push("Your variable energy levels suggest a need for flexible scheduling");
+            } else if (answers[10] === 'hyperactive') {
+                insights.push("Your consistent high energy suggests a need for regular activity breaks");
+            }
+            
+            return insights;
+        }
+
+        function getSpecificGameRecs(answers, type, intensity) {
+            const baseGames = mindSparkRecommendations[type][intensity].games;
+            const bonusGames = [];
+            
+            // Physical activity preference
+            if (answers[1] === 'hyperactive') {
+                bonusGames.push("VR Fitness Games (Beat Saber, Supernatural)");
+            }
+            
+            // Hyperfocus tendency
+            if (answers[8] === 'inattentive') {
+                bonusGames.push("Deep Strategy Games (Europa Universalis, Crusader Kings)");
+            }
+            
+            // Social interaction style
+            if (answers[3] === 'combined') {
+                bonusGames.push("Cooperative Games (Overcooked, Keep Talking and Nobody Explodes)");
+            }
+            
+            return [...new Set([...baseGames, ...bonusGames])];
+        }
+
+        function updateDetailedProgress() {
+            const answeredQuestions = document.querySelectorAll('input[type="radio"]:checked').length;
+            const progress = (answeredQuestions / totalQuestions) * 100;
+            
+            document.querySelector('.progress-bar').style.width = `${progress}%`;
+            
+            const progressText = document.querySelector('.progress-text') || 
+                               document.createElement('div');
+            progressText.className = 'progress-text';
+            progressText.textContent = `${answeredQuestions}/${totalQuestions} questions completed`;
+            
+            if (!document.querySelector('.progress-text')) {
+                document.querySelector('.progress-container').appendChild(progressText);
+            }
+        }
+
+        function showResults(result) {
+            const { type, intensity, scores, insights } = result;
+            const recommendations = mindSparkRecommendations[type][intensity];
+            const specificGames = getSpecificGameRecs(
+                [...document.querySelectorAll('input[type=radio]:checked')].map(input => input.value),
+                type,
+                intensity
+            );
+            
+            const resultHtml = `
+                <h2>Your NeuroProfile: ${recommendations.type}</h2>
+                <p class="type-desc">${recommendations.desc}</p>
+                
+                <div class="type-info-card">
+                    <h3>🎯 Personalized Insights</h3>
+                    <ul class="strategy-list">
+                        ${insights.map(insight => `<li>${insight}</li>`).join('')}
+                    </ul>
+                </div>
+                
+                <div class="type-info-card">
+                    <h3>🌟 Key Strengths</h3>
+                    <div class="strength-list">
+                        ${recommendations.strengths.map(s => `<span class="strength-badge">${s}</span>`).join('')}
+                    </div>
+                </div>
+
+                <div class="type-info-card">
+                    <h3>🧠 Common Challenges</h3>
+                    ${recommendations.challenges.map(c => `<div class="challenge-item">${c}</div>`).join('')}
+                </div>
+
+                <div class="type-info-card">
+                    <h3>⚡ Coping Strategies</h3>
+                    <ul class="strategy-list">
+                        ${recommendations.strategies.map(s => `<li>${s}</li>`).join('')}
+                    </ul>
+                </div>
+
+                <div class="type-info-card">
+                    <h3>🎮 Recommended Games</h3>
+                    <div class="game-recommendations">
+                        ${specificGames.map(g => `<span class="game-badge">${g}</span>`).join('')}
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('resultContent').innerHTML = resultHtml;
+            document.getElementById('mindSparkQuiz').style.display = 'none';
+            document.getElementById('mindsparkResults').style.display = 'block';
+        }
+
+        // Navigation functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize first question as active
+            document.querySelector('.quiz-question[data-question="1"]').classList.add('active');
+            
+            // Handle previous button clicks
+            document.querySelectorAll('.prev-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    if (currentQuestion > 1) {
+                        // Hide current question
+                        document.querySelector(`.quiz-question[data-question="${currentQuestion}"]`).classList.remove('active');
+                        
+                        // Show previous question
+                        currentQuestion--;
+                        document.querySelector(`.quiz-question[data-question="${currentQuestion}"]`).classList.add('active');
+                        
+                        // Update progress
+                        updateProgress();
+                    }
+                });
+            });
+
+            // Handle next button clicks
+            document.querySelectorAll('.next-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault(); // Prevent any default form submission
+                    
+                    const currentQuestionEl = document.querySelector(`.quiz-question[data-question="${currentQuestion}"]`);
+                    const hasAnswer = currentQuestionEl.querySelector('input[type="radio"]:checked');
+                    
+                    if (!hasAnswer) {
+                        alert('Please select an answer before proceeding.');
+                        return;
+                    }
+                    
+                    if (currentQuestion < totalQuestions) {
+                        // Hide current question
+                        currentQuestionEl.classList.remove('active');
+                        
+                        // Show next question
+                        currentQuestion++;
+                        const nextQuestionEl = document.querySelector(`.quiz-question[data-question="${currentQuestion}"]`);
+                        if (nextQuestionEl) {
+                            nextQuestionEl.classList.add('active');
+                            // Update progress
+                            updateProgress();
+                        }
+                    }
+                });
+            });
+
+            // Handle form submission
+            document.getElementById('mindSparkQuiz').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Check if all questions are answered
+                let allAnswered = true;
+                for (let i = 1; i <= totalQuestions; i++) {
+                    if (!document.querySelector(`input[name="q${i}"]:checked`)) {
+                        allAnswered = false;
+                        break;
+                    }
+                }
+                
+                if (!allAnswered) {
+                    alert("Please answer all questions before submitting");
+                    return;
+                }
+                
+                const answers = [...document.querySelectorAll('input[type=radio]:checked')].map(input => input.value);
+                const result = calculateResult(answers);
+                showResults(result);
+            });
+        });
+
+        function updateProgress() {
+            const progress = (currentQuestion / totalQuestions) * 100;
+            const progressBar = document.querySelector('.progress-bar');
+            if (progressBar) {
+                progressBar.style.width = `${progress}%`;
+            }
+            
+            // Update progress text
+            const progressText = document.querySelector('.progress-text');
+            if (progressText) {
+                progressText.textContent = `Question ${currentQuestion} of ${totalQuestions}`;
+            }
+        }
+
+        // Add debug logging
+        function debugNavigation() {
+            console.log('Current Question:', currentQuestion);
+            console.log('Total Questions:', totalQuestions);
+            console.log('Active Question:', document.querySelector('.quiz-question.active')?.dataset.question);
+        }
+
+        // Add click handlers for debugging
+        document.querySelectorAll('.next-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                console.log('Next button clicked');
+                debugNavigation();
+            });
+        });
+
+        document.querySelectorAll('.prev-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                console.log('Previous button clicked');
+                debugNavigation();
+            });
+        });
+
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        
+        themeToggle.addEventListener('click', function() {
+            document.documentElement.classList.toggle('light-mode');
+            document.documentElement.classList.toggle('dark-mode');
+            this.classList.toggle('light');
+        });
+
+        function retakeQuiz() {
+            // Reset current question to 1
+            currentQuestion = 1;
+            
+            // Hide results and show quiz
+            document.getElementById('mindsparkResults').style.display = 'none';
+            document.getElementById('mindSparkQuiz').style.display = 'block';
+            
+            // Reset all radio buttons
+            document.querySelectorAll('input[type="radio"]').forEach(input => {
+                input.checked = false;
+            });
+            
+            // Hide all questions
+            document.querySelectorAll('.quiz-question').forEach(question => {
+                question.classList.remove('active');
+            });
+            
+            // Show first question
+            document.querySelector('.quiz-question[data-question="1"]').classList.add('active');
+            
+            // Reset progress bar
+            updateProgress();
+            
+            // Scroll to top of quiz
+            document.querySelector('.quiz-card').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
